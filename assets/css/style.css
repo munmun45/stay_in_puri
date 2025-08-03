@@ -37,7 +37,7 @@ body {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: var(--text-color);
     line-height: 1.6;
-    background-color: #fff;
+    background-color: #16defe;
     overflow-x: hidden;
 }
 
@@ -153,6 +153,7 @@ ol {
 .top-bar {
     font-size: 0.875rem;
     padding: 0.5rem 0;
+    background-color: #3f126a !important;
 }
 
 .top-bar .contact-info span {

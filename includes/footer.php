@@ -1,13 +1,103 @@
     </main>
     
     <!-- Footer -->
-    <footer class="footer mt-auto bg-dark text-white pt-5 pb-4">
+    <footer style="background-color:white;">
+
+    <div class="container my-5">
+    <h2>Stay in Puri – Hotel Booking</h2>
+    <p><strong>Hotels in Puri | Best Hotels in Puri | Beachside Hotels in Puri | Budget Hotels in Puri | 5-Star Hotels in Puri | Hotels Near Jagannath Temple | Puri Hotel Booking Online | Puri Hotels with Sea View</strong></p>
+
+    <h4 class="mt-4">Top Hotel Categories in Puri</h4>
+    <ul style="display: flex; flex-wrap: wrap;" >
+        <li>Hotels Near Jagannath Temple</li>
+        <li>Beach Resorts in Puri</li>
+        <li>Budget Hotels in Puri</li>
+        <li>3-Star Hotels in Puri</li>
+        <li>5-Star Hotels in Puri</li>
+        <li>Family Hotels in Puri</li>
+        <li>Hotels for Pilgrims in Puri</li>
+        <li>Hotels Near Puri Railway Station</li>
+        <li>Sea View Hotels in Puri</li>
+        <li>Hotels with Swimming Pool in Puri</li>
+    </ul>
+
+    <h4 class="mt-4">Popular Areas to Stay in Puri</h4>
+    <ul style="display: flex; flex-wrap: wrap;">
+        <li>Swargadwar</li>
+        <li>Chakra Tirtha Road</li>
+        <li>Grand Road</li>
+        <li>Baliapanda</li>
+        <li>VIP Road</li>
+        <li>Marine Drive</li>
+        <li>New Marine Drive Road</li>
+        <li>Near Jagannath Temple</li>
+        <li>Station Road</li>
+        <li>Near Gundicha Temple</li>
+    </ul>
+
+    <h4 class="mt-4">Top Hotels in Puri</h4>
+    <ul style="display: flex; flex-wrap: wrap;">
+        <li>Mayfair Heritage Puri</li>
+        <li>Toshali Sands Nature Escape</li>
+        <li>Sterling Puri</li>
+        <li>Hotel Holiday Resort</li>
+        <li>Pride Ananya Resort</li>
+        <li>Hotel Sonar Bangla</li>
+        <li>Hotel Gandhara</li>
+        <li>Mahodadhi Palace</li>
+        <li>Hotel Dreamland</li>
+        <li>Hotel Golden Tree</li>
+        <li>Blue Lily Beach Resort</li>
+        <li>Chanakya BNR Hotel</li>
+        <li>Hotel Shreehari Grand</li>
+        <li>Lucky India Royal Heritage</li>
+        <li>Victoria Club Hotel</li>
+        <li>Reba Beach Resort</li>
+        <li>Hotel Jeevan Sandhya</li>
+    </ul>
+
+    <h4 class="mt-4">Why Book Hotels in Puri With Us?</h4>
+    <ul style="display: flex; flex-wrap: wrap;">
+        <li>Wide Range of Hotels – Budget to Luxury</li>
+        <li>Verified Guest Reviews</li>
+        <li>Best Price Guarantee</li>
+        <li>Easy Booking & Instant Confirmation</li>
+        <li>Special Discounts on Festival Dates</li>
+        <li>24x7 Customer Support</li>
+        <li>No Hidden Charges</li>
+    </ul>
+
+    <h4 class="mt-4">Experiences in Puri</h4>
+    <ul style="display: flex; flex-wrap: wrap;">
+        <li>Visit the Jagannath Temple</li>
+        <li>Enjoy a peaceful morning at Puri Beach</li>
+        <li>Attend Rath Yatra Festival</li>
+        <li>Explore Raghurajpur Artist Village</li>
+        <li>Take a short trip to Konark Sun Temple</li>
+        <li>Enjoy local delicacies like Khaja and Mahaprasad</li>
+    </ul>
+
+    <h4 class="mt-4">Related Destinations Near Puri</h4>
+    <ul style="display: flex; flex-wrap: wrap;">
+        <li>Hotels in Bhubaneswar</li>
+        <li>Hotels in Konark</li>
+        <li>Hotels in Chilika</li>
+        <li>Hotels in Gopalpur</li>
+        <li>Hotels in Satapada</li>
+        <li>Hotels in Cuttack</li>
+    </ul>
+
+    <h4 class="mt-4">Corporate & Group Bookings</h4>
+    <p>Looking for <strong>bulk hotel bookings in Puri</strong> for weddings, pilgrim tours, school/college trips, or corporate stays? Get the best group discounts and end-to-end support. Reach out to our travel desk for customized packages.</p>
+</div>
+
+    <div class="footer mt-auto bg-dark text-white pt-5 pb-4">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-widget">
                         <a href="index.php" class="d-inline-block mb-4">
-                            <img src="assets/images/logo-white.png" alt="Stay in Puri" class="footer-logo" width="180">
+                            <img src="assets/img/stay-in-puri-white.png" alt="Stay in Puri" class="footer-logo" width="180">
                         </a>
                         <p class="mb-4">Your trusted partner for hotel bookings, travel packages, and restaurant reservations in Puri, Bhubaneswar, and across Odisha. Experience the best of Odisha with our curated services.</p>
                         <div class="social-media-bar">
@@ -126,7 +216,9 @@
         <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
+    </div>
     </footer>
+
     
     <!-- Preloader -->
     <div class="preloader">

@@ -112,7 +112,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <div class="container">
                 <a class="navbar-brand" href="index.php">
-                    <img src="assets/images/logo.png" alt="Stay in Puri" width="180" height="auto" class="img-fluid">
+                    <img src="assets/img/stay-in-puri.png" alt="Stay in Puri" width="180" height="auto" class="img-fluid">
                 </a>
                 
                 <!-- Mobile Toggle Buttons -->
@@ -127,7 +127,7 @@
                 
                 <!-- Desktop Menu -->
                 <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="gap: 15px;" >
                         <li class="nav-item">
                             <a class="nav-link active" href="index.php">Home</a>
                         </li>
@@ -156,7 +156,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="toursDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Tours & Activities
+                                Tours
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="toursDropdown">
                                 <li><a class="dropdown-item" href="tours.php?type=heritage">Heritage Tours</a></li>
