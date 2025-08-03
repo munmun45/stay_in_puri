@@ -1,0 +1,237 @@
+/* Main Login Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.login-page {
+    height: 100vh;
+    width: 100vw;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.login-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: #fff;
+    position: relative;
+}
+
+.login-image-container {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
+.login-form-container {
+    width: 500px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+    z-index: 2;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.login-form-wrapper {
+    padding: 50px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.login-logo {
+    max-width: 180px;
+    margin-bottom: 30px;
+}
+
+.login-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0056b3;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.login-form .form-label {
+    font-weight: 600;
+    color: #0056b3;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.login-form .form-control {
+    height: 55px;
+    border-radius: 8px;
+    border-left: none;
+    border-color: #e0e0e0;
+    font-size: 15px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.login-form .input-group {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.login-form .input-group-text {
+    background-color: #fff;
+    border-right: none;
+    border-color: #e0e0e0;
+    color: #0056b3;
+    font-size: 18px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form .form-control:focus {
+    box-shadow: 0 5px 15px rgba(0, 86, 179, 0.1);
+    border-color: #0056b3;
+}
+
+.login-form .input-group-text:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.login-form .input-group-text:last-child {
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+    border-right: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: #0056b3;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: #003d80;
+    text-decoration: none;
+}
+
+.btn-login {
+    height: 55px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
+    margin-top: 15px;
+}
+
+.btn-login:hover {
+    background-color: #004494;
+    border-color: #004494;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 86, 179, 0.4);
+}
+
+.form-check-label {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.form-check-input:checked {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.alert {
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-container {
+        height: auto;
+    }
+
+    .login-image-container {
+        display: none;
+    }
+
+    .login-form-container {
+        width: 100%;
+        padding: 30px;
+    }
+
+    .login-form-wrapper {
+        padding: 20px 0;
+    }
+}
+
+/* Animation effects */
+.login-form .form-control,
+.login-form .input-group-text,
+.btn-login {
+    transition: all 0.3s ease;
+}
+
+.login-form .form-control:focus+.input-group-text,
+.login-form .input-group-text+.form-control:focus {
+    border-color: #80bdff;
+}
+
+/* Custom checkbox style */
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    margin-top: 0.2em;
+}
+
+.password-toggle:hover {
+    color: #0056b3;
+}
