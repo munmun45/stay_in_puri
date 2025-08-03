@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.0/css/lightgallery-bundle.min.css">
+
+    
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css" media="print" onload="this.media='all'">
@@ -175,7 +177,6 @@
                         </li>
                     </ul>
                     <div class="d-flex ms-lg-3">
-                        <a href="login.php" class="btn btn-outline-primary me-2">Login</a>
                         <a href="register.php" class="btn btn-primary">Sign Up</a>
                     </div>
                 </div>
@@ -272,7 +273,6 @@
                 </li>
             </ul>
             <div class="mt-3">
-                <a href="login.php" class="btn btn-outline-primary w-100 mb-2">Login</a>
                 <a href="register.php" class="btn btn-primary w-100">Sign Up</a>
             </div>
         </div>

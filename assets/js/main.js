@@ -11,10 +11,10 @@ class MenuSlider {
         this.menuToggle = document.querySelector('.menu-slider-toggle');
         this.closeButton = document.querySelector('.menu-slider-close');
         this.menuItems = document.querySelectorAll('.menu-item-has-children > a');
-        
+
         this.init();
     }
-    
+
     init() {
         // Toggle menu when clicking the menu button
         if (this.menuToggle) {
@@ -23,12 +23,12 @@ class MenuSlider {
                 this.toggleMenu();
             });
         }
-        
+
         // Close menu when clicking the close button
         if (this.closeButton) {
             this.closeButton.addEventListener('click', () => this.closeMenu());
         }
-        
+
         // Close menu when clicking outside
         if (this.menuSlider) {
             this.menuSlider.addEventListener('click', (e) => {
@@ -37,7 +37,7 @@ class MenuSlider {
                 }
             });
         }
-        
+
         // Toggle submenus
         this.menuItems.forEach(item => {
             item.addEventListener('click', (e) => {
@@ -45,7 +45,7 @@ class MenuSlider {
                     e.preventDefault();
                     const parent = item.parentElement;
                     const submenu = parent.querySelector('.sub-menu');
-                    
+
                     if (submenu) {
                         parent.classList.toggle('active');
                         if (submenu.style.display === 'block') {
@@ -58,24 +58,24 @@ class MenuSlider {
             });
         });
     }
-    
+
     toggleMenu() {
         document.body.classList.toggle('menu-open');
         this.menuSlider.classList.toggle('active');
-        
+
         if (this.menuSlider.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
     }
-    
+
     openMenu() {
         document.body.classList.add('menu-open');
         this.menuSlider.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-    
+
     closeMenu() {
         document.body.classList.remove('menu-open');
         this.menuSlider.classList.remove('active');
@@ -93,93 +93,97 @@ class SimpleSlider {
         this.currentSlide = 0;
         this.slideInterval = null;
         this.autoSlideDelay = 5000; // 5 seconds
-        
+
         if (this.slides.length > 0) {
             this.init();
         }
     }
-    
+
     init() {
         // Show first slide
         this.showSlide(this.currentSlide);
-        
+
         // Start auto slide
         this.startAutoSlide();
-        
+
         // Event Listeners
         if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prevSlide());
         if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.nextSlide());
-        
+
         // Dot navigation
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => this.goToSlide(index));
         });
-        
+
         // Pause on hover
         const slider = document.querySelector('.simple-slider');
         if (slider) {
             slider.addEventListener('mouseenter', () => this.pauseAutoSlide());
             slider.addEventListener('mouseleave', () => this.startAutoSlide());
-            
+
             // Touch events for mobile
             let touchStartX = 0;
             let touchEndX = 0;
-            
+
             slider.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
                 this.pauseAutoSlide();
-            }, { passive: true });
-            
+            }, {
+                passive: true
+            });
+
             slider.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX;
                 this.handleSwipe(touchStartX, touchEndX);
                 this.startAutoSlide();
-            }, { passive: true });
+            }, {
+                passive: true
+            });
         }
     }
-    
+
     showSlide(index) {
         // Hide all slides
         this.slides.forEach(slide => slide.classList.remove('active'));
         this.dots.forEach(dot => dot.classList.remove('active'));
-        
+
         // Show current slide
         if (this.slides[index]) this.slides[index].classList.add('active');
         if (this.dots[index]) this.dots[index].classList.add('active');
-        
+
         this.currentSlide = index;
     }
-    
+
     nextSlide() {
         const nextIndex = (this.currentSlide + 1) % this.slides.length;
         this.showSlide(nextIndex);
     }
-    
+
     prevSlide() {
         const prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
         this.showSlide(prevIndex);
     }
-    
+
     goToSlide(index) {
         this.showSlide(index);
     }
-    
+
     startAutoSlide() {
         this.pauseAutoSlide();
         this.slideInterval = setInterval(() => this.nextSlide(), this.autoSlideDelay);
     }
-    
+
     pauseAutoSlide() {
         if (this.slideInterval) {
             clearInterval(this.slideInterval);
             this.slideInterval = null;
         }
     }
-    
+
     handleSwipe(startX, endX) {
         const swipeThreshold = 50; // Minimum distance for a swipe
         const difference = startX - endX;
-        
+
         if (Math.abs(difference) > swipeThreshold) {
             if (difference > 0) {
                 this.nextSlide(); // Swipe left
@@ -196,12 +200,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector('.menu-slider')) {
         new MenuSlider();
     }
-    
+
     // Initialize image slider if it exists on the page
     if (document.querySelector('.simple-slider')) {
         new SimpleSlider();
     }
-    
+
     // Rest of your existing DOMContentLoaded code
     // Preloader
     const preloader = document.querySelector('.preloader');
@@ -219,12 +223,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
     const mobileMenuToggler = document.querySelector('.navbar-toggler');
     const mobileMenu = document.getElementById('mobileMenu');
-    
+
     if (mobileMenuToggler && mobileMenu) {
         mobileMenuToggler.addEventListener('click', function() {
             document.body.classList.toggle('mobile-menu-open');
         });
-        
+
         // Close mobile menu when clicking on a nav link
         const mobileNavLinks = mobileMenu.querySelectorAll('.nav-link');
         mobileNavLinks.forEach(link => {
@@ -241,14 +245,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
         let lastScroll = 0;
         const headerHeight = header.offsetHeight;
-        
+
         window.addEventListener('scroll', function() {
             const currentScroll = window.pageYOffset;
-            
+
             if (currentScroll > headerHeight) {
                 header.classList.add('header-sticky');
                 document.body.style.paddingTop = headerHeight + 'px';
-                
+
                 if (currentScroll > lastScroll && currentScroll > headerHeight * 2) {
                     // Scrolling down
                     header.style.transform = 'translateY(-100%)';
@@ -260,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 header.classList.remove('header-sticky');
                 document.body.style.paddingTop = 0;
             }
-            
+
             lastScroll = currentScroll;
         });
     }
@@ -275,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 backToTopButton.classList.remove('show');
             }
         });
-        
+
         backToTopButton.addEventListener('click', function(e) {
             e.preventDefault();
             window.scrollTo({
@@ -334,19 +338,19 @@ document.addEventListener('DOMContentLoaded', function() {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 e.preventDefault();
-                
+
                 const headerHeight = document.querySelector('.main-header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
-                
+
                 // Close mobile menu if open
                 if (document.body.classList.contains('mobile-menu-open')) {
                     const bsCollapse = new bootstrap.Collapse(document.getElementById('mobileMenu'));
@@ -400,13 +404,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add active class to current nav link
     const currentPage = location.pathname.split('/').pop() || 'index.php';
     const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    
+
     navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
         if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.php')) {
             link.classList.add('active');
             link.setAttribute('aria-current', 'page');
-            
+
             // If it's a dropdown parent, also highlight the parent
             const parentDropdown = link.closest('.dropdown');
             if (parentDropdown) {
@@ -434,11 +438,11 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             const checkIn = this.querySelector('input[name="check_in"]');
             const checkOut = this.querySelector('input[name="check_out"]');
-            
+
             if (checkIn && checkOut) {
                 const checkInDate = new Date(checkIn.value);
                 const checkOutDate = new Date(checkOut.value);
-                
+
                 if (checkInDate >= checkOutDate) {
                     e.preventDefault();
                     alert('Check-out date must be after check-in date');
@@ -452,10 +456,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().split('T')[0];
     const checkInInputs = document.querySelectorAll('input[name="check_in"]');
     const checkOutInputs = document.querySelectorAll('input[name="check_out"]');
-    
+
     checkInInputs.forEach(input => {
         input.setAttribute('min', today);
-        
+
         input.addEventListener('change', function() {
             checkOutInputs.forEach(outInput => {
                 outInput.setAttribute('min', this.value);
@@ -481,17 +485,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add animation to elements when they come into view
     const animateOnScroll = function() {
         const elements = document.querySelectorAll('.animate-on-scroll');
-        
+
         elements.forEach(element => {
             const elementPosition = element.getBoundingClientRect().top;
             const screenPosition = window.innerHeight / 1.3;
-            
+
             if (elementPosition < screenPosition) {
                 element.classList.add('animated');
             }
         });
     };
-    
+
     window.addEventListener('scroll', animateOnScroll);
     // Run once on page load
     animateOnScroll();
@@ -503,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const emailInput = this.querySelector('input[type="email"]');
             const email = emailInput.value.trim();
-            
+
             if (email && validateEmail(email)) {
                 // Here you would typically send this to your server
                 console.log('Subscribing email:', email);
@@ -526,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
         const mobileMenu = document.getElementById('mobileMenu');
         const menuButton = document.querySelector('.navbar-toggler');
-        
+
         if (mobileMenu && menuButton && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
             const bsCollapse = new bootstrap.Collapse(mobileMenu);
             bsCollapse.hide();
@@ -566,15 +570,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add active class to current section in navigation
     const sections = document.querySelectorAll('section[id]');
-    
+
     function onScroll() {
         const scrollPosition = window.scrollY + 200;
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
-            
+
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 document.querySelector(`.navbar-nav .nav-link[href*="${sectionId}"]`).classList.add('active');
             } else {
@@ -585,9 +589,87 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Only run this if we have sections with IDs
     if (sections.length > 0) {
         window.addEventListener('scroll', onScroll);
     }
+});
+
+
+
+
+
+// Slider functionality
+class OffersSlider {
+    constructor() {
+        this.container = document.getElementById('offersContainer');
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.cardWidth = 420; // 400px + 20px gap
+        this.currentPosition = 0;
+        this.maxPosition = 0;
+
+        this.init();
+    }
+
+    init() {
+        this.calculateMaxPosition();
+        this.updateButtons();
+        this.bindEvents();
+
+        // Recalculate on window resize
+        window.addEventListener('resize', () => {
+            this.calculateMaxPosition();
+            this.currentPosition = 0;
+            this.updateSlider();
+        });
+    }
+
+    calculateMaxPosition() {
+        const containerWidth = this.container.parentElement.offsetWidth;
+        const totalCards = this.container.children.length;
+        const totalWidth = totalCards * this.cardWidth;
+        this.maxPosition = Math.max(0, totalWidth - containerWidth);
+    }
+
+    bindEvents() {
+        this.prevBtn.addEventListener('click', () => this.slideLeft());
+        this.nextBtn.addEventListener('click', () => this.slideRight());
+    }
+
+    slideLeft() {
+        this.currentPosition = Math.max(0, this.currentPosition - this.cardWidth);
+        this.updateSlider();
+    }
+
+    slideRight() {
+        this.currentPosition = Math.min(this.maxPosition, this.currentPosition + this.cardWidth);
+        this.updateSlider();
+    }
+
+    updateSlider() {
+        this.container.style.transform = `translateX(-${this.currentPosition}px)`;
+        this.updateButtons();
+    }
+
+    updateButtons() {
+        this.prevBtn.classList.toggle('disabled', this.currentPosition === 0);
+        this.nextBtn.classList.toggle('disabled', this.currentPosition >= this.maxPosition);
+    }
+}
+
+// Initialize slider when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    new OffersSlider();
+
+    // Reinitialize slider when tab changes
+    const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+    tabButtons.forEach(button => {
+        button.addEventListener('shown.bs.tab', function() {
+            setTimeout(() => {
+                new OffersSlider();
+            }, 100);
+        });
+    });
 });

@@ -1,273 +1,27 @@
 <?php include 'includes/header.php'; ?>
 
 
-<!-- Bootstrap CSS -->
 
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .offers-section {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            margin: 20px;
-            padding: 24px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #333;
-            margin: 0;
-        }
-
-        .view-all-link {
-            color: #1a73e8;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .view-all-link:hover {
-            color: #1557b0;
-        }
-
-        .nav-tabs {
-            border-bottom: 2px solid #e9ecef;
-            margin-bottom: 24px;
-        }
-
-        .nav-tabs .nav-link {
-            border: none;
-            color: #6c757d;
-            font-weight: 500;
-            padding: 12px 20px;
-            border-bottom: 3px solid transparent;
-            background: none;
-        }
-
-        .nav-tabs .nav-link.active {
-            color: #1a73e8;
-            border-bottom-color: #1a73e8;
-            background: none;
-        }
-
-        .nav-tabs .nav-link:hover {
-            color: #1a73e8;
-            border-color: transparent;
-        }
-
-        .offer-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            height: 100%;
-            border: 1px solid #e9ecef;
-        }
-
-        .offer-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-image {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .card-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .card-subtitle {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 16px;
-        }
-
-        .card-btn {
-            background: #1a73e8;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-        }
-
-        .card-btn:hover {
-            background: #1557b0;
-            transform: translateY(-1px);
-        }
-
-        .card-btn.btn-outline {
-            background: transparent;
-            color: #1a73e8;
-            border: 2px solid #1a73e8;
-        }
-
-        .card-btn.btn-outline:hover {
-            background: #1a73e8;
-            color: white;
-        }
-
-        .bank-logo {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .vacation-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .swiper {
-            overflow: visible;
-        }
-
-        .swiper-slide {
-            height: auto;
-        }
-
-        .swiper-button-next,
-        .swiper-button-prev {
-            background: white;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            color: #1a73e8;
-            margin-top: -22px;
-        }
-
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .swiper-button-disabled {
-            opacity: 0.5;
-        }
-
-        .swiper-pagination-bullet {
-            background: #dee2e6;
-            opacity: 1;
-        }
-
-        .swiper-pagination-bullet-active {
-            background: #1a73e8;
-        }
-
-        /* Specific card backgrounds matching the image */
-        .card-1 {
-            background-image: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-        }
-
-        .card-2 {
-            background-image: linear-gradient(135deg, #00cec9 0%, #00b894 100%);
-        }
-
-        .card-3 {
-            background-image: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
-        }
-
-        .card-4 {
-            background-image: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
-        }
-
-        .card-5 {
-            background-image: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
-        }
-
-        .vacation-card {
-            background-image: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
-        }
-
-        @media (max-width: 768px) {
-            .offers-section {
-                margin: 10px;
-                padding: 16px;
-            }
-
-            .section-title {
-                font-size: 24px;
-            }
-        }
-    </style>
 
 
 <!-- Simple Image Slider -->
 
 <div class="simple-slider">
     <div class="slider-container">
-        <div class="slide active">
+        <div class="slide_1 active">
             <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Puri Beach">
-            
+
         </div>
-        <div class="slide">
+        <div class="slide_1">
             <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Jagannath Temple">
-            
+
         </div>
-        <div class="slide">
+        <div class="slide_1">
             <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Odisha Cuisine">
-            
+
         </div>
     </div>
-   
+
 </div>
 
 
@@ -324,296 +78,547 @@
 
 
 
-    <section class="  offers-section">
-        <div class="section-header">
-            <h2 class="section-title">Offers</h2>
-            <div class="view-all-container">
-                <a href="offers.php" class="view-all-link">
-                    VIEW ALL <i class="fas fa-arrow-right"></i>
-                </a>
-                <div class="slider-nav-buttons">
-                    <button class="slider-nav-btn" id="prevBtn">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-nav-btn" id="nextBtn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+<section class="  offers-section">
+    <div class="section-header">
+        <h2 class="section-title">Offers</h2>
+        <div class="view-all-container">
+            <a href="offers.php" class="view-all-link">
+                VIEW ALL <i class="fas fa-arrow-right"></i>
+            </a>
+            <div class="slider-nav-buttons">
+                <button class="slider-nav-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-nav-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
+    </div>
 
-        <!-- Offer Tabs -->
-        <ul class="nav nav-tabs" id="offerTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="hotels-offers-tab" data-bs-toggle="tab" data-bs-target="#hotels-offers" type="button" role="tab" aria-controls="hotels-offers" aria-selected="true">Hotels</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="all-offers-tab" data-bs-toggle="tab" data-bs-target="#all-offers" type="button" role="tab" aria-controls="all-offers" aria-selected="false">All Offers</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="flights-offers-tab" data-bs-toggle="tab" data-bs-target="#flights-offers" type="button" role="tab" aria-controls="flights-offers" aria-selected="false">Flights</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="holidays-offers-tab" data-bs-toggle="tab" data-bs-target="#holidays-offers" type="button" role="tab" aria-controls="holidays-offers" aria-selected="false">Holidays</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="trains-offers-tab" data-bs-toggle="tab" data-bs-target="#trains-offers" type="button" role="tab" aria-controls="trains-offers" aria-selected="false">Trains</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="cabs-offers-tab" data-bs-toggle="tab" data-bs-target="#cabs-offers" type="button" role="tab" aria-controls="cabs-offers" aria-selected="false">Cabs</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="bank-offers-tab" data-bs-toggle="tab" data-bs-target="#bank-offers" type="button" role="tab" aria-controls="bank-offers" aria-selected="false">Bank Offers</button>
-            </li>
-        </ul>
+    <!-- Offer Tabs -->
+    <ul class="nav nav-tabs" id="offerTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="hotels-offers-tab" data-bs-toggle="tab" data-bs-target="#hotels-offers" type="button" role="tab" aria-controls="hotels-offers" aria-selected="true">Hotels</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="all-offers-tab" data-bs-toggle="tab" data-bs-target="#all-offers" type="button" role="tab" aria-controls="all-offers" aria-selected="false">All Offers</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="flights-offers-tab" data-bs-toggle="tab" data-bs-target="#flights-offers" type="button" role="tab" aria-controls="flights-offers" aria-selected="false">Flights</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="holidays-offers-tab" data-bs-toggle="tab" data-bs-target="#holidays-offers" type="button" role="tab" aria-controls="holidays-offers" aria-selected="false">Holidays</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="trains-offers-tab" data-bs-toggle="tab" data-bs-target="#trains-offers" type="button" role="tab" aria-controls="trains-offers" aria-selected="false">Trains</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cabs-offers-tab" data-bs-toggle="tab" data-bs-target="#cabs-offers" type="button" role="tab" aria-controls="cabs-offers" aria-selected="false">Cabs</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bank-offers-tab" data-bs-toggle="tab" data-bs-target="#bank-offers" type="button" role="tab" aria-controls="bank-offers" aria-selected="false">Bank Offers</button>
+        </li>
+    </ul>
 
-        <!-- Tab Content -->
-        <div class="tab-content" id="offerTabsContent">
-            <!-- Hotels Tab -->
-            <div class="tab-pane fade show active" id="hotels-offers" role="tabpanel" aria-labelledby="hotels-offers-tab">
-                <div class="offers-slider">
-                    <div class="offers-container" id="offersContainer">
-                        <!-- Card 1 -->
-                        <div class="offer-card">
-                            <div class="card-image card-flight-img">
-                                <div class="card-badge">T&C'S APPLY</div>
+    <!-- Tab Content -->
+    <div class="tab-content" id="offerTabsContent">
+        <!-- Hotels Tab -->
+        <div class="tab-pane fade show active" id="hotels-offers" role="tabpanel" aria-labelledby="hotels-offers-tab">
+            <div class="offers-slider">
+                <div class="offers-container" id="offersContainer">
+                    <!-- Card 1 -->
+                    <div class="offer-card">
+                        <div class="card-image card-flight-img">
+                            <div class="card-badge">T&C'S APPLY</div>
+                        </div>
+                        <div class="card-content">
+                            <div>
+                                <h5 class="card-title">Ah-mazing Deal for You: Enjoy Up to ₹10,000 OFF*</h5>
+                                <p class="card-subtitle">on Flights and Hotels.</p>
                             </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Ah-mazing Deal for You: Enjoy Up to ₹10,000 OFF*</h5>
-                                    <p class="card-subtitle">on Flights and Hotels.</p>
-                                </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
+                            <a href="#" class="card-btn">BOOK NOW</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="offer-card">
+                        <div class="card-image card-hotel-img">
+                            <div class="card-badge">T&C'S APPLY</div>
+                            <div class="bank-logo">
+                                <img src="https://logos-world.net/wp-content/uploads/2020/09/HDFC-Bank-Logo.png" alt="HDFC" style="height: 16px;">
                             </div>
                         </div>
-
-                        <!-- Card 2 -->
-                        <div class="offer-card">
-                            <div class="card-image card-hotel-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                                <div class="bank-logo">
-                                    <img src="https://logos-world.net/wp-content/uploads/2020/09/HDFC-Bank-Logo.png" alt="HDFC" style="height: 16px;">
-                                </div>
+                        <div class="card-content">
+                            <div>
+                                <h5 class="card-title">Up to 15% OFF*</h5>
+                                <p class="card-subtitle">on domestic & international hotels</p>
                             </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Up to 15% OFF*</h5>
-                                    <p class="card-subtitle">on domestic & international hotels</p>
-                                </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
+                            <a href="#" class="card-btn">BOOK NOW</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="offer-card">
+                        <div class="card-image card-vacation-img">
+                            <div class="vacation-badge">5★ VACATION INVITATION</div>
+                            <div class="card-badge">T&C'S APPLY</div>
+                        </div>
+                        <div class="card-content">
+                            <div>
+                                <h5 class="card-title">Just-in-time deals for luxe long weekend:</h5>
+                                <p class="card-subtitle">Up to 30% OFF* on premium hotels & villas across India.</p>
+                            </div>
+                            <a href="#" class="card-btn">BOOK NOW</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="offer-card">
+                        <div class="card-image card-travel-img">
+                            <div class="card-badge">T&C'S APPLY</div>
+                            <div class="bank-logo">
+                                <img src="https://logos-world.net/wp-content/uploads/2021/02/HSBC-Logo.png" alt="HSBC" style="height: 16px;">
                             </div>
                         </div>
-
-                        <!-- Card 3 -->
-                        <div class="offer-card">
-                            <div class="card-image card-vacation-img">
-                                <div class="vacation-badge">5★ VACATION INVITATION</div>
-                                <div class="card-badge">T&C'S APPLY</div>
+                        <div class="card-content">
+                            <div>
+                                <h5 class="card-title">Grab Up to 35% OFF* on</h5>
+                                <p class="card-subtitle">domestic + international flights, hotels & holiday packages for a memorable trip!</p>
                             </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Just-in-time deals for luxe long weekend:</h5>
-                                    <p class="card-subtitle">Up to 30% OFF* on premium hotels & villas across India.</p>
-                                </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
+                            <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="offer-card">
+                        <div class="card-image card-emi-img">
+                            <div class="card-badge">T&C'S APPLY</div>
+                            <div class="bank-logo">
+                                <img src="https://logos-world.net/wp-content/uploads/2021/02/HSBC-Logo.png" alt="HSBC" style="height: 16px;">
                             </div>
                         </div>
-
-                        <!-- Card 4 -->
-                        <div class="offer-card">
-                            <div class="card-image card-travel-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                                <div class="bank-logo">
-                                    <img src="https://logos-world.net/wp-content/uploads/2021/02/HSBC-Logo.png" alt="HSBC" style="height: 16px;">
-                                </div>
+                        <div class="card-content">
+                            <div>
+                                <h5 class="card-title">Get 12-month EMI on hotels</h5>
+                                <p class="card-subtitle">on flights and hotel bookings with your next trip</p>
                             </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Grab Up to 35% OFF* on</h5>
-                                    <p class="card-subtitle">domestic + international flights, hotels & holiday packages for a memorable trip!</p>
-                                </div>
-                                <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
-                            </div>
+                            <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
                         </div>
+                    </div>
 
-                        <!-- Card 5 -->
-                        <div class="offer-card">
-                            <div class="card-image card-emi-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                                <div class="bank-logo">
-                                    <img src="https://logos-world.net/wp-content/uploads/2021/02/HSBC-Logo.png" alt="HSBC" style="height: 16px;">
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Get 12-month EMI on hotels</h5>
-                                    <p class="card-subtitle">on flights and hotel bookings with your next trip</p>
-                                </div>
-                                <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
-                            </div>
+                    <!-- Card 6 -->
+                    <div class="offer-card">
+                        <div class="card-image card-book-img">
+                            <div class="card-badge">T&C'S APPLY</div>
                         </div>
-
-                        <!-- Card 6 -->
-                        <div class="offer-card">
-                            <div class="card-image card-book-img">
-                                <div class="card-badge">T&C'S APPLY</div>
+                        <div class="card-content">
+                            <div>
+                                <h5 class="card-title">Book by 30 Nov</h5>
+                                <p class="card-subtitle">For your favourite Goa destinations</p>
                             </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Book by 30 Nov</h5>
-                                    <p class="card-subtitle">For your favourite Goa destinations</p>
-                                </div>
-                                <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
-                            </div>
+                            <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Other tabs content -->
-            <div class="tab-pane fade" id="all-offers" role="tabpanel" aria-labelledby="all-offers-tab">
-                <div class="offers-slider">
-                    <div class="offers-container">
-                        <!-- Sample cards for other tabs -->
-                        <div class="offer-card">
-                            <div class="card-image card-flight-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">All Offers - Special Deal</h5>
-                                    <p class="card-subtitle">Amazing discounts on all services</p>
-                                </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
-                            </div>
+        <!-- Other tabs content -->
+        <div class="tab-pane fade" id="all-offers" role="tabpanel" aria-labelledby="all-offers-tab">
+            <div class="offers-slider">
+                <div class="offers-container">
+                    <!-- Sample cards for other tabs -->
+                    <div class="offer-card">
+                        <div class="card-image card-flight-img">
+                            <div class="card-badge">T&C'S APPLY</div>
                         </div>
-                        <!-- Add more cards as needed -->
+                        <div class="card-content">
+                            <div>
+                                <h5 class="card-title">All Offers - Special Deal</h5>
+                                <p class="card-subtitle">Amazing discounts on all services</p>
+                            </div>
+                            <a href="#" class="card-btn">BOOK NOW</a>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Repeat similar structure for other tabs -->
-            <div class="tab-pane fade" id="flights-offers" role="tabpanel" aria-labelledby="flights-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Flight Offers Coming Soon</h4>
-                    <p class="text-muted">Stay tuned for exclusive flight deals!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="holidays-offers" role="tabpanel" aria-labelledby="holidays-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Holiday Packages Coming Soon</h4>
-                    <p class="text-muted">Amazing holiday deals are on the way!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="trains-offers" role="tabpanel" aria-labelledby="trains-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Train Offers Coming Soon</h4>
-                    <p class="text-muted">Great train booking deals coming your way!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="cabs-offers" role="tabpanel" aria-labelledby="cabs-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Cab Offers Coming Soon</h4>
-                    <p class="text-muted">Great cab deals coming your way!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="bank-offers" role="tabpanel" aria-labelledby="bank-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Bank Offers Coming Soon</h4>
-                    <p class="text-muted">Exclusive bank partnership deals!</p>
+                    <!-- Add more cards as needed -->
                 </div>
             </div>
         </div>
-    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Slider functionality
-        class OffersSlider {
-            constructor() {
-                this.container = document.getElementById('offersContainer');
-                this.prevBtn = document.getElementById('prevBtn');
-                this.nextBtn = document.getElementById('nextBtn');
-                this.cardWidth = 420; // 400px + 20px gap
-                this.currentPosition = 0;
-                this.maxPosition = 0;
+        <!-- Repeat similar structure for other tabs -->
+        <div class="tab-pane fade" id="flights-offers" role="tabpanel" aria-labelledby="flights-offers-tab">
+            <div class="text-center py-5">
+                <h4>Flight Offers Coming Soon</h4>
+                <p class="text-muted">Stay tuned for exclusive flight deals!</p>
+            </div>
+        </div>
 
-                this.init();
-            }
+        <div class="tab-pane fade" id="holidays-offers" role="tabpanel" aria-labelledby="holidays-offers-tab">
+            <div class="text-center py-5">
+                <h4>Holiday Packages Coming Soon</h4>
+                <p class="text-muted">Amazing holiday deals are on the way!</p>
+            </div>
+        </div>
 
-            init() {
-                this.calculateMaxPosition();
-                this.updateButtons();
-                this.bindEvents();
+        <div class="tab-pane fade" id="trains-offers" role="tabpanel" aria-labelledby="trains-offers-tab">
+            <div class="text-center py-5">
+                <h4>Train Offers Coming Soon</h4>
+                <p class="text-muted">Great train booking deals coming your way!</p>
+            </div>
+        </div>
 
-                // Recalculate on window resize
-                window.addEventListener('resize', () => {
-                    this.calculateMaxPosition();
-                    this.currentPosition = 0;
-                    this.updateSlider();
-                });
-            }
+        <div class="tab-pane fade" id="cabs-offers" role="tabpanel" aria-labelledby="cabs-offers-tab">
+            <div class="text-center py-5">
+                <h4>Cab Offers Coming Soon</h4>
+                <p class="text-muted">Great cab deals coming your way!</p>
+            </div>
+        </div>
 
-            calculateMaxPosition() {
-                const containerWidth = this.container.parentElement.offsetWidth;
-                const totalCards = this.container.children.length;
-                const totalWidth = totalCards * this.cardWidth;
-                this.maxPosition = Math.max(0, totalWidth - containerWidth);
-            }
+        <div class="tab-pane fade" id="bank-offers" role="tabpanel" aria-labelledby="bank-offers-tab">
+            <div class="text-center py-5">
+                <h4>Bank Offers Coming Soon</h4>
+                <p class="text-muted">Exclusive bank partnership deals!</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-            bindEvents() {
-                this.prevBtn.addEventListener('click', () => this.slideLeft());
-                this.nextBtn.addEventListener('click', () => this.slideRight());
-            }
 
-            slideLeft() {
-                this.currentPosition = Math.max(0, this.currentPosition - this.cardWidth);
-                this.updateSlider();
-            }
 
-            slideRight() {
-                this.currentPosition = Math.min(this.maxPosition, this.currentPosition + this.cardWidth);
-                this.updateSlider();
-            }
 
-            updateSlider() {
-                this.container.style.transform = `translateX(-${this.currentPosition}px)`;
-                this.updateButtons();
-            }
+<!-- slider with contner  -->
 
-            updateButtons() {
-                this.prevBtn.classList.toggle('disabled', this.currentPosition === 0);
-                this.nextBtn.classList.toggle('disabled', this.currentPosition >= this.maxPosition);
-            }
+
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="Too-Yumm.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="Too-Yumm.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="Too-Yumm.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+<!-- Top Destinations Section -->
+<section class="top-destinations py-5 bg-light">
+    <div class="" style="margin: 20px; padding: 24px;">
+        <div class="section-header text-center mb-5">
+            <h2 class="fw-bold">Top Destinations</h2>
+            <p class="text-muted">Explore our most popular destinations</p>
+        </div>
+        
+        <!-- Swiper -->
+        <div class="swiper destinations-swiper">
+            <div class="swiper-wrapper pb-4">
+                <!-- Destination 1 -->
+                <div class="swiper-slide">
+                    <div class="destination-card h-100">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="position-relative">
+                                <img src="images.jpeg" class="card-img-top" alt="Destination 1">
+                                <div class="price-tag">
+                                    <span class="badge bg-primary">From ₹1,999</span>
+                                </div>
+                                <div class="rating-badge">
+                                    <span class="badge bg-success">4.5 ★</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">Goa Beaches</h5>
+                                <p class="text-muted small mb-2">3 Days, 2 Nights</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="location">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                        <span>Goa, India</span>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Destination 2 -->
+                <div class="swiper-slide">
+                    <div class="destination-card h-100">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="position-relative">
+                                <img src="images.jpeg" class="card-img-top" alt="Destination 2">
+                                <div class="price-tag">
+                                    <span class="badge bg-primary">From ₹2,999</span>
+                                </div>
+                                <div class="rating-badge">
+                                    <span class="badge bg-success">4.7 ★</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">Kerala Backwaters</h5>
+                                <p class="text-muted small mb-2">4 Days, 3 Nights</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="location">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                        <span>Kerala, India</span>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Destination 3 -->
+                <div class="swiper-slide">
+                    <div class="destination-card h-100">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="position-relative">
+                                <img src="images.jpeg" class="card-img-top" alt="Destination 3">
+                                <div class="price-tag">
+                                    <span class="badge bg-primary">From ₹3,499</span>
+                                </div>
+                                <div class="rating-badge">
+                                    <span class="badge bg-success">4.8 ★</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">Manali Hills</h5>
+                                <p class="text-muted small mb-2">5 Days, 4 Nights</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="location">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                        <span>Himachal Pradesh, India</span>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Destination 4 -->
+                <div class="swiper-slide">
+                    <div class="destination-card h-100">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="position-relative">
+                                <img src="images.jpeg" class="card-img-top" alt="Destination 4">
+                                <div class="price-tag">
+                                    <span class="badge bg-primary">From ₹2,799</span>
+                                </div>
+                                <div class="rating-badge">
+                                    <span class="badge bg-success">4.6 ★</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">Rajasthan Forts</h5>
+                                <p class="text-muted small mb-2">6 Days, 5 Nights</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="location">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                        <span>Rajasthan, India</span>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add more destinations here if needed -->
+            </div>
+            
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            
+        </div>
+        
+       
+    </div>
+</section>
+
+<!-- Initialize Swiper -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.destinations-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 3000, // 3 seconds delay between slides
+            disableOnInteraction: false,
+        },
+        speed: 800, // Animation speed in ms
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            992: {
+                slidesPerView: 3,
+            },
+            1200: {
+                slidesPerView: 4,
+            },
         }
+    });
+});
+</script>
 
-        // Initialize slider when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            new OffersSlider();
+<!-- Add this to your CSS file -->
+<style>
+.top-destinations {
+    padding: 60px 0;
+    position: relative;
+}
 
-            // Reinitialize slider when tab changes
-            const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
-            tabButtons.forEach(button => {
-                button.addEventListener('shown.bs.tab', function() {
-                    setTimeout(() => {
-                        new OffersSlider();
-                    }, 100);
-                });
-            });
-        });
-    </script>
+.destinations-swiper {
+    padding: 20px 0 40px;
+}
 
+.destination-card {
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+    height: 100%;
+}
 
+.destination-card:hover {
+    transform: translateY(-5px);
+}
 
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+    margin: 0 5px;
+}
 
+.card-img-top {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
 
+.destination-card:hover .card-img-top {
+    transform: scale(1.05);
+}
 
+.price-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+}
 
+.rating-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2;
+}
 
+.card-body {
+    padding: 1.25rem;
+}
 
+.card-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.location {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.location i {
+    margin-right: 5px;
+}
+
+.btn-outline-primary {
+    border-width: 1px;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.75rem;
+}
+
+.section-header h2 {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.section-header h2:after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--bs-primary);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Swiper Navigation */
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--bs-primary);
+    background: rgba(255, 255, 255, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: var(--bs-primary);
+    color: white;
+}
+
+/* Pagination */
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--bs-primary);
+    transform: scale(1.2);
+}
+</style>
 
 <?php include 'includes/footer.php'; ?>
