@@ -59,8 +59,81 @@
 }
 </style>
 
+<!-- Include jQuery and daterangepicker -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Guest Selector Functions
+function toggleGuestDropdown() {
+    const dropdown = document.getElementById('guestDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function closeGuestDropdown() {
+    document.getElementById('guestDropdown').style.display = 'none';
+}
+
+function updateGuestCount(type, change) {
+    const countElement = document.getElementById(`${type}-count`);
+    const inputElement = document.getElementById(type);
+    let count = parseInt(countElement.textContent) + change;
+    
+    // Set min and max values
+    if (type === 'adults') {
+        count = Math.max(1, Math.min(10, count));
+    } else if (type === 'children') {
+        count = Math.max(0, Math.min(4, count));
+    } else if (type === 'rooms') {
+        count = Math.max(1, Math.min(5, count));
+    }
+    
+    // Update the display and hidden input
+    countElement.textContent = count;
+    inputElement.value = count;
+    
+    // Update minus button disabled state
+    const minusBtn = countElement.previousElementSibling;
+    const plusBtn = countElement.nextElementSibling;
+    
+    if (type === 'adults' || type === 'rooms') {
+        minusBtn.disabled = count <= 1;
+        plusBtn.disabled = count >= (type === 'adults' ? 10 : 5);
+    } else {
+        minusBtn.disabled = count <= 0;
+        plusBtn.disabled = count >= 4;
+    }
+}
+
+function applyGuestSelection() {
+    const adults = parseInt(document.getElementById('adults').value);
+    const children = parseInt(document.getElementById('children').value);
+    const rooms = parseInt(document.getElementById('rooms').value);
+    
+    let displayText = `${adults} ${adults === 1 ? 'Adult' : 'Adults'}`;
+    if (children > 0) {
+        displayText += `, ${children} ${children === 1 ? 'Child' : 'Children'}`;
+    }
+    displayText += `, ${rooms} ${rooms === 1 ? 'Room' : 'Rooms'}`;
+    
+    document.getElementById('guests-display').value = displayText;
+    closeGuestDropdown();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('guestDropdown');
+    const input = document.getElementById('guests-display');
+    if (!dropdown.contains(event.target) && event.target !== input) {
+        dropdown.style.display = 'none';
+    }
+});
+
+// Initialize Swiper
+$(document).ready(function() {
+    // Initialize Hero Swiper
     new Swiper('.hero-swiper', {
         loop: true,
         autoplay: { delay: 5000 },
@@ -73,6 +146,44 @@ document.addEventListener('DOMContentLoaded', function() {
         speed: 1000,
         grabCursor: true
     });
+
+    // Initialize Date Range Picker
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left',
+        autoUpdateInput: false,
+        minDate: new Date(),
+        locale: {
+            cancelLabel: 'Clear',
+            format: 'DD/MM/YYYY',
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        }
+    }, function(start, end, label) {
+        // Format the dates as needed
+        var startDate = start.format('DD/MM/YYYY');
+        var endDate = end.format('DD/MM/YYYY');
+        
+        // Set the input field value
+        $('input[name="daterange"]').val(startDate + ' - ' + endDate);
+        
+        // Set the hidden input values
+        $('#checkin').val(start.format('YYYY-MM-DD'));
+        $('#checkout').val(end.format('YYYY-MM-DD'));
+    });
+    
+    // Clear the date range picker
+    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+        $('#checkin').val('');
+        $('#checkout').val('');
+    });
 });
 </script>
 
@@ -80,51 +191,396 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Search Section -->
 <section class="search-section">
     <div class="container">
-        <div class="search-tabs">
-            <ul class="nav nav-tabs" id="searchTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="hotels-tab" data-bs-toggle="tab" data-bs-target="#hotels" type="button" role="tab" aria-controls="hotels" aria-selected="true">Hotels</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="restaurants-tab" data-bs-toggle="tab" data-bs-target="#restaurants" type="button" role="tab" aria-controls="restaurants" aria-selected="false">Restaurants</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tours-tab" data-bs-toggle="tab" data-bs-target="#tours" type="button" role="tab" aria-controls="tours" aria-selected="false">Tours</button>
-                </li>
-            </ul>
-            <div class="tab-content" id="searchTabContent">
+        <div class="search-wrapper">
+            <div class="search-tabs mb-3">
+                <div class="nav nav-pills nav-fill" id="searchTab" role="tablist">
+                    <button class="nav-link active me-2" id="hotels-tab" data-bs-toggle="pill" data-bs-target="#hotels" type="button" role="tab">
+                        <i class="fas fa-hotel me-2"></i>Hotels
+                    </button>
+                    <button class="nav-link me-2" id="restaurants-tab" data-bs-toggle="pill" data-bs-target="#restaurants" type="button" role="tab">
+                        <i class="fas fa-utensils me-2"></i>Restaurants
+                    </button>
+                    <button class="nav-link" id="tours-tab" data-bs-toggle="pill" data-bs-target="#tours" type="button" role="tab">
+                        <i class="fas fa-map-marked-alt me-2"></i>Tours
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tab-content bg-white p-4 rounded-3 shadow-sm" id="searchTabContent">
+                <!-- Hotels Tab -->
                 <div class="tab-pane fade show active" id="hotels" role="tabpanel" aria-labelledby="hotels-tab">
                     <form action="search.php" method="GET" class="search-form">
                         <input type="hidden" name="type" value="hotels">
-                        <div class="row g-3">
+                        <div class="row g-3 align-items-end">
                             <div class="col-md-4">
-                                <label for="destination" class="form-label">Destination</label>
-                                <select class="form-select" id="destination" name="destination" required>
-                                    <option value="">Select Destination</option>
-                                    <option value="puri">Puri</option>
-                                    <option value="bhubaneswar">Bhubaneswar</option>
-                                    <option value="konark">Konark</option>
-                                </select>
+                                <div class="form-group">
+                                    <label for="destination" class="form-label fw-500 text-muted mb-1">Destination</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-map-marker-alt text-primary"></i></span>
+                                        <select class="form-select border-start-0 ps-1" id="destination" name="destination" required>
+                                            <option value="">Where are you going?</option>
+                                            <option value="puri">Puri, Odisha</option>
+                                            <option value="bhubaneswar">Bhubaneswar, Odisha</option>
+                                            <option value="konark">Konark, Odisha</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="check-in" class="form-label">Check-in</label>
-                                <input type="date" class="form-control" id="check-in" name="check_in" required>
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="daterange" class="form-label fw-500 text-muted mb-1">Check-in / Check-out</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="far fa-calendar-alt text-primary"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-1" id="daterange" name="daterange" value="" placeholder="Select dates" readonly>
+                                        <input type="hidden" id="checkin" name="checkin">
+                                        <input type="hidden" id="checkout" name="checkout">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="check-out" class="form-label">Check-out</label>
-                                <input type="date" class="form-control" id="check-out" name="check_out" required>
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="guests-display" class="form-label fw-500 text-muted mb-1">Guests & Rooms</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-users text-primary"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-1" id="guests-display" readonly value="2 Adults, 1 Room" onclick="toggleGuestDropdown()">
+                                        <input type="hidden" id="adults" name="adults" value="2">
+                                        <input type="hidden" id="children" name="children" value="0">
+                                        <input type="hidden" id="rooms" name="rooms" value="1">
+                                        
+                                        <!-- Guest Selection Dropdown -->
+                                        <div class="guest-selector-dropdown" id="guestDropdown">
+                                            <div class="guest-option">
+                                                <div class="guest-label">
+                                                    <span>Adults</span>
+                                                    <small>Ages 13 or above</small>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-minus" onclick="updateGuestCount('adults', -1)">-</button>
+                                                    <span id="adults-count" class="px-2">2</span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-plus" onclick="updateGuestCount('adults', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="guest-option">
+                                                <div class="guest-label">
+                                                    <span>Children</span>
+                                                    <small>Ages 0-12</small>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-minus" onclick="updateGuestCount('children', -1)" disabled>-</button>
+                                                    <span id="children-count" class="px-2">0</span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-plus" onclick="updateGuestCount('children', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="guest-option">
+                                                <div class="guest-label">
+                                                    <span>Rooms</span>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-minus" onclick="updateGuestCount('rooms', -1)" disabled>-</button>
+                                                    <span id="rooms-count" class="px-2">1</span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-plus" onclick="updateGuestCount('rooms', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="guest-dropdown-footer">
+                                                <button type="button" class="btn btn-sm btn-link text-muted" onclick="closeGuestDropdown()">Cancel</button>
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="applyGuestSelection()">Apply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary w-100">Search</button>
+                            
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+                                    <i class="fas fa-search me-2"></i>Search
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <!-- Similar forms for restaurants and tours -->
+                
+                <!-- Restaurants Tab -->
+                <div class="tab-pane fade" id="restaurants" role="tabpanel" aria-labelledby="restaurants-tab">
+                    <form action="search.php" method="GET" class="search-form">
+                        <input type="hidden" name="type" value="restaurants">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="restaurant-location" class="form-label fw-500 text-muted mb-1">Location</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-map-marker-alt text-primary"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-1" id="restaurant-location" placeholder="Search by location or cuisine" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="restaurant-date" class="form-label fw-500 text-muted mb-1">Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="far fa-calendar-alt text-primary"></i></span>
+                                        <input type="date" class="form-control border-start-0 ps-1" id="restaurant-date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+                                    <i class="fas fa-search me-2"></i>Find
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Tours Tab -->
+                <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
+                    <form action="search.php" method="GET" class="search-form">
+                        <input type="hidden" name="type" value="tours">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="tour-destination" class="form-label fw-500 text-muted mb-1">Destination</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-map-marker-alt text-primary"></i></span>
+                                        <select class="form-select border-start-0 ps-1" id="tour-destination" name="destination" required>
+                                            <option value="">Where to?</option>
+                                            <option value="puri">Puri, Odisha</option>
+                                            <option value="bhubaneswar">Bhubaneswar, Odisha</option>
+                                            <option value="konark">Konark, Odisha</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="tour-date" class="form-label fw-500 text-muted mb-1">Tour Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="far fa-calendar-alt text-primary"></i></span>
+                                        <input type="date" class="form-control border-start-0 ps-1" id="tour-date" name="tour_date" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="tour-type" class="form-label fw-500 text-muted mb-1">Tour Type</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-tag text-primary"></i></span>
+                                        <select class="form-select border-start-0 ps-1" id="tour-type" name="tour_type">
+                                            <option value="">Any Type</option>
+                                            <option value="cultural">Cultural</option>
+                                            <option value="adventure">Adventure</option>
+                                            <option value="heritage">Heritage</option>
+                                            <option value="nature">Nature</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+                                    <i class="fas fa-search me-2"></i>Find Tours
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+/* Guest Selector Styles */
+.guest-selector-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 5px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.guest-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.guest-option:last-child {
+    border-bottom: none;
+}
+
+.guest-label {
+    flex: 1;
+}
+
+.guest-label span {
+    display: block;
+    font-weight: 500;
+    color: #333;
+}
+
+.guest-label small {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.guest-counter {
+    display: flex;
+    align-items: center;
+}
+
+.guest-counter button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.guest-counter span {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.guest-dropdown-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.guest-dropdown-footer .btn {
+    margin-left: 10px;
+    padding: 5px 15px;
+}
+
+/* Search Section Styles */
+.search-section {
+    position: relative;
+    z-index: 10;
+    margin-top: -157px;
+    border-radius: 10px;
+}
+
+.search-tabs .nav-pills {
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 50px;
+    display: inline-flex;
+}
+
+.search-tabs .nav-link {
+    color: #495057;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    margin: 0 2px;
+}
+
+.search-tabs .nav-link.active {
+    background: #0d6efd;
+    color: white;
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.3);
+}
+
+.search-tabs .nav-link i {
+    margin-right: 8px;
+}
+
+.tab-content {
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+    border-right: none;
+    background: transparent;
+}
+
+.form-control, .form-select {
+    border-left: none;
+    padding-left: 0.5rem;
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Styles */
+@media (max-width: 991.98px) {
+    .search-tabs .nav-pills {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding: 6px;
+    }
+    
+    .search-tabs .nav-link {
+        white-space: nowrap;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .search-section {
+        margin-top: -15px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .search-section {
+        margin: 0 -15px;
+        border-radius: 0;
+    }
+    
+    .tab-content {
+        padding: 15px !important;
+    }
+    
+    .search-tabs .nav-pills {
+        border-radius: 8px;
+    }
+}
+</style>
 
 
 

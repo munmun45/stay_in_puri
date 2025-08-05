@@ -4,677 +4,772 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offers Section with Slider</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
-
-</head>
-
-<body>
-    <!-- Offers Section -->
-
+    <title>Travel Search Section</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.css" />
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .offers-section {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            margin: 20px;
-            padding: 24px;
+        .search-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 0;
             position: relative;
+            overflow: hidden;
         }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .search-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1;
         }
 
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #333;
-            margin: 0;
+        .container {
+            position: relative;
+            z-index: 2;
         }
 
-        .view-all-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .view-all-link {
-            color: #1a73e8;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .view-all-link:hover {
-            color: #1557b0;
-        }
-
-        .slider-nav-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .slider-nav-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #e0e0e0;
+        .search-tabs {
             background: white;
-            color: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-
-        .slider-nav-btn:hover {
-            border-color: #1a73e8;
-            color: #1a73e8;
-        }
-
-        .slider-nav-btn.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .nav-tabs {
-            border-bottom: 2px solid #e9ecef;
-            margin-bottom: 24px;
+            border-bottom: none;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 20px 20px 0 20px;
         }
 
         .nav-tabs .nav-link {
             border: none;
             color: #6c757d;
-            font-weight: 500;
-            padding: 12px 20px;
-            border-bottom: 3px solid transparent;
-            background: none;
+            font-weight: 600;
+            padding: 15px 30px;
+            margin-right: 10px;
+            border-radius: 10px 10px 0 0;
+            background: transparent;
             transition: all 0.3s ease;
             position: relative;
-        }
-
-        .nav-tabs .nav-link.active {
-            color: #1a73e8;
-            border-bottom-color: #1a73e8;
-            background: none;
         }
 
         .nav-tabs .nav-link:hover {
-            color: #1a73e8;
+            color: #495057;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-color: transparent;
         }
 
-        .offers-slider {
-            position: relative;
-            overflow: hidden;
+        .nav-tabs .nav-link i {
+            margin-right: 8px;
+            font-size: 18px;
         }
 
-        .offers-container {
-            display: flex;
-            transition: transform 0.3s ease;
-            gap: 20px;
-        }
-
-        .offer-card {
+        .tab-content {
+            padding: 30px;
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+        }
+
+        .search-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
             border: 1px solid #e9ecef;
-            flex: 0 0 400px;
-            height: 280px;
-            display: flex;
         }
 
-        .offer-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-image {
-            width: 140px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .card-content {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
+        .form-label {
             font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
+            color: #495057;
             margin-bottom: 8px;
-            line-height: 1.3;
         }
 
-        .card-subtitle {
-            font-size: 13px;
+        .form-control,
+        .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .guests-dropdown {
+            position: relative;
+        }
+
+        .guests-dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .guests-dropdown-content.active {
+            display: block;
+        }
+
+        .guest-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .guest-row:last-of-type {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+
+        .guest-info strong {
+            display: block;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .guest-info small {
             color: #666;
-            margin-bottom: 16px;
+            font-size: 12px;
+        }
+
+        .guest-counter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .guest-counter button {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .guest-counter button:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .guest-counter button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .guest-counter span {
+            min-width: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .guest-note {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .guest-note small {
+            color: #666;
             line-height: 1.4;
         }
 
-        .card-btn {
-            background: #1a73e8;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
+        .apply-btn-container {
+            text-align: right;
+        }
+
+        .apply-btn-container .btn {
+            padding: 8px 20px;
             font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            align-self: flex-start;
         }
 
-        .card-btn:hover {
-            background: #1557b0;
-            color: white;
+        .date-range-picker {
+            position: relative;
         }
 
-        .card-btn.btn-outline {
-            background: transparent;
-            color: #1a73e8;
-            border: 2px solid #1a73e8;
+        .daterangepicker {
+            z-index: 9999;
         }
 
-        .card-btn.btn-outline:hover {
-            background: #1a73e8;
-            color: white;
+        .daterangepicker .ranges li {
+            color: #333;
         }
 
-        .bank-logo {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .daterangepicker .ranges li.active {
+            background-color: #667eea;
         }
 
-        .vacation-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 6px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: bold;
+        .daterangepicker td.active,
+        .daterangepicker td.active:hover {
+            background-color: #667eea;
+            border-color: #667eea;
         }
 
-        /* Specific card image backgrounds */
-        .card-flight {
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        .daterangepicker .drp-buttons .btn {
+            margin-left: 8px;
         }
 
-        .card-hotel {
-            background: linear-gradient(135deg, #00cec9 0%, #00b894 100%);
-        }
-
-        .card-vacation {
-            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
-        }
-
-        .card-travel {
-            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
-        }
-
-        .card-emi {
-            background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
-        }
-
-        .card-book {
-            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
-        }
-
-        /* Real images for the cards */
-        .card-flight-img {
-            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
-        }
-
-        .card-hotel-img {
-            background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
-        }
-
-        .card-vacation-img {
-            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
-        }
-
-        .card-travel-img {
-            background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
-        }
-
-        .card-emi-img {
-            background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
-        }
-
-        .card-book-img {
-            background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
+        .daterangepicker .drp-buttons .btn.btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
         }
 
         @media (max-width: 768px) {
-            .offers-section {
-                margin: 10px;
-                padding: 16px;
+            .search-section {
+                padding: 40px 0;
             }
 
-            .section-title {
-                font-size: 24px;
+            .nav-tabs .nav-link {
+                padding: 10px 15px;
+                margin-right: 5px;
+                font-size: 14px;
             }
 
-            .section-header {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-            }
-
-            .offer-card {
-                flex: 0 0 350px;
-                height: 260px;
-            }
-
-            .card-image {
-                width: 120px;
-            }
-
-            .card-content {
-                padding: 15px;
+            .search-form {
+                padding: 20px;
             }
         }
 
-        @media (max-width: 480px) {
-            .offer-card {
-                flex: 0 0 300px;
-                flex-direction: column;
-                height: auto;
-            }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-            .card-image {
-                width: 100%;
-                height: 120px;
-            }
+        .section-title h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
         }
     </style>
-    <section class="offers-section">
-        <div class="section-header">
-            <h2 class="section-title">Offers</h2>
-            <div class="view-all-container">
-                <a href="offers.php" class="view-all-link">
-                    VIEW ALL <i class="fas fa-arrow-right"></i>
-                </a>
-                <div class="slider-nav-buttons">
-                    <button class="slider-nav-btn" id="prevBtn">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-nav-btn" id="nextBtn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+</head>
+
+<body>
+    <section class="search-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Find Your Perfect Travel Experience</h2>
+                <p>Discover amazing hotels, restaurants, and tours for your next adventure</p>
             </div>
-        </div>
 
-        <!-- Offer Tabs -->
-        <ul class="nav nav-tabs" id="offerTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="hotels-offers-tab" data-bs-toggle="tab" data-bs-target="#hotels-offers" type="button" role="tab" aria-controls="hotels-offers" aria-selected="true">Hotels</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="all-offers-tab" data-bs-toggle="tab" data-bs-target="#all-offers" type="button" role="tab" aria-controls="all-offers" aria-selected="false">All Offers</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="flights-offers-tab" data-bs-toggle="tab" data-bs-target="#flights-offers" type="button" role="tab" aria-controls="flights-offers" aria-selected="false">Flights</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="holidays-offers-tab" data-bs-toggle="tab" data-bs-target="#holidays-offers" type="button" role="tab" aria-controls="holidays-offers" aria-selected="false">Holidays</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="trains-offers-tab" data-bs-toggle="tab" data-bs-target="#trains-offers" type="button" role="tab" aria-controls="trains-offers" aria-selected="false">Trains</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="cabs-offers-tab" data-bs-toggle="tab" data-bs-target="#cabs-offers" type="button" role="tab" aria-controls="cabs-offers" aria-selected="false">Cabs</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="bank-offers-tab" data-bs-toggle="tab" data-bs-target="#bank-offers" type="button" role="tab" aria-controls="bank-offers" aria-selected="false">Bank Offers</button>
-            </li>
-        </ul>
+            <div class="search-tabs">
+                <ul class="nav nav-tabs" id="searchTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="hotels-tab" data-bs-toggle="tab" data-bs-target="#hotels" type="button" role="tab" aria-controls="hotels" aria-selected="true">
+                            <i class="fas fa-bed"></i>Hotels
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="restaurants-tab" data-bs-toggle="tab" data-bs-target="#restaurants" type="button" role="tab" aria-controls="restaurants" aria-selected="false">
+                            <i class="fas fa-utensils"></i>Restaurants
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tours-tab" data-bs-toggle="tab" data-bs-target="#tours" type="button" role="tab" aria-controls="tours" aria-selected="false">
+                            <i class="fas fa-map-marked-alt"></i>Tours
+                        </button>
+                    </li>
+                </ul>
 
-        <!-- Tab Content -->
-        <div class="tab-content" id="offerTabsContent">
-            <!-- Hotels Tab -->
-            <div class="tab-pane fade show active" id="hotels-offers" role="tabpanel" aria-labelledby="hotels-offers-tab">
-                <div class="offers-slider">
-                    <div class="offers-container" id="offersContainer">
-                        <!-- Card 1 -->
-                        <div class="offer-card">
-                            <div class="card-image card-flight-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Ah-mazing Deal for You: Enjoy Up to ₹10,000 OFF*</h5>
-                                    <p class="card-subtitle">on Flights and Hotels.</p>
+                <div class="tab-content" id="searchTabContent">
+                    <!-- Hotels Tab -->
+                    <div class="tab-pane fade show active" id="hotels" role="tabpanel" aria-labelledby="hotels-tab">
+                        <form action="search.php" method="GET" class="search-form">
+                            <input type="hidden" name="type" value="hotels">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="hotel-destination" class="form-label">
+                                        <i class="fas fa-map-marker-alt"></i> Destination
+                                    </label>
+                                    <select class="form-select" id="hotel-destination" name="destination" required>
+                                        <option value="">Select Destination</option>
+                                        <option value="goa">Goa</option>
+                                        <option value="puri">Puri</option>
+                                        <option value="bhubaneswar">Bhubaneswar</option>
+                                        <option value="konark">Konark</option>
+                                        <option value="mumbai">Mumbai</option>
+                                        <option value="delhi">Delhi</option>
+                                    </select>
                                 </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="offer-card">
-                            <div class="card-image card-hotel-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                                <div class="bank-logo">
-                                    <img src="https://logos-world.net/wp-content/uploads/2020/09/HDFC-Bank-Logo.png" alt="HDFC" style="height: 16px;">
+                                <div class="col-md-4">
+                                    <label for="hotel-daterange" class="form-label">
+                                        <i class="fas fa-calendar-alt"></i> Check-in - Check-out
+                                    </label>
+                                    <input type="text" class="form-control" id="hotel-daterange" name="daterange" placeholder="Select dates" readonly>
+                                    <input type="hidden" id="hotel-check-in" name="check_in" required>
+                                    <input type="hidden" id="hotel-check-out" name="check_out" required>
                                 </div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Up to 15% OFF*</h5>
-                                    <p class="card-subtitle">on domestic & international hotels</p>
-                                </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="offer-card">
-                            <div class="card-image card-vacation-img">
-                                <div class="vacation-badge">5★ VACATION INVITATION</div>
-                                <div class="card-badge">T&C'S APPLY</div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Just-in-time deals for luxe long weekend:</h5>
-                                    <p class="card-subtitle">Up to 30% OFF* on premium hotels & villas across India.</p>
-                                </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="offer-card">
-                            <div class="card-image card-travel-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                                <div class="bank-logo">
-                                    <img src="https://logos-world.net/wp-content/uploads/2021/02/HSBC-Logo.png" alt="HSBC" style="height: 16px;">
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-search"></i> Search
+                                    </button>
                                 </div>
                             </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Grab Up to 35% OFF* on</h5>
-                                    <p class="card-subtitle">domestic + international flights, hotels & holiday packages for a memorable trip!</p>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4">
+                                    <label for="hotel-guests-dropdown" class="form-label">
+                                        <i class="fas fa-users"></i> Rooms & Guests
+                                    </label>
+                                    <div class="guests-dropdown">
+                                        <input type="text" class="form-control" id="hotel-guests-display" placeholder="1 Room, 2 Adults" readonly onclick="toggleGuestsDropdown('hotel')">
+                                        <div class="guests-dropdown-content" id="hotel-guests-dropdown">
+                                            <div class="guest-row">
+                                                <div class="guest-info">
+                                                    <strong>Room</strong>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" onclick="changeCount('hotel-rooms', -1)">-</button>
+                                                    <span id="hotel-rooms-count">1</span>
+                                                    <button type="button" onclick="changeCount('hotel-rooms', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="guest-row">
+                                                <div class="guest-info">
+                                                    <strong>Adults</strong>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" onclick="changeCount('hotel-adults', -1)">-</button>
+                                                    <span id="hotel-adults-count">2</span>
+                                                    <button type="button" onclick="changeCount('hotel-adults', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="guest-row">
+                                                <div class="guest-info">
+                                                    <strong>Children</strong>
+                                                    <small>0-17 Years Old</small>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" onclick="changeCount('hotel-children', -1)">-</button>
+                                                    <span id="hotel-children-count">0</span>
+                                                    <button type="button" onclick="changeCount('hotel-children', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="guest-note">
+                                                <small>Please provide right number of children along with their right age for best options and prices.</small>
+                                            </div>
+                                            <div class="apply-btn-container">
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="applyGuestSelection('hotel')">APPLY</button>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="rooms" id="hotel-rooms-input" value="1">
+                                        <input type="hidden" name="adults" id="hotel-adults-input" value="2">
+                                        <input type="hidden" name="children" id="hotel-children-input" value="0">
+                                    </div>
                                 </div>
-                                <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
                             </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="offer-card">
-                            <div class="card-image card-emi-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                                <div class="bank-logo">
-                                    <img src="https://logos-world.net/wp-content/uploads/2021/02/HSBC-Logo.png" alt="HSBC" style="height: 16px;">
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Get 12-month EMI on hotels</h5>
-                                    <p class="card-subtitle">on flights and hotel bookings with your next trip</p>
-                                </div>
-                                <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
-                            </div>
-                        </div>
-
-                        <!-- Card 6 -->
-                        <div class="offer-card">
-                            <div class="card-image card-book-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">Book by 30 Nov</h5>
-                                    <p class="card-subtitle">For your favourite Goa destinations</p>
-                                </div>
-                                <a href="#" class="card-btn btn-outline">VIEW DETAILS</a>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                </div>
-            </div>
 
-            <!-- Other tabs content -->
-            <div class="tab-pane fade" id="all-offers" role="tabpanel" aria-labelledby="all-offers-tab">
-                <div class="offers-slider">
-                    <div class="offers-container">
-                        <!-- Sample cards for other tabs -->
-                        <div class="offer-card">
-                            <div class="card-image card-flight-img">
-                                <div class="card-badge">T&C'S APPLY</div>
-                            </div>
-                            <div class="card-content">
-                                <div>
-                                    <h5 class="card-title">All Offers - Special Deal</h5>
-                                    <p class="card-subtitle">Amazing discounts on all services</p>
+                    <!-- Restaurants Tab -->
+                    <div class="tab-pane fade" id="restaurants" role="tabpanel" aria-labelledby="restaurants-tab">
+                        <form action="search.php" method="GET" class="search-form">
+                            <input type="hidden" name="type" value="restaurants">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="restaurant-location" class="form-label">
+                                        <i class="fas fa-map-marker-alt"></i> Location
+                                    </label>
+                                    <select class="form-select" id="restaurant-location" name="location" required>
+                                        <option value="">Select Location</option>
+                                        <option value="goa">Goa</option>
+                                        <option value="puri">Puri</option>
+                                        <option value="bhubaneswar">Bhubaneswar</option>
+                                        <option value="konark">Konark</option>
+                                        <option value="mumbai">Mumbai</option>
+                                        <option value="delhi">Delhi</option>
+                                    </select>
                                 </div>
-                                <a href="#" class="card-btn">BOOK NOW</a>
+                                <div class="col-md-3">
+                                    <label for="restaurant-cuisine" class="form-label">
+                                        <i class="fas fa-utensils"></i> Cuisine Type
+                                    </label>
+                                    <select class="form-select" id="restaurant-cuisine" name="cuisine">
+                                        <option value="">Any Cuisine</option>
+                                        <option value="indian">Indian</option>
+                                        <option value="chinese">Chinese</option>
+                                        <option value="continental">Continental</option>
+                                        <option value="seafood">Seafood</option>
+                                        <option value="vegetarian">Vegetarian</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="restaurant-daterange" class="form-label">
+                                        <i class="fas fa-calendar-alt"></i> Date
+                                    </label>
+                                    <input type="text" class="form-control" id="restaurant-daterange" name="daterange" placeholder="Select date" readonly>
+                                    <input type="hidden" id="restaurant-date" name="date" required>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-search"></i> Search
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Add more cards as needed -->
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4">
+                                    <label for="restaurant-guests" class="form-label">
+                                        <i class="fas fa-users"></i> Party Size
+                                    </label>
+                                    <div class="guests-selector">
+                                        <button type="button" onclick="changeGuests('restaurant', -1)">-</button>
+                                        <span class="guests-count" id="restaurant-guests-count">2</span>
+                                        <button type="button" onclick="changeGuests('restaurant', 1)">+</button>
+                                        <input type="hidden" name="party_size" id="restaurant-guests-input" value="2">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="restaurant-time" class="form-label">
+                                        <i class="fas fa-clock"></i> Time
+                                    </label>
+                                    <select class="form-select" id="restaurant-time" name="time">
+                                        <option value="">Preferred Time</option>
+                                        <option value="breakfast">Breakfast (7-11 AM)</option>
+                                        <option value="lunch">Lunch (12-3 PM)</option>
+                                        <option value="dinner">Dinner (7-11 PM)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </div>
-            </div>
 
-            <!-- Repeat similar structure for other tabs -->
-            <div class="tab-pane fade" id="flights-offers" role="tabpanel" aria-labelledby="flights-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Flight Offers Coming Soon</h4>
-                    <p class="text-muted">Stay tuned for exclusive flight deals!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="holidays-offers" role="tabpanel" aria-labelledby="holidays-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Holiday Packages Coming Soon</h4>
-                    <p class="text-muted">Amazing holiday deals are on the way!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="trains-offers" role="tabpanel" aria-labelledby="trains-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Train Offers Coming Soon</h4>
-                    <p class="text-muted">Great train booking deals coming your way!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="cabs-offers" role="tabpanel" aria-labelledby="cabs-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Cab Offers Coming Soon</h4>
-                    <p class="text-muted">Great cab deals coming your way!</p>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="bank-offers" role="tabpanel" aria-labelledby="bank-offers-tab">
-                <div class="text-center py-5">
-                    <h4>Bank Offers Coming Soon</h4>
-                    <p class="text-muted">Exclusive bank partnership deals!</p>
+                    <!-- Tours Tab -->
+                    <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
+                        <form action="search.php" method="GET" class="search-form">
+                            <input type="hidden" name="type" value="tours">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="tour-destination" class="form-label">
+                                        <i class="fas fa-map-marker-alt"></i> Destination
+                                    </label>
+                                    <select class="form-select" id="tour-destination" name="destination" required>
+                                        <option value="">Select Destination</option>
+                                        <option value="goa">Goa</option>
+                                        <option value="puri">Puri</option>
+                                        <option value="bhubaneswar">Bhubaneswar</option>
+                                        <option value="konark">Konark</option>
+                                        <option value="mumbai">Mumbai</option>
+                                        <option value="delhi">Delhi</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="tour-type" class="form-label">
+                                        <i class="fas fa-map-marked-alt"></i> Tour Type
+                                    </label>
+                                    <select class="form-select" id="tour-type" name="tour_type">
+                                        <option value="">Any Tour Type</option>
+                                        <option value="cultural">Cultural</option>
+                                        <option value="adventure">Adventure</option>
+                                        <option value="nature">Nature</option>
+                                        <option value="historical">Historical</option>
+                                        <option value="beach">Beach</option>
+                                        <option value="religious">Religious</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="tour-daterange" class="form-label">
+                                        <i class="fas fa-calendar-alt"></i> Date
+                                    </label>
+                                    <input type="text" class="form-control" id="tour-daterange" name="daterange" placeholder="Select date" readonly>
+                                    <input type="hidden" id="tour-date" name="date" required>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-search"></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4">
+                                    <label for="tour-guests" class="form-label">
+                                        <i class="fas fa-users"></i> Travelers
+                                    </label>
+                                    <div class="guests-selector">
+                                        <button type="button" onclick="changeGuests('tour', -1)">-</button>
+                                        <span class="guests-count" id="tour-guests-count">2</span>
+                                        <button type="button" onclick="changeGuests('tour', 1)">+</button>
+                                        <input type="hidden" name="travelers" id="tour-guests-input" value="2">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="tour-duration" class="form-label">
+                                        <i class="fas fa-clock"></i> Duration
+                                    </label>
+                                    <select class="form-select" id="tour-duration" name="duration">
+                                        <option value="">Any Duration</option>
+                                        <option value="half-day">Half Day (4 hours)</option>
+                                        <option value="full-day">Full Day (8 hours)</option>
+                                        <option value="2-days">2 Days</option>
+                                        <option value="3-days">3+ Days</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Slider functionality
-        class OffersSlider {
-            constructor() {
-                this.container = document.getElementById('offersContainer');
-                this.prevBtn = document.getElementById('prevBtn');
-                this.nextBtn = document.getElementById('nextBtn');
-                this.cardWidth = 420; // 400px + 20px gap
-                this.currentPosition = 0;
-                this.maxPosition = 0;
-                this.autoSlideInterval = null;
-                this.touchStartX = 0;
-                this.touchEndX = 0;
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.querySelectorAll('input[type="date"]').forEach(input => {
+                input.min = today;
+            });
 
-                this.init();
-            }
+            // Set default dates (today and tomorrow)
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
 
-            init() {
-                this.calculateMaxPosition();
-                this.updateButtons();
-                this.bindEvents();
-                this.enableTouch();
-                this.startAutoSlide();
+            document.getElementById('hotel-check-in').value = today;
+            document.getElementById('hotel-check-out').value = tomorrowStr;
+            document.getElementById('restaurant-date').value = today;
+            document.getElementById('tour-date').value = today;
+        });
 
-                // Recalculate on window resize
-                window.addEventListener('resize', () => {
-                    this.calculateMaxPosition();
-                    this.currentPosition = 0;
-                    this.updateSlider();
-                });
-            }
+        // Initialize Date Range Pickers
+        $(function() {
+            // Hotel date range picker
+            $('#hotel-daterange').daterangepicker({
+                opens: 'left',
+                startDate: moment(),
+                endDate: moment().add(1, 'days'),
+                minDate: moment(),
+                locale: {
+                    format: 'MMM DD, YYYY'
+                }
+            }, function(start, end, label) {
+                console.log("Hotel dates selected: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                $('#hotel-check-in').val(start.format('YYYY-MM-DD'));
+                $('#hotel-check-out').val(end.format('YYYY-MM-DD'));
+            });
 
-            calculateMaxPosition() {
-                const containerWidth = this.container.parentElement.offsetWidth;
-                const totalCards = this.container.children.length;
-                const totalWidth = totalCards * this.cardWidth;
-                this.maxPosition = Math.max(0, totalWidth - containerWidth);
-            }
+            // Restaurant single date picker
+            $('#restaurant-daterange').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minDate: moment(),
+                locale: {
+                    format: 'MMM DD, YYYY'
+                }
+            }, function(start, end, label) {
+                console.log("Restaurant date selected: " + start.format('YYYY-MM-DD'));
+                $('#restaurant-date').val(start.format('YYYY-MM-DD'));
+            });
 
-            bindEvents() {
-                this.prevBtn.addEventListener('click', () => {
-                    this.slideLeft();
-                    this.resetAutoSlide();
-                });
+            // Tour single date picker
+            $('#tour-daterange').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minDate: moment(),
+                locale: {
+                    format: 'MMM DD, YYYY'
+                }
+            }, function(start, end, label) {
+                console.log("Tour date selected: " + start.format('YYYY-MM-DD'));
+                $('#tour-date').val(start.format('YYYY-MM-DD'));
+            });
 
-                this.nextBtn.addEventListener('click', () => {
-                    this.slideRight();
-                    this.resetAutoSlide();
-                });
-            }
+            // Set initial values
+            $('#hotel-check-in').val(moment().format('YYYY-MM-DD'));
+            $('#hotel-check-out').val(moment().add(1, 'days').format('YYYY-MM-DD'));
+            $('#restaurant-date').val(moment().format('YYYY-MM-DD'));
+            $('#tour-date').val(moment().format('YYYY-MM-DD'));
+        });
 
-            slideLeft() {
-                this.currentPosition = Math.max(0, this.currentPosition - this.cardWidth);
-                this.updateSlider();
-            }
-
-            slideRight() {
-                this.currentPosition = Math.min(this.maxPosition, this.currentPosition + this.cardWidth);
-                this.updateSlider();
-            }
-
-            updateSlider() {
-                this.container.style.transform = `translateX(-${this.currentPosition}px)`;
-                this.updateButtons();
-            }
-
-            updateButtons() {
-                this.prevBtn.classList.toggle('disabled', this.currentPosition === 0);
-                this.nextBtn.classList.toggle('disabled', this.currentPosition >= this.maxPosition);
-            }
-
-            // === Auto Slide ===
-            startAutoSlide() {
-                this.autoSlideInterval = setInterval(() => {
-                    if (this.currentPosition < this.maxPosition) {
-                        this.slideRight();
-                    } else {
-                        this.currentPosition = 0;
-                        this.updateSlider();
-                    }
-                }, 3000); // every 3 seconds
-            }
-
-            resetAutoSlide() {
-                clearInterval(this.autoSlideInterval);
-                this.startAutoSlide();
-            }
-
-            // === Touch Swipe ===
-            enableTouch() {
-                this.container.addEventListener('touchstart', (e) => {
-                    this.touchStartX = e.touches[0].clientX;
-                });
-
-                this.container.addEventListener('touchmove', (e) => {
-                    this.touchEndX = e.touches[0].clientX;
-                });
-
-                this.container.addEventListener('touchend', () => {
-                    const distance = this.touchStartX - this.touchEndX;
-                    if (Math.abs(distance) > 50) {
-                        if (distance > 0) {
-                            this.slideRight();
-                        } else {
-                            this.slideLeft();
-                        }
-                        this.resetAutoSlide();
-                    }
-                });
-            }
+        // Date range picker functionality
+        function toggleDatePicker(type) {
+            // This function is no longer needed as we're using the daterangepicker library
         }
 
-        // Initialize slider when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            let slider = new OffersSlider();
+        // Guests dropdown functionality
+        function toggleGuestsDropdown(type) {
+            const dropdown = document.getElementById(type + '-guests-dropdown');
+            dropdown.classList.toggle('active');
 
-            // Reinitialize slider when tab changes
-            const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
-            tabButtons.forEach(button => {
-                button.addEventListener('shown.bs.tab', function() {
-                    setTimeout(() => {
-                        slider = new OffersSlider(); // recreate to rebind all
-                    }, 100);
+            // Close when clicking outside
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!e.target.closest('.guests-dropdown')) {
+                    dropdown.classList.remove('active');
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+
+        // Counter functionality
+        function changeCount(counterId, change) {
+            const countElement = document.getElementById(counterId + '-count');
+            const inputElement = document.getElementById(counterId + '-input');
+            let currentCount = parseInt(countElement.textContent);
+
+            currentCount += change;
+
+            // Set minimum values
+            if (counterId.includes('rooms') || counterId.includes('adults')) {
+                if (currentCount < 1) currentCount = 1;
+            } else {
+                if (currentCount < 0) currentCount = 0;
+            }
+
+            // Set maximum values
+            if (currentCount > 20) currentCount = 20;
+
+            countElement.textContent = currentCount;
+            inputElement.value = currentCount;
+
+            // Update buttons state
+            updateCounterButtons(counterId, currentCount);
+        }
+
+        function updateCounterButtons(counterId, count) {
+            const minusBtn = document.querySelector(`button[onclick="changeCount('${counterId}', -1)"]`);
+            const plusBtn = document.querySelector(`button[onclick="changeCount('${counterId}', 1)"]`);
+
+            // Disable minus button if at minimum
+            if (counterId.includes('rooms') || counterId.includes('adults')) {
+                minusBtn.disabled = count <= 1;
+            } else {
+                minusBtn.disabled = count <= 0;
+            }
+
+            // Disable plus button if at maximum
+            plusBtn.disabled = count >= 20;
+        }
+
+        function applyGuestSelection(type) {
+            const rooms = document.getElementById(type + '-rooms-count').textContent;
+            const adults = document.getElementById(type + '-adults-count').textContent;
+            const children = document.getElementById(type + '-children-count').textContent;
+
+            let displayText = `${rooms} Room${rooms > 1 ? 's' : ''}, ${adults} Adult${adults > 1 ? 's' : ''}`;
+            if (children > 0) {
+                displayText += `, ${children} Child${children > 1 ? 'ren' : ''}`;
+            }
+
+            document.getElementById(type + '-guests-display').value = displayText;
+            document.getElementById(type + '-guests-dropdown').classList.remove('active');
+        }
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize counter buttons state
+            updateCounterButtons('hotel-rooms', 1);
+            updateCounterButtons('hotel-adults', 2);
+            updateCounterButtons('hotel-children', 0);
+
+            // Initialize guest display
+            applyGuestSelection('hotel');
+        });
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = {
+                month: 'short',
+                day: 'numeric'
+            };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Form validation
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const requiredFields = this.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('is-invalid');
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
                 });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields.');
+                }
+            });
+        });
+
+        // Form validation
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const requiredFields = this.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('is-invalid');
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields.');
+                }
             });
         });
     </script>
