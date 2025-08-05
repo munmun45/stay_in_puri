@@ -1,95 +1,95 @@
-    </main>
-    
-    <!-- Footer -->
-    <footer style="background-color:white;">
+</main>
+
+<!-- Footer -->
+<footer style="background-color:white;">
 
     <div class="container my-5">
-    <h2>Stay in Puri – Hotel Booking</h2>
-    <p><strong>Hotels in Puri | Best Hotels in Puri | Beachside Hotels in Puri | Budget Hotels in Puri | 5-Star Hotels in Puri | Hotels Near Jagannath Temple | Puri Hotel Booking Online | Puri Hotels with Sea View</strong></p>
+        <h2 style="font-size: 15px;">Stay in Puri – Hotel Booking</h2>
+        <p style="font-size: 10px;"><strong>Hotels in Puri | Best Hotels in Puri | Beachside Hotels in Puri | Budget Hotels in Puri | 5-Star Hotels in Puri | Hotels Near Jagannath Temple | Puri Hotel Booking Online | Puri Hotels with Sea View</strong></p>
 
-    <h4 class="mt-4">Top Hotel Categories in Puri</h4>
-    <ul style="display: flex; flex-wrap: wrap;" >
-        <li>Hotels Near Jagannath Temple</li>
-        <li>Beach Resorts in Puri</li>
-        <li>Budget Hotels in Puri</li>
-        <li>3-Star Hotels in Puri</li>
-        <li>5-Star Hotels in Puri</li>
-        <li>Family Hotels in Puri</li>
-        <li>Hotels for Pilgrims in Puri</li>
-        <li>Hotels Near Puri Railway Station</li>
-        <li>Sea View Hotels in Puri</li>
-        <li>Hotels with Swimming Pool in Puri</li>
-    </ul>
+        <h4 class="mt-4" style="font-size: 15px;">Top Hotel Categories in Puri</h4>
+        <ul style="display: flex; flex-wrap: wrap; font-size: 10px;">
+            <li>Hotels Near Jagannath Temple</li>
+            <li>Beach Resorts in Puri</li>
+            <li>Budget Hotels in Puri</li>
+            <li>3-Star Hotels in Puri</li>
+            <li>5-Star Hotels in Puri</li>
+            <li>Family Hotels in Puri</li>
+            <li>Hotels for Pilgrims in Puri</li>
+            <li>Hotels Near Puri Railway Station</li>
+            <li>Sea View Hotels in Puri</li>
+            <li>Hotels with Swimming Pool in Puri</li>
+        </ul>
 
-    <h4 class="mt-4">Popular Areas to Stay in Puri</h4>
-    <ul style="display: flex; flex-wrap: wrap;">
-        <li>Swargadwar</li>
-        <li>Chakra Tirtha Road</li>
-        <li>Grand Road</li>
-        <li>Baliapanda</li>
-        <li>VIP Road</li>
-        <li>Marine Drive</li>
-        <li>New Marine Drive Road</li>
-        <li>Near Jagannath Temple</li>
-        <li>Station Road</li>
-        <li>Near Gundicha Temple</li>
-    </ul>
+        <h4 class="mt-4" style="font-size: 15px;">Popular Areas to Stay in Puri</h4>
+        <ul style="display: flex; flex-wrap: wrap; font-size: 10px;">
+            <li>Swargadwar</li>
+            <li>Chakra Tirtha Road</li>
+            <li>Grand Road</li>
+            <li>Baliapanda</li>
+            <li>VIP Road</li>
+            <li>Marine Drive</li>
+            <li>New Marine Drive Road</li>
+            <li>Near Jagannath Temple</li>
+            <li>Station Road</li>
+            <li>Near Gundicha Temple</li>
+        </ul>
 
-    <h4 class="mt-4">Top Hotels in Puri</h4>
-    <ul style="display: flex; flex-wrap: wrap;">
-        <li>Mayfair Heritage Puri</li>
-        <li>Toshali Sands Nature Escape</li>
-        <li>Sterling Puri</li>
-        <li>Hotel Holiday Resort</li>
-        <li>Pride Ananya Resort</li>
-        <li>Hotel Sonar Bangla</li>
-        <li>Hotel Gandhara</li>
-        <li>Mahodadhi Palace</li>
-        <li>Hotel Dreamland</li>
-        <li>Hotel Golden Tree</li>
-        <li>Blue Lily Beach Resort</li>
-        <li>Chanakya BNR Hotel</li>
-        <li>Hotel Shreehari Grand</li>
-        <li>Lucky India Royal Heritage</li>
-        <li>Victoria Club Hotel</li>
-        <li>Reba Beach Resort</li>
-        <li>Hotel Jeevan Sandhya</li>
-    </ul>
+        <h4 class="mt-4" style="font-size: 15px;">Top Hotels in Puri</h4>
+        <ul style="display: flex; flex-wrap: wrap;font-size: 10px;">
+            <li>Mayfair Heritage Puri</li>
+            <li>Toshali Sands Nature Escape</li>
+            <li>Sterling Puri</li>
+            <li>Hotel Holiday Resort</li>
+            <li>Pride Ananya Resort</li>
+            <li>Hotel Sonar Bangla</li>
+            <li>Hotel Gandhara</li>
+            <li>Mahodadhi Palace</li>
+            <li>Hotel Dreamland</li>
+            <li>Hotel Golden Tree</li>
+            <li>Blue Lily Beach Resort</li>
+            <li>Chanakya BNR Hotel</li>
+            <li>Hotel Shreehari Grand</li>
+            <li>Lucky India Royal Heritage</li>
+            <li>Victoria Club Hotel</li>
+            <li>Reba Beach Resort</li>
+            <li>Hotel Jeevan Sandhya</li>
+        </ul>
 
-    <h4 class="mt-4">Why Book Hotels in Puri With Us?</h4>
-    <ul style="display: flex; flex-wrap: wrap;">
-        <li>Wide Range of Hotels – Budget to Luxury</li>
-        <li>Verified Guest Reviews</li>
-        <li>Best Price Guarantee</li>
-        <li>Easy Booking & Instant Confirmation</li>
-        <li>Special Discounts on Festival Dates</li>
-        <li>24x7 Customer Support</li>
-        <li>No Hidden Charges</li>
-    </ul>
+        <h4 class="mt-4" style="font-size: 15px;">Why Book Hotels in Puri With Us?</h4>
+        <ul style="display: flex; flex-wrap: wrap; font-size: 10px;">
+            <li>Wide Range of Hotels – Budget to Luxury</li>
+            <li>Verified Guest Reviews</li>
+            <li>Best Price Guarantee</li>
+            <li>Easy Booking & Instant Confirmation</li>
+            <li>Special Discounts on Festival Dates</li>
+            <li>24x7 Customer Support</li>
+            <li>No Hidden Charges</li>
+        </ul>
 
-    <h4 class="mt-4">Experiences in Puri</h4>
-    <ul style="display: flex; flex-wrap: wrap;">
-        <li>Visit the Jagannath Temple</li>
-        <li>Enjoy a peaceful morning at Puri Beach</li>
-        <li>Attend Rath Yatra Festival</li>
-        <li>Explore Raghurajpur Artist Village</li>
-        <li>Take a short trip to Konark Sun Temple</li>
-        <li>Enjoy local delicacies like Khaja and Mahaprasad</li>
-    </ul>
+        <h4 class="mt-4" style="font-size: 15px;">Experiences in Puri</h4>
+        <ul style="display: flex; flex-wrap: wrap; font-size: 10px;">
+            <li>Visit the Jagannath Temple</li>
+            <li>Enjoy a peaceful morning at Puri Beach</li>
+            <li>Attend Rath Yatra Festival</li>
+            <li>Explore Raghurajpur Artist Village</li>
+            <li>Take a short trip to Konark Sun Temple</li>
+            <li>Enjoy local delicacies like Khaja and Mahaprasad</li>
+        </ul>
 
-    <h4 class="mt-4">Related Destinations Near Puri</h4>
-    <ul style="display: flex; flex-wrap: wrap;">
-        <li>Hotels in Bhubaneswar</li>
-        <li>Hotels in Konark</li>
-        <li>Hotels in Chilika</li>
-        <li>Hotels in Gopalpur</li>
-        <li>Hotels in Satapada</li>
-        <li>Hotels in Cuttack</li>
-    </ul>
+        <h4 class="mt-4" style="font-size: 15px;">Related Destinations Near Puri</h4>
+        <ul style="display: flex; flex-wrap: wrap; font-size: 10px;">
+            <li>Hotels in Bhubaneswar</li>
+            <li>Hotels in Konark</li>
+            <li>Hotels in Chilika</li>
+            <li>Hotels in Gopalpur</li>
+            <li>Hotels in Satapada</li>
+            <li>Hotels in Cuttack</li>
+        </ul>
 
-    <h4 class="mt-4">Corporate & Group Bookings</h4>
-    <p>Looking for <strong>bulk hotel bookings in Puri</strong> for weddings, pilgrim tours, school/college trips, or corporate stays? Get the best group discounts and end-to-end support. Reach out to our travel desk for customized packages.</p>
-</div>
+        <h4 class="mt-4" style="font-size: 15px;">Corporate & Group Bookings</h4>
+        <p style="font-size: 10px;">Looking for <strong>bulk hotel bookings in Puri</strong> for weddings, pilgrim tours, school/college trips, or corporate stays? Get the best group discounts and end-to-end support. Reach out to our travel desk for customized packages.</p>
+    </div>
 
     <div class="footer mt-auto bg-dark text-white pt-5 pb-4">
         <div class="container">
@@ -101,30 +101,30 @@
                         </a>
                         <p class="mb-4">Your trusted partner for hotel bookings, travel packages, and restaurant reservations in Puri, Bhubaneswar, and across Odisha. Experience the best of Odisha with our curated services.</p>
                         <div class="social-media-bar">
-                        <a href="#" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-facebook-f"></i>
-                            <span class="tooltip">Facebook</span>
-                        </a>
-                        <a href="#" class="social-icon twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-twitter"></i>
-                            <span class="tooltip">Twitter</span>
-                        </a>
-                        <a href="#" class="social-icon instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-instagram"></i>
-                            <span class="tooltip">Instagram</span>
-                        </a>
-                        <a href="#" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-youtube"></i>
-                            <span class="tooltip">YouTube</span>
-                        </a>
-                        <a href="#" class="social-icon linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin-in"></i>
-                            <span class="tooltip">LinkedIn</span>
-                        </a>
-                    </div>
+                            <a href="#" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-facebook-f"></i>
+                                <span class="tooltip">Facebook</span>
+                            </a>
+                            <a href="#" class="social-icon twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-twitter"></i>
+                                <span class="tooltip">Twitter</span>
+                            </a>
+                            <a href="#" class="social-icon instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-instagram"></i>
+                                <span class="tooltip">Instagram</span>
+                            </a>
+                            <a href="#" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-youtube"></i>
+                                <span class="tooltip">YouTube</span>
+                            </a>
+                            <a href="#" class="social-icon linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span class="tooltip">LinkedIn</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-2 col-md-6">
                     <div class="footer-widget">
                         <h5 class="widget-title">Quick Links</h5>
@@ -139,7 +139,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-widget">
                         <h5 class="widget-title">Popular Destinations</h5>
@@ -154,25 +154,25 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-widget">
                         <h5 class="widget-title">Contact Us</h5>
                         <ul class="footer-contact">
                             <li>
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>123 Temple Road, Near Jagannath Temple, Puri, Odisha 752001</span>
+                                <span>Room No 100, Hotel Blue Sagar,Near Bengali Market, Swargadwar, Puri, Odisha 752001</span>
                             </li>
                             <li>
                                 <i class="fas fa-phone-alt"></i>
                                 <div>
-                                    <a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a><br>
-                                    <a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a>
+                                    <a href="tel:+918338011114">+91-8338011114</a><br>
+                                    <a href="tel:+919583506050">+91-9583506050</a>
                                 </div>
                             </li>
                             <li>
                                 <i class="fas fa-envelope"></i>
-                                <a href="mailto:info@stayinpuri.com">info@stayinpuri.com</a>
+                                <a href="mailto:info@stayinpuri.in">info@stayinpuri.in</a>
                             </li>
                         </ul>
                         <div class="newsletter-widget mt-4">
@@ -187,9 +187,9 @@
                     </div>
                 </div>
             </div>
-            
+
             <hr class="my-4 bg-secondary">
-            
+
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="payment-methods mb-3 mb-md-0">
@@ -206,89 +206,103 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Back to Top Button -->
         <button id="backToTop" class="btn btn-primary back-to-top" aria-label="Back to top">
             <i class="fas fa-arrow-up"></i>
         </button>
-        
+
         <!-- WhatsApp Float Button -->
-        <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/919583506050" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
-    </footer>
+</footer>
 
-    
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
+
+<!-- Preloader -->
+<div class="preloader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
-    
-    <!-- JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.0/lightgallery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    
-    <!-- Main JS -->
-    <script src="assets/js/main.js" defer></script>
-    
-    <!-- Structured Data for FAQ Page -->
-    <?php if(basename($_SERVER['PHP_SELF']) == 'faq.php'): ?>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [{
-            "@type": "Question",
-            "name": "How do I make a booking?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "You can make a booking directly through our website by selecting your preferred hotel, dates, and room type. Alternatively, you can contact our customer support for assistance."
-            }
-        }, {
-            "@type": "Question",
-            "name": "What is your cancellation policy?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Our cancellation policy varies depending on the hotel and rate plan. Please check the specific terms during the booking process or contact our support team for details."
-            }
-        }]
-    }
-    </script>
-    <?php endif; ?>
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    
-    <!-- Facebook Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'YOUR_PIXEL_ID');
-        fbq('track', 'PageView');
-    </script>
-    <noscript>
-        <img height="1" width="1" style="display:none" 
-             src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/>
-    </noscript>
-    <!-- End Facebook Pixel Code -->
+</div>
 
-    
+<!-- JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.0/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+<!-- Main JS -->
+<script src="assets/js/main.js" defer></script>
+
+<!-- Structured Data for FAQ Page -->
+<?php if (basename($_SERVER['PHP_SELF']) == 'faq.php'): ?>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "How do I make a booking?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can make a booking directly through our website by selecting your preferred hotel, dates, and room type. Alternatively, you can contact our customer support for assistance."
+                }
+            }, {
+                "@type": "Question",
+                "name": "What is your cancellation policy?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our cancellation policy varies depending on the hotel and rate plan. Please check the specific terms during the booking process or contact our support team for details."
+                }
+            }]
+        }
+    </script>
+<?php endif; ?>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<!-- Facebook Pixel Code -->
+<script>
+    ! function(f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function() {
+            n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID');
+    fbq('track', 'PageView');
+</script>
+<noscript>
+    <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Facebook Pixel Code -->
+
+
 </body>
+
 </html>

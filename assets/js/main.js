@@ -609,6 +609,9 @@ class OffersSlider {
         this.cardWidth = 420; // 400px + 20px gap
         this.currentPosition = 0;
         this.maxPosition = 0;
+        this.autoSlideInterval = null;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
 
         this.init();
     }
@@ -617,6 +620,8 @@ class OffersSlider {
         this.calculateMaxPosition();
         this.updateButtons();
         this.bindEvents();
+        this.enableTouch();
+        this.startAutoSlide();
 
         // Recalculate on window resize
         window.addEventListener('resize', () => {
@@ -634,8 +639,15 @@ class OffersSlider {
     }
 
     bindEvents() {
-        this.prevBtn.addEventListener('click', () => this.slideLeft());
-        this.nextBtn.addEventListener('click', () => this.slideRight());
+        this.prevBtn.addEventListener('click', () => {
+            this.slideLeft();
+            this.resetAutoSlide();
+        });
+
+        this.nextBtn.addEventListener('click', () => {
+            this.slideRight();
+            this.resetAutoSlide();
+        });
     }
 
     slideLeft() {
@@ -657,7 +669,72 @@ class OffersSlider {
         this.prevBtn.classList.toggle('disabled', this.currentPosition === 0);
         this.nextBtn.classList.toggle('disabled', this.currentPosition >= this.maxPosition);
     }
+
+    // === Auto Slide ===
+    startAutoSlide() {
+        this.autoSlideInterval = setInterval(() => {
+            if (this.currentPosition < this.maxPosition) {
+                this.slideRight();
+            } else {
+                this.currentPosition = 0;
+                this.updateSlider();
+            }
+        }, 3000); // every 3 seconds
+    }
+
+    resetAutoSlide() {
+        clearInterval(this.autoSlideInterval);
+        this.startAutoSlide();
+    }
+
+    // === Touch Swipe ===
+    enableTouch() {
+        this.container.addEventListener('touchstart', (e) => {
+            this.touchStartX = e.touches[0].clientX;
+        });
+
+        this.container.addEventListener('touchmove', (e) => {
+            this.touchEndX = e.touches[0].clientX;
+        });
+
+        this.container.addEventListener('touchend', () => {
+            const distance = this.touchStartX - this.touchEndX;
+            if (Math.abs(distance) > 50) {
+                if (distance > 0) {
+                    this.slideRight();
+                } else {
+                    this.slideLeft();
+                }
+                this.resetAutoSlide();
+            }
+        });
+    }
 }
+
+// Initialize slider when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    let slider = new OffersSlider();
+
+    // Reinitialize slider when tab changes
+    const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
+    tabButtons.forEach(button => {
+        button.addEventListener('shown.bs.tab', function() {
+            setTimeout(() => {
+                slider = new OffersSlider(); // recreate to rebind all
+            }, 100);
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+
 
 // Initialize slider when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {

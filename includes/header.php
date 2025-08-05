@@ -23,7 +23,7 @@
     <meta property="twitter:description" content="Book hotels, tours, and restaurants in Puri, Bhubaneswar, and other locations. Best deals on travel packages and accommodations in Odisha.">
     <meta property="twitter:image" content="https://www.stayinpuri.com/assets/images/og-image.jpg">
 
-    <title>Stay in Puri - Hotel, Travel & Restaurant Booking in Puri & Bhubaneswar</title>
+    <title>Stay In Puri - Hotel, Travel & Restaurant Booking in Puri & Bhubaneswar</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -75,8 +75,8 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="contact-info">
-                        <span class="me-3"><i class="fas fa-phone-alt me-2"></i> +91-XXXXXXXXXX</span>
-                        <span><i class="fas fa-envelope me-2"></i> info@stayinpuri.com</span>
+                        <span class="me-3"><i class="fas fa-phone-alt me-2"></i> +91-8338011114</span>
+                        <span><i class="fas fa-envelope me-2"></i> info@stayinpuri.in</span>
                     </div>
                 </div>
                 <div class="col-md-6 text-end">
@@ -109,10 +109,10 @@
 
     <!-- Main Navigation -->
     <header class="main-header header-sticky">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white" >
             <div class="container">
-                <a class="navbar-brand" href="index.php">
-                    <img src="assets/img/stay-in-puri.png" alt="Stay in Puri" width="180" height="auto" class="img-fluid">
+                <a class="navbar-brand" href="index.php" style="padding: 0px;">
+                    <img src="assets/img/stay-in-puri.png" alt="Stay in Puri" width="120" height="auto" class="img-fluid">
                 </a>
                 
                 <!-- Mobile Toggle Buttons -->
@@ -184,53 +184,64 @@
         </nav>
     </header>
 
-    <!-- Menu Slider -->
-    <div class="menu-slider">
-        <div class="menu-slider-content">
-            <div class="menu-slider-header">
-                <h5>Menu</h5>
-                <button class="menu-slider-close">&times;</button>
-            </div>
-            <div class="menu-slider-body">
-                <ul class="menu-slider-nav">
-                    <li><a href="index.php" class="active">Home</a></li>
-                    <li class="menu-item-has-children">
-                        <a href="#">Hotels <i class="fas fa-chevron-down"></i></a>
-                        <ul class="sub-menu">
-                            <li><a href="hotels.php?city=puri">Hotels in Puri</a></li>
-                            <li><a href="hotels.php?city=bhubaneswar">Hotels in Bhubaneswar</a></li>
-                            <li><a href="hotels.php?type=resort">Resorts</a></li>
-                            <li><a href="hotels.php?type=budget">Budget Stays</a></li>
-                            <li><a href="hotels.php?type=luxury">Luxury Hotels</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="#">Restaurants <i class="fas fa-chevron-down"></i></a>
-                        <ul class="sub-menu">
-                            <li><a href="restaurants.php?city=puri">Restaurants in Puri</a></li>
-                            <li><a href="restaurants.php?city=bhubaneswar">Restaurants in Bhubaneswar</a></li>
-                            <li><a href="restaurants.php?cuisine=odiya">Odisha Cuisine</a></li>
-                            <li><a href="restaurants.php?cuisine=seafood">Seafood Specials</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="#">Tours <i class="fas fa-chevron-down"></i></a>
-                        <ul class="sub-menu">
-                            <li><a href="tours.php?type=spiritual">Spiritual Tours</a></li>
-                            <li><a href="tours.php?type=beach">Beach Tours</a></li>
-                            <li><a href="tours.php?type=wildlife">Wildlife Tours</a></li>
-                            <li><a href="tours.php?type=heritage">Heritage Tours</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    
 
+    <style>
+        /* Smooth transitions for offcanvas */
+        .offcanvas {
+            transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        
+        .offcanvas-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .offcanvas-start {
+            transform: translateX(-100%);
+        }
+        
+        .offcanvas.show {
+            transform: translateX(0);
+        }
+        
+        /* Smooth dropdown animations */
+        .offcanvas .collapse:not(.show) {
+            display: none;
+        }
+        
+        .offcanvas .collapsing {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.35s ease;
+        }
+        
+        /* Menu item hover effects */
+        .offcanvas .nav-link {
+            transition: all 0.2s ease;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.25rem;
+        }
+        
+        .offcanvas .nav-link:hover,
+        .offcanvas .nav-link:focus {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: translateX(5px);
+        }
+        
+        /* Rotate dropdown icon */
+        .offcanvas .nav-link[aria-expanded="true"] .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .offcanvas .fa-chevron-down {
+            transition: transform 0.2s ease;
+        }
+    </style>
+    
     <!-- Mobile Offcanvas Menu -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel" style="display: none;">
+     
+    <!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -261,7 +272,6 @@
                         </ul>
                     </div>
                 </li>
-                <!-- Similar structure for other dropdowns -->
                 <li class="nav-item">
                     <a class="nav-link" href="gallery.php">Gallery</a>
                 </li>
@@ -276,9 +286,66 @@
                 <a href="register.php" class="btn btn-primary w-100">Sign Up</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     
+
+    <!-- Initialize Bootstrap Offcanvas with Enhanced Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var mobileMenu = document.getElementById('mobileMenu');
+            var bsOffcanvas = new bootstrap.Offcanvas(mobileMenu, {
+                backdrop: true,
+                scroll: false
+            });
+            
+            // Add animation classes on show/hide
+            mobileMenu.addEventListener('show.bs.offcanvas', function () {
+                document.body.style.overflow = 'hidden';
+                document.body.style.paddingRight = '0';
+            });
+            
+            mobileMenu.addEventListener('shown.bs.offcanvas', function () {
+                // Add any additional animations after menu is shown
+            });
+            
+            mobileMenu.addEventListener('hide.bs.offcanvas', function () {
+                // Add any animations before hiding
+            });
+            
+            mobileMenu.addEventListener('hidden.bs.offcanvas', function () {
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            });
+            
+            // Handle dropdown toggles
+            var dropdownToggles = mobileMenu.querySelectorAll('[data-bs-toggle="collapse"]');
+            dropdownToggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    var target = document.querySelector(this.getAttribute('href'));
+                    var bsCollapse = new bootstrap.Collapse(target, { toggle: true });
+                    
+                    // Rotate icon
+                    var icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transition = 'transform 0.3s ease';
+                    }
+                });
+            });
+            
+            // Close offcanvas when clicking on nav links (except dropdown toggles)
+            var navLinks = mobileMenu.querySelectorAll('.nav-link:not([data-bs-toggle="collapse"])');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    var bsOffcanvas = bootstrap.Offcanvas.getInstance(mobileMenu);
+                    bsOffcanvas.hide();
+                });
+            });
+        });
+    </script>
 
     <!-- Main Content -->
     <main class="flex-shrink-0">

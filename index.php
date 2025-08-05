@@ -1,28 +1,80 @@
 <?php include 'includes/header.php'; ?>
 
-
-
-
-
-<!-- Simple Image Slider -->
-
-<div class="simple-slider">
-    <div class="slider-container">
-        <div class="slide_1 active">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Puri Beach">
-
+<!-- Hero Slider with Swiper -->
+<div class="hero-swiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+                
+            </div>
         </div>
-        <div class="slide_1">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Jagannath Temple">
-
-        </div>
-        <div class="slide_1">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Odisha Cuisine">
-
+        <div class="swiper-slide">
+            <div class="hero-slide" style="background-image: url('https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg');">
+                
+            </div>
         </div>
     </div>
-
 </div>
+
+<style>
+.hero-swiper {
+    height: 70vh;
+    min-height: 400px;
+    width: 100%;
+}
+.hero-slide {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.hero-slide:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+}
+.hero-slide .container {
+    position: relative;
+    z-index: 1;
+    color: white;
+    max-width: 600px;
+}
+.hero-slide h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+@media (max-width: 768px) {
+    .hero-swiper {
+        height: 50vh;
+    }
+    .hero-slide h2 {
+        font-size: 1.8rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.hero-swiper', {
+        loop: true,
+        autoplay: { delay: 5000 },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        effect: 'fade',
+        speed: 1000,
+        grabCursor: true
+    });
+});
+</script>
 
 
 <!-- Search Section -->
@@ -78,7 +130,7 @@
 
 
 
-<section class="  offers-section">
+<section class="offers-section">
     <div class="section-header">
         <h2 class="section-title">Offers</h2>
         <div class="view-all-container">
@@ -97,7 +149,7 @@
     </div>
 
     <!-- Offer Tabs -->
-    <ul class="nav nav-tabs" id="offerTabs" role="tablist">
+    <ul class="nav nav-tabs" id="offerTabs" role="tablist" style="flex-wrap: nowrap;overflow-x: scroll;overflow-y: hidden;">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="hotels-offers-tab" data-bs-toggle="tab" data-bs-target="#hotels-offers" type="button" role="tab" aria-controls="hotels-offers" aria-selected="true">Hotels</button>
         </li>
@@ -317,143 +369,207 @@
 
 <!-- Top Destinations Section -->
 <section class="top-destinations py-5 bg-light">
-    <div class="" style="margin: 20px; padding: 24px;">
-        <div class="section-header text-center mb-5">
-            <h2 class="fw-bold">Top Destinations</h2>
-            <p class="text-muted">Explore our most popular destinations</p>
+    <div class="container">
+        <div class="section-header d-flex justify-content-between align-items-center mb-4">
+            <div class="section-title">
+                <h2 class="fw-bold mb-1">Top Destinations</h2>
+                <p class="text-muted mb-0">Explore our most popular destinations</p>
+            </div>
+            <div class="slider-nav d-none d-md-flex">
+                <button class="btn btn-sm btn-outline-secondary me-2 destination-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary destination-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
         
         <!-- Swiper -->
-        <div class="swiper destinations-swiper">
-            <div class="swiper-wrapper pb-4">
-                <!-- Destination 1 -->
-                <div class="swiper-slide">
-                    <div class="destination-card h-100">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="position-relative">
-                                <img src="images.jpeg" class="card-img-top" alt="Destination 1">
-                                <div class="price-tag">
-                                    <span class="badge bg-primary">From ₹1,999</span>
-                                </div>
-                                <div class="rating-badge">
-                                    <span class="badge bg-success">4.5 ★</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title mb-1">Goa Beaches</h5>
-                                <p class="text-muted small mb-2">3 Days, 2 Nights</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="location">
-                                        <i class="fas fa-map-marker-alt text-primary"></i>
-                                        <span>Goa, India</span>
+        <div class="position-relative">
+            <div class="swiper destinations-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Destination 1 -->
+                    
+                    <!-- Destination 2 -->
+                    <div class="swiper-slide">
+                        <div class="destination-card h-100">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="position-relative">
+                                    <img src="images.jpeg" class="card-img-top" alt="Destination 2">
+                                    <div class="price-tag">
+                                        <span class="badge bg-primary">From ₹2,999</span>
                                     </div>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    <div class="rating-badge">
+                                        <span class="badge bg-success">4.7 ★</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title mb-1">Kerala Backwaters</h5>
+                                    <p class="text-muted small mb-2">4 Days, 3 Nights</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="location">
+                                            <i class="fas fa-map-marker-alt text-primary"></i>
+                                            <span>Kerala, India</span>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Destination 2 -->
-                <div class="swiper-slide">
-                    <div class="destination-card h-100">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="position-relative">
-                                <img src="images.jpeg" class="card-img-top" alt="Destination 2">
-                                <div class="price-tag">
-                                    <span class="badge bg-primary">From ₹2,999</span>
-                                </div>
-                                <div class="rating-badge">
-                                    <span class="badge bg-success">4.7 ★</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title mb-1">Kerala Backwaters</h5>
-                                <p class="text-muted small mb-2">4 Days, 3 Nights</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="location">
-                                        <i class="fas fa-map-marker-alt text-primary"></i>
-                                        <span>Kerala, India</span>
+                    <!-- Destination 3 -->
+                    <div class="swiper-slide">
+                        <div class="destination-card h-100">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="position-relative">
+                                    <img src="images.jpeg" class="card-img-top" alt="Destination 3">
+                                    <div class="price-tag">
+                                        <span class="badge bg-primary">From ₹3,499</span>
                                     </div>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    <div class="rating-badge">
+                                        <span class="badge bg-success">4.8 ★</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title mb-1">Manali Hills</h5>
+                                    <p class="text-muted small mb-2">5 Days, 4 Nights</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="location">
+                                            <i class="fas fa-map-marker-alt text-primary"></i>
+                                            <span>Himachal Pradesh, India</span>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Destination 3 -->
-                <div class="swiper-slide">
-                    <div class="destination-card h-100">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="position-relative">
-                                <img src="images.jpeg" class="card-img-top" alt="Destination 3">
-                                <div class="price-tag">
-                                    <span class="badge bg-primary">From ₹3,499</span>
-                                </div>
-                                <div class="rating-badge">
-                                    <span class="badge bg-success">4.8 ★</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title mb-1">Manali Hills</h5>
-                                <p class="text-muted small mb-2">5 Days, 4 Nights</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="location">
-                                        <i class="fas fa-map-marker-alt text-primary"></i>
-                                        <span>Himachal Pradesh, India</span>
+                    <!-- Destination 4 -->
+                    <div class="swiper-slide">
+                        <div class="destination-card h-100">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="position-relative">
+                                    <img src="images.jpeg" class="card-img-top" alt="Destination 4">
+                                    <div class="price-tag">
+                                        <span class="badge bg-primary">From ₹2,799</span>
                                     </div>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    <div class="rating-badge">
+                                        <span class="badge bg-success">4.6 ★</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title mb-1">Rajasthan Forts</h5>
+                                    <p class="text-muted small mb-2">6 Days, 5 Nights</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="location">
+                                            <i class="fas fa-map-marker-alt text-primary"></i>
+                                            <span>Rajasthan, India</span>
+                                        </div>
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Add more destinations here if needed -->
                 </div>
-                
-                <!-- Destination 4 -->
-                <div class="swiper-slide">
-                    <div class="destination-card h-100">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="position-relative">
-                                <img src="images.jpeg" class="card-img-top" alt="Destination 4">
-                                <div class="price-tag">
-                                    <span class="badge bg-primary">From ₹2,799</span>
-                                </div>
-                                <div class="rating-badge">
-                                    <span class="badge bg-success">4.6 ★</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title mb-1">Rajasthan Forts</h5>
-                                <p class="text-muted small mb-2">6 Days, 5 Nights</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="location">
-                                        <i class="fas fa-map-marker-alt text-primary"></i>
-                                        <span>Rajasthan, India</span>
-                                    </div>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Add more destinations here if needed -->
+                <!-- Mobile Pagination -->
+                <div class="swiper-pagination d-md-none mt-3"></div>
             </div>
-            
-            <!-- Navigation buttons -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            
         </div>
         
        
     </div>
 </section>
 
-<!-- Initialize Swiper -->
+<style>
+/* Destination Slider Styles */
+.destination-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.destination-card:hover {
+    transform: translateY(-5px);
+}
+
+.destination-content {
+    border-radius: 0 0 0.25rem 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.destination-card .card {
+    overflow: hidden;
+}
+
+.destination-card img {
+    transition: transform 0.5s ease;
+}
+
+.destination-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .section-header {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .destination-card {
+        margin-bottom: 1rem;
+    }
+}
+</style>
+
+<!-- Initialize Destination Swiper -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Destination Swiper
+    const destinationSwiper = new Swiper('.destinations-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        grabCursor: true,
+        navigation: {
+            nextEl: '.destination-next',
+            prevEl: '.destination-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            }
+        },
+        on: {
+            init: function() {
+                // Add animation class to active slides
+                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
+            },
+            slideChange: function() {
+                // Update animation classes on slide change
+                this.slides.forEach(slide => {
+                    slide.classList.remove('swiper-slide-visible');
+                });
+                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
+            }
+        }
+    });
     new Swiper('.destinations-swiper', {
         slidesPerView: 1,
         spaceBetween: 20,
