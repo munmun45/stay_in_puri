@@ -16,176 +16,6 @@
     </div>
 </div>
 
-<style>
-.hero-swiper {
-    height: 70vh;
-    min-height: 400px;
-    width: 100%;
-}
-.hero-slide {
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-.hero-slide:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0);
-}
-.hero-slide .container {
-    position: relative;
-    z-index: 1;
-    color: white;
-    max-width: 600px;
-}
-.hero-slide h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-@media (max-width: 768px) {
-    .hero-swiper {
-        height: 50vh;
-    }
-    .hero-slide h2 {
-        font-size: 1.8rem;
-    }
-}
-</style>
-
-<!-- Include jQuery and daterangepicker -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-<script>
-// Guest Selector Functions
-function toggleGuestDropdown() {
-    const dropdown = document.getElementById('guestDropdown');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-function closeGuestDropdown() {
-    document.getElementById('guestDropdown').style.display = 'none';
-}
-
-function updateGuestCount(type, change) {
-    const countElement = document.getElementById(`${type}-count`);
-    const inputElement = document.getElementById(type);
-    let count = parseInt(countElement.textContent) + change;
-    
-    // Set min and max values
-    if (type === 'adults') {
-        count = Math.max(1, Math.min(10, count));
-    } else if (type === 'children') {
-        count = Math.max(0, Math.min(4, count));
-    } else if (type === 'rooms') {
-        count = Math.max(1, Math.min(5, count));
-    }
-    
-    // Update the display and hidden input
-    countElement.textContent = count;
-    inputElement.value = count;
-    
-    // Update minus button disabled state
-    const minusBtn = countElement.previousElementSibling;
-    const plusBtn = countElement.nextElementSibling;
-    
-    if (type === 'adults' || type === 'rooms') {
-        minusBtn.disabled = count <= 1;
-        plusBtn.disabled = count >= (type === 'adults' ? 10 : 5);
-    } else {
-        minusBtn.disabled = count <= 0;
-        plusBtn.disabled = count >= 4;
-    }
-}
-
-function applyGuestSelection() {
-    const adults = parseInt(document.getElementById('adults').value);
-    const children = parseInt(document.getElementById('children').value);
-    const rooms = parseInt(document.getElementById('rooms').value);
-    
-    let displayText = `${adults} ${adults === 1 ? 'Adult' : 'Adults'}`;
-    if (children > 0) {
-        displayText += `, ${children} ${children === 1 ? 'Child' : 'Children'}`;
-    }
-    displayText += `, ${rooms} ${rooms === 1 ? 'Room' : 'Rooms'}`;
-    
-    document.getElementById('guests-display').value = displayText;
-    closeGuestDropdown();
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', function(event) {
-    const dropdown = document.getElementById('guestDropdown');
-    const input = document.getElementById('guests-display');
-    if (!dropdown.contains(event.target) && event.target !== input) {
-        dropdown.style.display = 'none';
-    }
-});
-
-// Initialize Swiper
-$(document).ready(function() {
-    // Initialize Hero Swiper
-    new Swiper('.hero-swiper', {
-        loop: true,
-        autoplay: { delay: 5000 },
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        effect: 'fade',
-        speed: 1000,
-        grabCursor: true
-    });
-
-    // Initialize Date Range Picker
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'left',
-        autoUpdateInput: false,
-        minDate: new Date(),
-        locale: {
-            cancelLabel: 'Clear',
-            format: 'DD/MM/YYYY',
-            separator: ' - ',
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
-            fromLabel: 'From',
-            toLabel: 'To',
-            customRangeLabel: 'Custom',
-            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            firstDay: 1
-        }
-    }, function(start, end, label) {
-        // Format the dates as needed
-        var startDate = start.format('DD/MM/YYYY');
-        var endDate = end.format('DD/MM/YYYY');
-        
-        // Set the input field value
-        $('input[name="daterange"]').val(startDate + ' - ' + endDate);
-        
-        // Set the hidden input values
-        $('#checkin').val(start.format('YYYY-MM-DD'));
-        $('#checkout').val(end.format('YYYY-MM-DD'));
-    });
-    
-    // Clear the date range picker
-    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-        $('#checkin').val('');
-        $('#checkout').val('');
-    });
-});
-</script>
 
 
 <!-- Search Section -->
@@ -309,27 +139,68 @@ $(document).ready(function() {
                     <form action="search.php" method="GET" class="search-form">
                         <input type="hidden" name="type" value="restaurants">
                         <div class="row g-3 align-items-end">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="restaurant-location" class="form-label fw-500 text-muted mb-1">Location</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-white"><i class="fas fa-map-marker-alt text-primary"></i></span>
-                                        <input type="text" class="form-control border-start-0 ps-1" id="restaurant-location" placeholder="Search by location or cuisine" required>
+                                        <select class="form-select border-start-0 ps-1" id="restaurant-location" name="location" required>
+                                            <option value="">Select Location</option>
+                                            <option value="puri">Puri, Odisha</option>
+                                            <option value="bhubaneswar">Bhubaneswar, Odisha</option>
+                                            <option value="cuttack">Cuttack, Odisha</option>
+                                            <option value="konark">Konark, Odisha</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="restaurant-date" class="form-label fw-500 text-muted mb-1">Date</label>
+                                    <label for="restaurant-datetime" class="form-label fw-500 text-muted mb-1">Date & Time</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-white"><i class="far fa-calendar-alt text-primary"></i></span>
-                                        <input type="date" class="form-control border-start-0 ps-1" id="restaurant-date">
+                                        <input type="text" class="form-control border-start-0 ps-1" id="restaurant-datetime" readonly>
+                                        <input type="hidden" id="restaurant-date" name="date">
+                                        <input type="hidden" id="restaurant-time" name="time">
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="restaurant-guests-display" class="form-label fw-500 text-muted mb-1">Guests</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-users text-primary"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-1" id="restaurant-guests-display" readonly value="2 People" onclick="toggleRestaurantGuestDropdown()">
+                                        <input type="hidden" id="restaurant-people" name="people" value="2">
+                                        
+                                        <!-- Restaurant Guest Selection Dropdown -->
+                                        <div class="guest-selector-dropdown" id="restaurantGuestDropdown">
+                                            <div class="guest-option">
+                                                <div class="guest-label">
+                                                    <span>People</span>
+                                                    <small>Including children</small>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-minus" onclick="updateRestaurantGuestCount(-1)" disabled>-</button>
+                                                    <span id="restaurant-people-count" class="px-2">2</span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-plus" onclick="updateRestaurantGuestCount(1)">+</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="guest-dropdown-footer">
+                                                <button type="button" class="btn btn-sm btn-link text-muted" onclick="closeRestaurantGuestDropdown()">Cancel</button>
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="applyRestaurantGuestSelection()">Apply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="col-md-2">
                                 <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
-                                    <i class="fas fa-search me-2"></i>Find
+                                    <i class="fas fa-search me-2"></i>Find Tables
                                 </button>
                             </div>
                         </div>
@@ -391,197 +262,6 @@ $(document).ready(function() {
         </div>
     </div>
 </section>
-
-<style>
-/* Guest Selector Styles */
-.guest-selector-dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 5px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.guest-option {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.guest-option:last-child {
-    border-bottom: none;
-}
-
-.guest-label {
-    flex: 1;
-}
-
-.guest-label span {
-    display: block;
-    font-weight: 500;
-    color: #333;
-}
-
-.guest-label small {
-    font-size: 12px;
-    color: #6c757d;
-}
-
-.guest-counter {
-    display: flex;
-    align-items: center;
-}
-
-.guest-counter button {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    font-size: 14px;
-    line-height: 1;
-}
-
-.guest-counter span {
-    min-width: 30px;
-    text-align: center;
-    font-weight: 500;
-}
-
-.guest-dropdown-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid #f0f0f0;
-}
-
-.guest-dropdown-footer .btn {
-    margin-left: 10px;
-    padding: 5px 15px;
-}
-
-/* Search Section Styles */
-.search-section {
-    position: relative;
-    z-index: 10;
-    margin-top: -157px;
-    border-radius: 10px;
-}
-
-.search-tabs .nav-pills {
-    background: #f8f9fa;
-    padding: 8px;
-    border-radius: 50px;
-    display: inline-flex;
-}
-
-.search-tabs .nav-link {
-    color: #495057;
-    border-radius: 50px;
-    padding: 10px 20px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: none;
-    margin: 0 2px;
-}
-
-.search-tabs .nav-link.active {
-    background: #0d6efd;
-    color: white;
-    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.3);
-}
-
-.search-tabs .nav-link i {
-    margin-right: 8px;
-}
-
-.tab-content {
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-}
-
-.form-label {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #6c757d;
-    margin-bottom: 0.5rem;
-}
-
-.input-group-text {
-    border-right: none;
-    background: transparent;
-}
-
-.form-control, .form-select {
-    border-left: none;
-    padding-left: 0.5rem;
-}
-
-.form-control:focus, .form-select:focus {
-    box-shadow: none;
-    border-color: #dee2e6;
-}
-
-.btn-primary {
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-/* Responsive Styles */
-@media (max-width: 991.98px) {
-    .search-tabs .nav-pills {
-        width: 100%;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        padding: 6px;
-    }
-    
-    .search-tabs .nav-link {
-        white-space: nowrap;
-        padding: 8px 15px;
-        font-size: 0.9rem;
-    }
-    
-    .search-section {
-        margin-top: -15px;
-    }
-}
-
-@media (max-width: 767.98px) {
-    .form-group {
-        margin-bottom: 1rem;
-    }
-    
-    .search-section {
-        margin: 0 -15px;
-        border-radius: 0;
-    }
-    
-    .tab-content {
-        padding: 15px !important;
-    }
-    
-    .search-tabs .nav-pills {
-        border-radius: 8px;
-    }
-}
-</style>
-
 
 
 
@@ -939,258 +619,6 @@ $(document).ready(function() {
     </div>
 </section>
 
-<style>
-/* Destination Slider Styles */
-.destination-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-}
 
-.destination-card:hover {
-    transform: translateY(-5px);
-}
-
-.destination-content {
-    border-radius: 0 0 0.25rem 0.25rem;
-    transition: all 0.3s ease;
-}
-
-.destination-card .card {
-    overflow: hidden;
-}
-
-.destination-card img {
-    transition: transform 0.5s ease;
-}
-
-.destination-card:hover img {
-    transform: scale(1.05);
-}
-
-/* Responsive adjustments */
-@media (max-width: 767.98px) {
-    .section-header {
-        margin-bottom: 0.5rem !important;
-    }
-    
-    .destination-card {
-        margin-bottom: 1rem;
-    }
-}
-</style>
-
-<!-- Initialize Destination Swiper -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Destination Swiper
-    const destinationSwiper = new Swiper('.destinations-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        speed: 800,
-        grabCursor: true,
-        navigation: {
-            nextEl: '.destination-next',
-            prevEl: '.destination-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            992: {
-                slidesPerView: 4,
-            }
-        },
-        on: {
-            init: function() {
-                // Add animation class to active slides
-                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
-            },
-            slideChange: function() {
-                // Update animation classes on slide change
-                this.slides.forEach(slide => {
-                    slide.classList.remove('swiper-slide-visible');
-                });
-                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
-            }
-        }
-    });
-    new Swiper('.destinations-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        autoplay: {
-            delay: 3000, // 3 seconds delay between slides
-            disableOnInteraction: false,
-        },
-        speed: 800, // Animation speed in ms
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            992: {
-                slidesPerView: 3,
-            },
-            1200: {
-                slidesPerView: 4,
-            },
-        }
-    });
-});
-</script>
-
-<!-- Add this to your CSS file -->
-<style>
-.top-destinations {
-    padding: 60px 0;
-    position: relative;
-}
-
-.destinations-swiper {
-    padding: 20px 0 40px;
-}
-
-.destination-card {
-    transition: transform 0.3s ease;
-    margin-bottom: 20px;
-    height: 100%;
-}
-
-.destination-card:hover {
-    transform: translateY(-5px);
-}
-
-.card {
-    border-radius: 10px;
-    overflow: hidden;
-    height: 100%;
-    margin: 0 5px;
-}
-
-.card-img-top {
-    height: 200px;
-    width: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.destination-card:hover .card-img-top {
-    transform: scale(1.05);
-}
-
-.price-tag {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 2;
-}
-
-.rating-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 2;
-}
-
-.card-body {
-    padding: 1.25rem;
-}
-
-.card-title {
-    font-weight: 600;
-    color: #333;
-}
-
-.location {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.location i {
-    margin-right: 5px;
-}
-
-.btn-outline-primary {
-    border-width: 1px;
-    font-size: 0.8rem;
-    padding: 0.25rem 0.75rem;
-}
-
-.section-header h2 {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.section-header h2:after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 3px;
-    background: var(--bs-primary);
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Swiper Navigation */
-.swiper-button-next,
-.swiper-button-prev {
-    color: var(--bs-primary);
-    background: rgba(255, 255, 255, 0.8);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.swiper-button-next:after,
-.swiper-button-prev:after {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    background: var(--bs-primary);
-    color: white;
-}
-
-/* Pagination */
-.swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    background: #ccc;
-    opacity: 1;
-}
-
-.swiper-pagination-bullet-active {
-    background: var(--bs-primary);
-    transform: scale(1.2);
-}
-</style>
 
 <?php include 'includes/footer.php'; ?>

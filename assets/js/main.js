@@ -750,3 +750,317 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Guest Selector Functions
+function toggleGuestDropdown() {
+    const dropdown = document.getElementById('guestDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function closeGuestDropdown() {
+    document.getElementById('guestDropdown').style.display = 'none';
+}
+
+function updateGuestCount(type, change) {
+    const countElement = document.getElementById(`${type}-count`);
+    const inputElement = document.getElementById(type);
+    let count = parseInt(countElement.textContent) + change;
+
+    // Set min and max values
+    if (type === 'adults') {
+        count = Math.max(1, Math.min(10, count));
+    } else if (type === 'children') {
+        count = Math.max(0, Math.min(4, count));
+    } else if (type === 'rooms') {
+        count = Math.max(1, Math.min(5, count));
+    }
+
+    // Update the display and hidden input
+    countElement.textContent = count;
+    inputElement.value = count;
+
+    // Update minus button disabled state
+    const minusBtn = countElement.previousElementSibling;
+    const plusBtn = countElement.nextElementSibling;
+
+    if (type === 'adults' || type === 'rooms') {
+        minusBtn.disabled = count <= 1;
+        plusBtn.disabled = count >= (type === 'adults' ? 10 : 5);
+    } else {
+        minusBtn.disabled = count <= 0;
+        plusBtn.disabled = count >= 4;
+    }
+}
+
+function applyGuestSelection() {
+    const adults = parseInt(document.getElementById('adults').value);
+    const children = parseInt(document.getElementById('children').value);
+    const rooms = parseInt(document.getElementById('rooms').value);
+
+    let displayText = `${adults} ${adults === 1 ? 'Adult' : 'Adults'}`;
+    if (children > 0) {
+        displayText += `, ${children} ${children === 1 ? 'Child' : 'Children'}`;
+    }
+    displayText += `, ${rooms} ${rooms === 1 ? 'Room' : 'Rooms'}`;
+
+    document.getElementById('guests-display').value = displayText;
+    closeGuestDropdown();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('guestDropdown');
+    const input = document.getElementById('guests-display');
+    if (!dropdown.contains(event.target) && event.target !== input) {
+        dropdown.style.display = 'none';
+    }
+});
+
+// Restaurant Guest Selector Functions
+function toggleRestaurantGuestDropdown() {
+    const dropdown = document.getElementById('restaurantGuestDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function closeRestaurantGuestDropdown() {
+    document.getElementById('restaurantGuestDropdown').style.display = 'none';
+}
+
+function updateRestaurantGuestCount(change) {
+    const countElement = document.getElementById('restaurant-people-count');
+    const inputElement = document.getElementById('restaurant-people');
+    let count = parseInt(countElement.textContent) + change;
+
+    // Set min and max values (1-10 people)
+    count = Math.max(1, Math.min(10, count));
+
+    // Update the display and hidden input
+    countElement.textContent = count;
+    inputElement.value = count;
+
+    // Update buttons state
+    const minusBtn = countElement.previousElementSibling;
+    const plusBtn = countElement.nextElementSibling;
+
+    minusBtn.disabled = count <= 1;
+    plusBtn.disabled = count >= 10;
+}
+
+function applyRestaurantGuestSelection() {
+    const people = parseInt(document.getElementById('restaurant-people').value);
+    const displayText = people + (people === 1 ? ' Person' : ' People');
+    document.getElementById('restaurant-guests-display').value = displayText;
+    closeRestaurantGuestDropdown();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('guestDropdown');
+    const input = document.getElementById('guests-display');
+    const restaurantDropdown = document.getElementById('restaurantGuestDropdown');
+    const restaurantInput = document.getElementById('restaurant-guests-display');
+
+    if (dropdown && !dropdown.contains(event.target) && event.target !== input) {
+        dropdown.style.display = 'none';
+    }
+
+    if (restaurantDropdown && !restaurantDropdown.contains(event.target) && event.target !== restaurantInput) {
+        restaurantDropdown.style.display = 'none';
+    }
+});
+
+// Initialize Swiper
+$(document).ready(function() {
+    // Initialize Hero Swiper
+    new Swiper('.hero-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 5000
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        effect: 'fade',
+        speed: 1000,
+        grabCursor: true
+    });
+
+    // Initialize Restaurant Date Time Picker
+    $('#restaurant-datetime').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        singleDatePicker: true,
+        timePicker24Hour: false,
+        locale: {
+            format: 'MMMM D, YYYY h:mm A',
+            applyLabel: 'Select',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        },
+        minDate: new Date(),
+        startDate: new Date(new Date().setHours(19, 0, 0, 0)), // Default to 7:00 PM
+        minHour: 8, // 8 AM
+        maxHour: 22 // 10 PM
+    }, function(start, end, label) {
+        $('#restaurant-date').val(start.format('YYYY-MM-DD'));
+        $('#restaurant-time').val(start.format('HH:mm'));
+    });
+
+    // Set initial values
+    const now = new Date();
+    $('#restaurant-date').val(now.toISOString().split('T')[0]);
+    $('#restaurant-time').val('19:00');
+
+    // Initialize Date Range Picker
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left',
+        autoUpdateInput: false,
+        minDate: new Date(),
+        locale: {
+            cancelLabel: 'Clear',
+            format: 'DD/MM/YYYY',
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        }
+    }, function(start, end, label) {
+        // Format the dates as needed
+        var startDate = start.format('DD/MM/YYYY');
+        var endDate = end.format('DD/MM/YYYY');
+
+        // Set the input field value
+        $('input[name="daterange"]').val(startDate + ' - ' + endDate);
+
+        // Set the hidden input values
+        $('#checkin').val(start.format('YYYY-MM-DD'));
+        $('#checkout').val(end.format('YYYY-MM-DD'));
+    });
+
+    // Clear the date range picker
+    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+        $('#checkin').val('');
+        $('#checkout').val('');
+    });
+});
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Destination Swiper
+    const destinationSwiper = new Swiper('.destinations-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        grabCursor: true,
+        navigation: {
+            nextEl: '.destination-next',
+            prevEl: '.destination-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            }
+        },
+        on: {
+            init: function() {
+                // Add animation class to active slides
+                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
+            },
+            slideChange: function() {
+                // Update animation classes on slide change
+                this.slides.forEach(slide => {
+                    slide.classList.remove('swiper-slide-visible');
+                });
+                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
+            }
+        }
+    });
+    new Swiper('.destinations-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 3000, // 3 seconds delay between slides
+            disableOnInteraction: false,
+        },
+        speed: 800, // Animation speed in ms
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            992: {
+                slidesPerView: 3,
+            },
+            1200: {
+                slidesPerView: 4,
+            },
+        }
+    });
+});
