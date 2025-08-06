@@ -50,6 +50,7 @@
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="assets/css/style_1.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="assets/css/style.css"></noscript>
     
     <!-- Structured Data -->

@@ -1,54 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include 'includes/header.php';
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Booking - Goa</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<br>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f7fa;
-            min-height: 100vh;
-        }
+<style>
+    .hotel-pricing{
+        position: relative;
+    }
+</style>
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
+<!-- Room Listing Section -->
+<div class="container">
         <!-- Header Search -->
         <div class="search-header">
-            <div class="search-grid">
-                <div class="search-field">
-                    <label>CITY, AREA OR PROPERTY</label>
-                    <input type="text" value="Goa">
+        <div class="tab-pane fade show active" id="hotels" role="tabpanel" aria-labelledby="hotels-tab">
+                    <form action="search.php" method="GET" class="search-form">
+                        <input type="hidden" name="type" value="hotels">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="destination" class="form-label fw-500 text-muted mb-1">Destination</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-map-marker-alt text-primary"></i></span>
+                                        <select class="form-select border-start-0 ps-1" id="destination" name="destination" required>
+                                            <option value="">Where are you going?</option>
+                                            <option value="puri">Puri, Odisha</option>
+                                            <option value="bhubaneswar">Bhubaneswar, Odisha</option>
+                                            <option value="konark">Konark, Odisha</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="daterange" class="form-label fw-500 text-muted mb-1">Check-in / Check-out</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="far fa-calendar-alt text-primary"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-1" id="daterange" name="daterange" value="" placeholder="Select dates" readonly>
+                                        <input type="hidden" id="checkin" name="checkin">
+                                        <input type="hidden" id="checkout" name="checkout">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="guests-display" class="form-label fw-500 text-muted mb-1">Guests & Rooms</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="fas fa-users text-primary"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-1" id="guests-display" readonly value="2 Adults, 1 Room" onclick="toggleGuestDropdown()">
+                                        <input type="hidden" id="adults" name="adults" value="2">
+                                        <input type="hidden" id="children" name="children" value="0">
+                                        <input type="hidden" id="rooms" name="rooms" value="1">
+                                        
+                                        <!-- Guest Selection Dropdown -->
+                                        <div class="guest-selector-dropdown" id="guestDropdown">
+                                            <div class="guest-option">
+                                                <div class="guest-label">
+                                                    <span>Adults</span>
+                                                    <small>Ages 13 or above</small>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-minus" onclick="updateGuestCount('adults', -1)">-</button>
+                                                    <span id="adults-count" class="px-2">2</span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-plus" onclick="updateGuestCount('adults', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="guest-option">
+                                                <div class="guest-label">
+                                                    <span>Children</span>
+                                                    <small>Ages 0-12</small>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-minus" onclick="updateGuestCount('children', -1)" disabled>-</button>
+                                                    <span id="children-count" class="px-2">0</span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-plus" onclick="updateGuestCount('children', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="guest-option">
+                                                <div class="guest-label">
+                                                    <span>Rooms</span>
+                                                </div>
+                                                <div class="guest-counter">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-minus" onclick="updateGuestCount('rooms', -1)" disabled>-</button>
+                                                    <span id="rooms-count" class="px-2">1</span>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary btn-plus" onclick="updateGuestCount('rooms', 1)">+</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="guest-dropdown-footer">
+                                                <button type="button" class="btn btn-sm btn-link text-muted" onclick="closeGuestDropdown()">Cancel</button>
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="applyGuestSelection()">Apply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+                                    <i class="fas fa-search me-2"></i>Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="search-field">
-                    <label>CHECK-IN</label>
-                    <input type="text" value="Thu, 7 Aug 2025">
-                </div>
-                <div class="search-field">
-                    <label>CHECK-OUT</label>
-                    <input type="text" value="Fri, 8 Aug 2025">
-                </div>
-                <div class="search-field">
-                    <label>ROOMS & GUESTS</label>
-                    <input type="text" value="1 Room, 2 Adults">
-                </div>
-                <button class="search-btn">SEARCH</button>
-            </div>
         </div>
 
         <!-- Breadcrumb -->
@@ -67,8 +127,7 @@
             <div>
                 <!-- Map Section -->
                 <div class="map-section">
-                    <div class="map-placeholder">Interactive Map View</div>
-                    <button class="explore-map-btn">📍 EXPLORE ON MAP</button>
+                    
                     <div class="search-location">
                         <input type="text" placeholder="Search for locality">
                     </div>
@@ -101,12 +160,7 @@
 
                     <div class="filter-section">
                         <div class="filter-title">Price per night</div>
-                        <div class="price-range">
-                            <input type="number" placeholder="Min" value="0">
-                            <span>to</span>
-                            <input type="number" placeholder="Max" value="50000">
-                            <button class="price-range-btn">→</button>
-                        </div>
+                        
                         <div class="filter-option">
                             <label><input type="checkbox"> ₹0 - ₹2000</label>
                             <span class="filter-count">(889)</span>
@@ -141,15 +195,7 @@
                         </div>
                     </div>
 
-                    <div class="filter-section">
-                        <div class="filter-title">Your Budget</div>
-                        <div class="price-range">
-                            <input type="number" placeholder="Min">
-                            <span>to</span>
-                            <input type="number" placeholder="Max">
-                            <button class="price-range-btn">→</button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -204,7 +250,7 @@
                                 <div class="current-price">₹2,999</div>
                                 <div class="price-note">+ ₹360 taxes & fees<br>Per Night</div>
                             </div>
-                            <button class="book-button">Login to Book Now & Pay Later!</button>
+                            <button class="book-button">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -250,7 +296,7 @@
                                 <div class="current-price">₹2,800</div>
                                 <div class="price-note">+ ₹336 taxes & fees<br>Per Night</div>
                             </div>
-                            <button class="book-button">Login to Book Now & Pay Later!</button>
+                            <button class="book-button">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -293,7 +339,7 @@
                                 <div class="current-price">₹3,600</div>
                                 <div class="price-note">+ ₹432 taxes & fees<br>Per Night</div>
                             </div>
-                            <button class="book-button">Login to Book Now & Pay Later!</button>
+                            <button class="book-button">Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -301,34 +347,8 @@
         </div>
     </div>
 
-    <script>
-        // Mock hotel data for demonstration
-        const hotelData = [{
-            name: "Ginger Goa, Candolim",
-            location: "Candolim | 870m drive to Candolim Beach",
-            stars: 4,
-            rating: 4.4,
-            reviews: 1252,
-            price: 2999,
-            originalPrice: null,
-            image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
-            features: ["Couple Friendly"],
-            amenities: ["Free Cancellation till 24 hrs before check in", "Enjoy a Free Breakfast upgrade along with 20% off on F&B"]
-        }];
+    <br>
+    <br>
+    <br>
 
-        function searchHotels() {
-            console.log('Searching hotels...');
-        }
-
-        function sortBy(criteria) {
-            // Remove active class from all sort buttons
-            document.querySelectorAll('.sort-option').forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            event.target.classList.add('active');
-        }
-
-        // Add click handlers to sort options
-        document.addEventListener('DOMContentLoaded', function() {
-                    document.querySelectorAll('.sort-option').forEach(option => {
-                                option.addEventListener('click', function() {
-                                            document.quer
+<?php include 'includes/footer.php'; ?>
