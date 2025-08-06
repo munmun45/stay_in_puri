@@ -140,19 +140,20 @@
                             <a class="nav-link active" href="index.php">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="hotelsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="hotels.php" id="hotelsDropdown" role="button" data-bs-hover="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                 Hotels
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="hotelsDropdown">
-                                <li><a class="dropdown-item" href="hotels.php?city=puri">Hotels in Puri</a></li>
-                                <li><a class="dropdown-item" href="hotels.php?city=bhubaneswar">Hotels in Bhubaneswar</a></li>
-                                <li><a class="dropdown-item" href="hotels.php?type=resort">Resorts</a></li>
-                                <li><a class="dropdown-item" href="hotels.php?type=budget">Budget Stays</a></li>
-                                <li><a class="dropdown-item" href="hotels.php?type=luxury">Luxury Hotels</a></li>
+                                <li><a class="dropdown-item" href="hotels.php?city=puri"><i class="fas fa-hotel me-2"></i>Hotels in Puri</a></li>
+                                <li><a class="dropdown-item" href="hotels.php?city=bhubaneswar"><i class="fas fa-hotel me-2"></i>Hotels in Bhubaneswar</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="hotels.php?type=resort"><i class="fas fa-umbrella-beach me-2"></i>Resorts</a></li>
+                                <li><a class="dropdown-item" href="hotels.php?type=budget"><i class="fas fa-wallet me-2"></i>Budget Stays</a></li>
+                                <li><a class="dropdown-item" href="hotels.php?type=luxury"><i class="fas fa-crown me-2"></i>Luxury Hotels</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="restaurantsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="restaurantsDropdown" role="button" data-bs-hover="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                 Restaurants
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="restaurantsDropdown">
@@ -163,7 +164,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="toursDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="toursDropdown" role="button" data-bs-hover="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                 Tours
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="toursDropdown">
@@ -195,6 +196,50 @@
     
 
     <style>
+        /* Dropdown on Hover for Desktop */
+        @media (min-width: 992px) {
+            .navbar .nav-item.dropdown:hover .dropdown-menu {
+                display: block;
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .navbar .dropdown-menu {
+                display: block;
+                visibility: hidden;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.3s ease-in-out;
+                border: none;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                margin-top: 0;
+                padding: 10px 0;
+            }
+            
+            .dropdown-item {
+                padding: 8px 20px;
+                transition: all 0.2s ease;
+            }
+            
+            .dropdown-item:hover {
+                background-color: #f8f9fa;
+                padding-left: 25px;
+            }
+            
+            .dropdown-divider {
+                margin: 0.3rem 0;
+            }
+        }
+        
+        /* Mobile menu styles */
+        @media (max-width: 991.98px) {
+            .navbar .dropdown-menu {
+                border: none;
+                padding-left: 20px;
+            }
+        }
+        
         /* Smooth transitions for offcanvas */
         .offcanvas {
             transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
@@ -235,15 +280,6 @@
         .offcanvas .nav-link:focus {
             background-color: rgba(0, 0, 0, 0.05);
             transform: translateX(5px);
-        }
-        
-        /* Rotate dropdown icon */
-        .offcanvas .nav-link[aria-expanded="true"] .fa-chevron-down {
-            transform: rotate(180deg);
-        }
-        
-        .offcanvas .fa-chevron-down {
-            transition: transform 0.2s ease;
         }
     </style>
     
@@ -301,6 +337,46 @@
     <!-- Initialize Bootstrap Offcanvas with Enhanced Animations -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Enable hover functionality for dropdowns on desktop
+            if (window.innerWidth >= 992) {
+                const dropdowns = document.querySelectorAll('.dropdown');
+                
+                dropdowns.forEach(dropdown => {
+                    const toggle = dropdown.querySelector('.dropdown-toggle');
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    let timeoutId;
+                    
+                    // Show on hover
+                    dropdown.addEventListener('mouseenter', () => {
+                        clearTimeout(timeoutId);
+                        const bsDropdown = bootstrap.Dropdown.getInstance(toggle) || new bootstrap.Dropdown(toggle);
+                        bsDropdown.show();
+                    });
+                    
+                    // Hide with delay on mouse leave
+                    dropdown.addEventListener('mouseleave', () => {
+                        timeoutId = setTimeout(() => {
+                            const bsDropdown = bootstrap.Dropdown.getInstance(toggle);
+                            if (bsDropdown) {
+                                bsDropdown.hide();
+                            }
+                        }, 300);
+                    });
+                    
+                    // Keep menu open when hovering over it
+                    menu.addEventListener('mouseenter', () => clearTimeout(timeoutId));
+                    menu.addEventListener('mouseleave', () => {
+                        timeoutId = setTimeout(() => {
+                            const bsDropdown = bootstrap.Dropdown.getInstance(toggle);
+                            if (bsDropdown) {
+                                bsDropdown.hide();
+                            }
+                        }, 300);
+                    });
+                });
+            }
+            
+            // Initialize mobile menu
             var mobileMenu = document.getElementById('mobileMenu');
             var bsOffcanvas = new bootstrap.Offcanvas(mobileMenu, {
                 backdrop: true,
