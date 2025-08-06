@@ -510,7 +510,7 @@
  }
 
  .book-button {
-     background: #4a90e2;
+     background: #de1264;
      color: white;
      border: none;
      padding: 8px 16px;
@@ -522,7 +522,7 @@
  }
 
  .book-button:hover {
-     background: #357abd;
+     background: #de1264;
  }
 
  .pay-later {

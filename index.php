@@ -42,7 +42,7 @@
                     <form action="search.php" method="GET" class="search-form">
                         <input type="hidden" name="type" value="hotels">
                         <div class="row g-3 align-items-end">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="destination" class="form-label fw-500 text-muted mb-1">Destination</label>
                                     <div class="input-group">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="daterange" class="form-label fw-500 text-muted mb-1">Check-in / Check-out</label>
                                     <div class="input-group">
