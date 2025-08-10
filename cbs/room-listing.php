@@ -92,13 +92,35 @@
   // Check if filtering by hotel
   $filter_hotel_id = isset($_GET['hotel_id']) ? (int)$_GET['hotel_id'] : 0;
   
-  // Fetch all rooms with hotel name (with optional hotel filter)
-  if ($filter_hotel_id > 0) {
-    $sql = 'SELECT r.*, h.name as hotel_name 
+  // Check for search query
+  $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+  
+  // Prepare base query
+  $base_sql = 'SELECT r.*, h.name as hotel_name 
             FROM rooms r 
-            JOIN hotels h ON r.hotel_id = h.id 
-            WHERE r.hotel_id = ? 
-            ORDER BY r.id DESC';
+            JOIN hotels h ON r.hotel_id = h.id';
+  
+  // Apply filters
+  if ($filter_hotel_id > 0 && !empty($search)) {
+    // Both hotel filter and search
+    $search_term = '%' . $search . '%';
+    $sql = $base_sql . ' WHERE r.hotel_id = ? AND (r.name LIKE ? OR r.description LIKE ? OR h.name LIKE ?) ORDER BY r.id DESC';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('isss', $filter_hotel_id, $search_term, $search_term, $search_term);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    // Get the hotel name for display
+    $hotel_name_sql = 'SELECT name FROM hotels WHERE id = ?';
+    $hotel_stmt = $conn->prepare($hotel_name_sql);
+    $hotel_stmt->bind_param('i', $filter_hotel_id);
+    $hotel_stmt->execute();
+    $hotel_result = $hotel_stmt->get_result();
+    $filtered_hotel_name = ($hotel_result->num_rows > 0) ? $hotel_result->fetch_assoc()['name'] : 'Unknown Hotel';
+  } 
+  else if ($filter_hotel_id > 0) {
+    // Only hotel filter
+    $sql = $base_sql . ' WHERE r.hotel_id = ? ORDER BY r.id DESC';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $filter_hotel_id);
     $stmt->execute();
@@ -111,11 +133,19 @@
     $hotel_stmt->execute();
     $hotel_result = $hotel_stmt->get_result();
     $filtered_hotel_name = ($hotel_result->num_rows > 0) ? $hotel_result->fetch_assoc()['name'] : 'Unknown Hotel';
-  } else {
-    $sql = 'SELECT r.*, h.name as hotel_name 
-            FROM rooms r 
-            JOIN hotels h ON r.hotel_id = h.id 
-            ORDER BY r.id DESC';
+  } 
+  else if (!empty($search)) {
+    // Only search
+    $search_term = '%' . $search . '%';
+    $sql = $base_sql . ' WHERE r.name LIKE ? OR r.description LIKE ? OR h.name LIKE ? ORDER BY r.id DESC';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sss', $search_term, $search_term, $search_term);
+    $stmt->execute();
+    $result = $stmt->get_result();
+  } 
+  else {
+    // No filters
+    $sql = $base_sql . ' ORDER BY r.id DESC';
     $result = $conn->query($sql);
   }
 
@@ -170,30 +200,48 @@
       </div>
 
       <div>
-        <?php if (isset($filter_hotel_id) && $filter_hotel_id > 0): ?>
-          <a href="room-listing.php" class="btn btn-outline-secondary me-2">
-            <i class="bi bi-funnel-fill"></i> Clear Filter
-          </a>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
-            <i class="bi bi-plus-circle"></i> Add Room to <?= htmlspecialchars($filtered_hotel_name) ?>
-          </button>
-        <?php else: ?>
-          <div class="dropdown d-inline-block me-2">
-            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-funnel"></i> Filter by Hotel
+        <!-- Search form -->
+        
+        
+        <!-- Filter and Add buttons -->
+        <div class="d-flex">
+          <?php if (isset($filter_hotel_id) && $filter_hotel_id > 0): ?>
+            <a href="room-listing.php" class="btn btn-outline-secondary me-2">
+              <i class="bi bi-funnel-fill"></i> Clear Filter
+            </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
+              <i class="bi bi-plus-circle"></i> Add Room to <?= htmlspecialchars($filtered_hotel_name) ?>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-              <?php foreach($hotels as $id => $name): ?>
-              <li><a class="dropdown-item" href="room-listing.php?hotel_id=<?= $id ?>"><?= htmlspecialchars($name) ?></a></li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
-            <i class="bi bi-plus-circle"></i> Add New Room
-          </button>
-        <?php endif; ?>
+          <?php else: ?>
+            <div class="dropdown d-inline-block me-2">
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-funnel"></i> Filter by Hotel
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                <?php foreach($hotels as $id => $name): ?>
+                <li><a class="dropdown-item" href="room-listing.php?hotel_id=<?= $id ?>"><?= htmlspecialchars($name) ?></a></li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
+              <i class="bi bi-plus-circle"></i> Add New Room
+            </button>
+          <?php endif; ?>
+        </div>
       </div>
     </div><!-- End Page Title -->
+
+    <!-- Search results info -->
+    <?php if(!empty($search)): ?>
+    <div class="alert alert-info mb-4">
+      <i class="bi bi-info-circle"></i> 
+      Search results for: <strong><?= htmlspecialchars($search) ?></strong> 
+      (<?= $result->num_rows ?> results found)
+      <?php if (isset($filter_hotel_id) && $filter_hotel_id > 0): ?>
+        in hotel: <strong><?= htmlspecialchars($filtered_hotel_name) ?></strong>
+      <?php endif; ?>
+    </div>
+    <?php endif; ?>
 
     <!-- Add Room Modal -->
     <div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
@@ -384,7 +432,30 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Rooms List</h5>
+
+              <div class="d-flex justify-content-between align-items-center mb-4" style="    text-wrap-mode: nowrap;">
+                <h5 class="card-title mb-0">Rooms List</h5>
+                
+                <!-- Search Form -->
+                <form action="" method="GET" class="d-flex me-2 w-100" style="flex-direction: row-reverse;" >
+                  <?php if (isset($filter_hotel_id) && $filter_hotel_id > 0): ?>
+                    <input type="hidden" name="hotel_id" value="<?= $filter_hotel_id ?>">
+                  <?php endif; ?>
+                  <div class="input-group"  style="width: unset;" >
+                    <input type="text" class="form-control" placeholder="Search rooms..." name="search" value="<?= htmlspecialchars($search) ?>">
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                    <?php if(!empty($search)): ?>
+                      <?php if (isset($filter_hotel_id) && $filter_hotel_id > 0): ?>
+                        <a href="room-listing.php?hotel_id=<?= $filter_hotel_id ?>" class="btn btn-outline-secondary">Clear Search</a>
+                      <?php else: ?>
+                        <a href="room-listing.php" class="btn btn-outline-secondary">Clear Search</a>
+                      <?php endif; ?>
+                    <?php endif; ?>
+                  </div>
+                </form>
+              </div>
+
+
               
               <!-- Table with all rooms -->
               <div class="table-responsive">

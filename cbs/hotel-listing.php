@@ -31,9 +31,27 @@
     exit();
   }
 
-  // Fetch all hotels
-  $sql = 'SELECT * FROM hotels ORDER BY id DESC';
-  $result = $conn->query($sql);
+  // Check for search query
+  $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+  
+  // Fetch hotels with optional search filter
+  if (!empty($search)) {
+    $search_term = '%' . $search . '%';
+    $sql = "SELECT * FROM hotels WHERE 
+            name LIKE ? OR 
+            location LIKE ? OR 
+            email LIKE ? OR 
+            mobile LIKE ? OR 
+            gst_no LIKE ? 
+            ORDER BY id DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssss', $search_term, $search_term, $search_term, $search_term, $search_term);
+    $stmt->execute();
+    $result = $stmt->get_result();
+  } else {
+    $sql = 'SELECT * FROM hotels ORDER BY id DESC';
+    $result = $conn->query($sql);
+  }
 
   // Initialize variables for edit modal
   $editId = $editName = $editGstNo = $editMobile = $editEmail = $editGoogleLink = $editLocation = $editLogo = '';
@@ -199,7 +217,29 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Hotels List</h5>
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="card-title mb-0">Hotels List</h5>
+                
+                <!-- Search Form -->
+                <form action="" method="GET" class="d-flex">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search hotels..." name="search" value="<?= htmlspecialchars($search) ?>">
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                    <?php if(!empty($search)): ?>
+                      <a href="hotel-listing.php" class="btn btn-outline-secondary">Clear</a>
+                    <?php endif; ?>
+                  </div>
+                </form>
+              </div>
+              
+              <!-- Search results info -->
+              <?php if(!empty($search)): ?>
+              <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> 
+                Search results for: <strong><?= htmlspecialchars($search) ?></strong> 
+                (<?= $result->num_rows ?> results found)
+              </div>
+              <?php endif; ?>
               
               <!-- Table with all hotels -->
               <div class="table-responsive">
