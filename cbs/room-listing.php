@@ -89,12 +89,35 @@
     $amenities[$amenity['id']] = $amenity['title'];
   }
 
-  // Fetch all rooms with hotel name
-  $sql = 'SELECT r.*, h.name as hotel_name 
-          FROM rooms r 
-          JOIN hotels h ON r.hotel_id = h.id 
-          ORDER BY r.id DESC';
-  $result = $conn->query($sql);
+  // Check if filtering by hotel
+  $filter_hotel_id = isset($_GET['hotel_id']) ? (int)$_GET['hotel_id'] : 0;
+  
+  // Fetch all rooms with hotel name (with optional hotel filter)
+  if ($filter_hotel_id > 0) {
+    $sql = 'SELECT r.*, h.name as hotel_name 
+            FROM rooms r 
+            JOIN hotels h ON r.hotel_id = h.id 
+            WHERE r.hotel_id = ? 
+            ORDER BY r.id DESC';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $filter_hotel_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    // Get the hotel name for display
+    $hotel_name_sql = 'SELECT name FROM hotels WHERE id = ?';
+    $hotel_stmt = $conn->prepare($hotel_name_sql);
+    $hotel_stmt->bind_param('i', $filter_hotel_id);
+    $hotel_stmt->execute();
+    $hotel_result = $hotel_stmt->get_result();
+    $filtered_hotel_name = ($hotel_result->num_rows > 0) ? $hotel_result->fetch_assoc()['name'] : 'Unknown Hotel';
+  } else {
+    $sql = 'SELECT r.*, h.name as hotel_name 
+            FROM rooms r 
+            JOIN hotels h ON r.hotel_id = h.id 
+            ORDER BY r.id DESC';
+    $result = $conn->query($sql);
+  }
 
   // Initialize variables for edit modal
   $editId = $editHotelId = $editName = $editDesc = $editCapacity = $editAmenities = '';
@@ -139,13 +162,37 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
             <li class="breadcrumb-item active">Room Listing</li>
+            <?php if (isset($filter_hotel_id) && $filter_hotel_id > 0): ?>
+              <li class="breadcrumb-item active"><?= htmlspecialchars($filtered_hotel_name) ?></li>
+            <?php endif; ?>
           </ol>
         </nav>
       </div>
 
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
-        <i class="bi bi-plus-circle"></i> Add New Room
-      </button>
+      <div>
+        <?php if (isset($filter_hotel_id) && $filter_hotel_id > 0): ?>
+          <a href="room-listing.php" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-funnel-fill"></i> Clear Filter
+          </a>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
+            <i class="bi bi-plus-circle"></i> Add Room to <?= htmlspecialchars($filtered_hotel_name) ?>
+          </button>
+        <?php else: ?>
+          <div class="dropdown d-inline-block me-2">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-funnel"></i> Filter by Hotel
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+              <?php foreach($hotels as $id => $name): ?>
+              <li><a class="dropdown-item" href="room-listing.php?hotel_id=<?= $id ?>"><?= htmlspecialchars($name) ?></a></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoomModal">
+            <i class="bi bi-plus-circle"></i> Add New Room
+          </button>
+        <?php endif; ?>
+      </div>
     </div><!-- End Page Title -->
 
     <!-- Add Room Modal -->
@@ -159,11 +206,13 @@
           <div class="modal-body">
             <form action="process/rooms.php" method="POST" id="addRoomForm" class="row g-3" enctype="multipart/form-data">
               <div class="col-md-6">
-                <label for="hotel_id" class="form-label">Hotel <span class="text-danger">*</span></label>
+                <label for="hotel_id" class="form-label">Select Hotel <span class="text-danger">*</span></label>
                 <select class="form-select" id="hotel_id" name="hotel_id" required>
-                  <option value="">Select Hotel</option>
+                  <option value="">Choose...</option>
                   <?php foreach($hotels as $id => $name): ?>
-                    <option value="<?= $id ?>"><?= htmlspecialchars($name) ?></option>
+                  <option value="<?= $id ?>" <?= (isset($filter_hotel_id) && $filter_hotel_id == $id) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($name) ?>
+                  </option>
                   <?php endforeach; ?>
                 </select>
               </div>

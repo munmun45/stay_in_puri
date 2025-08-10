@@ -247,6 +247,7 @@
                             data-logo="<?= htmlspecialchars($row['logo'] ?? '') ?>"
                           ><i class="bi bi-pencil"></i> Edit</button>
                           <a href="process/hotels.php?delete=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this hotel?')"><i class="bi bi-trash"></i> Delete</a>
+                          <a href="room-listing.php?hotel_id=<?= $row['id'] ?>" class="btn btn-sm btn-success"><i class="bi bi-building"></i> Rooms</a>
                           <?php if (!empty($row['google_page_link'])): ?>
                             <a href="<?= $row['google_page_link'] ?>" target="_blank" class="btn btn-sm btn-info"><i class="bi bi-google"></i> View</a>
                           <?php endif; ?>
