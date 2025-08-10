@@ -526,6 +526,21 @@
         }
       }
     });
+    // Automatically open edit modal when URL has edit parameter
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('edit')) {
+        const editModal = new bootstrap.Modal(document.getElementById('editRoomModal'));
+        editModal.show();
+        
+        // Remove edit parameter from URL when modal is closed
+        const editModalElement = document.getElementById('editRoomModal');
+        editModalElement.addEventListener('hidden.bs.modal', function() {
+          // Update URL without reloading the page
+          window.history.replaceState({}, document.title, 'room-listing.php');
+        });
+      }
+    });
   </script>
 </body>
 
