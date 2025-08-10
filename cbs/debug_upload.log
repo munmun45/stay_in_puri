@@ -1,0 +1,213 @@
+[2025-08-10 18:33:51] === ROOM PROCESSING START ===
+[2025-08-10 18:33:51] POST data: Array
+(
+    [hotel_id] => 2
+    [name] => dfg
+    [description] => dfsg
+    [max_capacity] => 43
+    [amenities] => Array
+        (
+            [0] => 4
+        )
+
+    [add_room] => 
+)
+
+[2025-08-10 18:33:51] FILES data: Array
+(
+    [images] => Array
+        (
+            [name] => Array
+                (
+                    [0] => pngtree-birthday-cake-candles-celebration-transparent-png-image_6708793.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => C:\xampp\tmp\phpAE40.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 22391
+                )
+
+        )
+
+)
+
+[2025-08-10 18:33:51] PHP upload_max_filesize: 40M
+[2025-08-10 18:33:51] PHP post_max_size: 40M
+[2025-08-10 18:33:51] PHP max_file_uploads: 20
+[2025-08-10 18:33:51] === ADD ROOM PROCESSING ===
+[2025-08-10 18:33:51] Room data - Hotel ID: 2, Name: dfg, Capacity: 43
+[2025-08-10 18:33:51] Starting database transaction
+[2025-08-10 18:33:51] Room inserted successfully with ID: 3
+[2025-08-10 18:33:51] Processing image uploads...
+[2025-08-10 18:33:51] Total images to process: 1
+[2025-08-10 18:33:51] Processing image 0: pngtree-birthday-cake-candles-celebration-transparent-png-image_6708793.png
+[2025-08-10 18:33:51] File data for index 0: Array
+(
+    [name] => pngtree-birthday-cake-candles-celebration-transparent-png-image_6708793.png
+    [type] => image/png
+    [tmp_name] => C:\xampp\tmp\phpAE40.tmp
+    [error] => 0
+    [size] => 22391
+)
+
+[2025-08-10 18:33:51] uploadRoomImage called with: Array
+(
+    [name] => pngtree-birthday-cake-candles-celebration-transparent-png-image_6708793.png
+    [type] => image/png
+    [tmp_name] => C:\xampp\tmp\phpAE40.tmp
+    [error] => 0
+    [size] => 22391
+)
+
+[2025-08-10 18:33:51] Target directory: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/
+[2025-08-10 18:33:51] Original filename: pngtree-birthday-cake-candles-celebration-transparent-png-image_6708793.png
+[2025-08-10 18:33:51] New filename: 6898c9efc11a1_1754843631.png
+[2025-08-10 18:33:51] Target file: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/6898c9efc11a1_1754843631.png
+[2025-08-10 18:33:51] Image info: Array
+(
+    [0] => 360
+    [1] => 360
+    [2] => 3
+    [3] => width="360" height="360"
+    [bits] => 8
+    [mime] => image/png
+)
+
+[2025-08-10 18:33:51] Attempting to move file from C:\xampp\tmp\phpAE40.tmp to C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/6898c9efc11a1_1754843631.png
+[2025-08-10 18:33:51] File moved successfully
+[2025-08-10 18:33:51] Returning relative path: uploads/room_images/6898c9efc11a1_1754843631.png
+[2025-08-10 18:33:51] Image upload successful: uploads/room_images/6898c9efc11a1_1754843631.png (Primary: 1)
+[2025-08-10 18:33:51] Image saved to database successfully
+[2025-08-10 18:33:51] Transaction committed successfully
+[2025-08-10 18:33:51] === ADD ROOM PROCESSING END ===
+[2025-08-10 18:34:11] === ROOM PROCESSING START ===
+[2025-08-10 18:34:11] POST data: Array
+(
+    [id] => 3
+    [hotel_id] => 2
+    [name] => dfg
+    [description] => dfsg
+    [max_capacity] => 43
+    [amenities] => Array
+        (
+            [0] => 4
+        )
+
+    [update_room] => 
+)
+
+[2025-08-10 18:34:11] FILES data: Array
+(
+    [images] => Array
+        (
+            [name] => Array
+                (
+                    [0] => slider-1024x591-1.jpg
+                    [1] => slide4.jpg
+                    [2] => hotel-room-beds.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                    [1] => image/jpeg
+                    [2] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => C:\xampp\tmp\phpFB96.tmp
+                    [1] => C:\xampp\tmp\phpFBA7.tmp
+                    [2] => C:\xampp\tmp\phpFBA8.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                    [2] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 86416
+                    [1] => 189565
+                    [2] => 262102
+                )
+
+        )
+
+)
+
+[2025-08-10 18:34:11] PHP upload_max_filesize: 40M
+[2025-08-10 18:34:11] PHP post_max_size: 40M
+[2025-08-10 18:34:11] PHP max_file_uploads: 20
+[2025-08-10 18:34:11] === ROOM PROCESSING END ===
+[2025-08-10 18:34:22] === ROOM PROCESSING START ===
+[2025-08-10 18:34:22] POST data: Array
+(
+    [id] => 3
+    [hotel_id] => 2
+    [name] => dfg
+    [description] => ertert
+    [max_capacity] => 43
+    [amenities] => Array
+        (
+            [0] => 4
+        )
+
+    [update_room] => 
+)
+
+[2025-08-10 18:34:22] FILES data: Array
+(
+    [images] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+
+[2025-08-10 18:34:22] PHP upload_max_filesize: 40M
+[2025-08-10 18:34:22] PHP post_max_size: 40M
+[2025-08-10 18:34:22] PHP max_file_uploads: 20
+[2025-08-10 18:34:22] === ROOM PROCESSING END ===
