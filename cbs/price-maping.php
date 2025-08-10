@@ -51,6 +51,22 @@
 
   // Get selected hotel ID from filter
   $filter_hotel_id = isset($_GET['hotel_id']) ? (int)$_GET['hotel_id'] : 0;
+  
+  // Get specific room ID if provided
+  $filter_room_id = isset($_GET['room_id']) ? (int)$_GET['room_id'] : 0;
+  
+  // If we have a room_id, get its hotel_id to set the filter
+  if ($filter_room_id > 0 && $filter_hotel_id == 0) {
+    $room_sql = "SELECT hotel_id FROM rooms WHERE id = ?";
+    $room_stmt = $conn->prepare($room_sql);
+    $room_stmt->bind_param("i", $filter_room_id);
+    $room_stmt->execute();
+    $room_result = $room_stmt->get_result();
+    
+    if ($room_result->num_rows > 0) {
+      $filter_hotel_id = $room_result->fetch_assoc()['hotel_id'];
+    }
+  }
 
   // Get search query
   $search = isset($_GET['search']) ? trim($_GET['search']) : '';
@@ -191,13 +207,7 @@
               <?php endif; ?>
               
               <!-- Legend for price types -->
-              <div class="mb-3 small">
-                <div class="d-flex gap-3 flex-wrap">
-                  <div><span class="fw-bold">CP</span> - Cost Price</div>
-                  <div><span class="fw-bold">MAP</span> - Minimum Advertised Price</div>
-                  <div><span class="fw-bold">MVP</span> - Minimum Viable Price</div>
-                </div>
-              </div>
+             
               
               <!-- Rooms and Pricing Table -->
               <div class="table-responsive">

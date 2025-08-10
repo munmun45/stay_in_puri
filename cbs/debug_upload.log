@@ -540,3 +540,101 @@ POST data: Array
 [2025-08-10 18:40:57] No new images uploaded
 [2025-08-10 18:40:57] Transaction committed successfully
 [2025-08-10 18:40:57] === UPDATE ROOM PROCESSING END ===
+[2025-08-10 19:24:11] === ROOM PROCESSING START ===
+[2025-08-10 19:24:11] POST data: Array
+(
+    [hotel_id] => 2
+    [name] => test 2
+    [description] => wert
+    [max_capacity] => 345
+    [amenities] => Array
+        (
+            [0] => 4
+        )
+
+    [add_room] => 
+)
+
+[2025-08-10 19:24:11] FILES data: Array
+(
+    [images] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 674e7c978ea6d.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => C:\xampp\tmp\phpC144.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 952213
+                )
+
+        )
+
+)
+
+[2025-08-10 19:24:11] PHP upload_max_filesize: 40M
+[2025-08-10 19:24:11] PHP post_max_size: 40M
+[2025-08-10 19:24:11] PHP max_file_uploads: 20
+[2025-08-10 19:24:11] === ADD ROOM PROCESSING ===
+[2025-08-10 19:24:11] Room data - Hotel ID: 2, Name: test 2, Capacity: 345
+[2025-08-10 19:24:11] Starting database transaction
+[2025-08-10 19:24:11] Room inserted successfully with ID: 4
+[2025-08-10 19:24:11] Processing image uploads...
+[2025-08-10 19:24:11] Total images to process: 1
+[2025-08-10 19:24:11] Processing image 0: 674e7c978ea6d.jpg
+[2025-08-10 19:24:11] File data for index 0: Array
+(
+    [name] => 674e7c978ea6d.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\phpC144.tmp
+    [error] => 0
+    [size] => 952213
+)
+
+[2025-08-10 19:24:11] uploadRoomImage called with: Array
+(
+    [name] => 674e7c978ea6d.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\phpC144.tmp
+    [error] => 0
+    [size] => 952213
+)
+
+[2025-08-10 19:24:11] Target directory: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/
+[2025-08-10 19:24:11] Original filename: 674e7c978ea6d.jpg
+[2025-08-10 19:24:11] New filename: 6898d5bb4de0a_1754846651.jpg
+[2025-08-10 19:24:11] Target file: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/6898d5bb4de0a_1754846651.jpg
+[2025-08-10 19:24:11] Image info: Array
+(
+    [0] => 1280
+    [1] => 960
+    [2] => 2
+    [3] => width="1280" height="960"
+    [bits] => 8
+    [channels] => 3
+    [mime] => image/jpeg
+)
+
+[2025-08-10 19:24:11] Attempting to move file from C:\xampp\tmp\phpC144.tmp to C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/6898d5bb4de0a_1754846651.jpg
+[2025-08-10 19:24:11] File moved successfully
+[2025-08-10 19:24:11] Returning relative path: uploads/room_images/6898d5bb4de0a_1754846651.jpg
+[2025-08-10 19:24:11] Image upload successful: uploads/room_images/6898d5bb4de0a_1754846651.jpg (Primary: 1)
+[2025-08-10 19:24:11] Image saved to database successfully
+[2025-08-10 19:24:11] Transaction committed successfully
+[2025-08-10 19:24:11] === ADD ROOM PROCESSING END ===
