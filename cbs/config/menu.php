@@ -34,6 +34,14 @@
             </a>
         </li>
         
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="price-maping">
+                <i class="bi bi-calendar-event"></i>
+                <span>Price Mapping</span>
+            </a>
+        </li>
+        
         
 
 
