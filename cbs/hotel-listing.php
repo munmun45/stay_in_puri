@@ -253,6 +253,7 @@
                       <th scope="col">Mobile</th>
                       <th scope="col">Email</th>
                       <th scope="col">Location</th>
+                      <th scope="col">Status</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
@@ -277,6 +278,12 @@
                         <td><?= htmlspecialchars($row['email']) ?></td>
                         <td><?= htmlspecialchars($row['location']) ?></td>
                         <td>
+                          <?php $isActive = isset($row['is_active']) ? $row['is_active'] : 1; ?>
+                          <span class="badge bg-<?= $isActive ? 'success' : 'danger' ?>">
+                            <?= $isActive ? 'Active' : 'Inactive' ?>
+                          </span>
+                        </td>
+                        <td>
                           <button type="button" class="btn btn-sm btn-primary edit-btn" data-id="<?= $row['id'] ?>" 
                             data-name="<?= htmlspecialchars($row['name']) ?>"
                             data-gst="<?= htmlspecialchars($row['gst_no'] ?? '') ?>"
@@ -288,6 +295,12 @@
                           ><i class="bi bi-pencil"></i> Edit</button>
                           <a href="process/hotels.php?delete=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this hotel?')"><i class="bi bi-trash"></i> Delete</a>
                           <a href="room-listing.php?hotel_id=<?= $row['id'] ?>" class="btn btn-sm btn-success"><i class="bi bi-building"></i> Rooms</a>
+                          <?php $isActive = isset($row['is_active']) ? $row['is_active'] : 1; ?>
+                          <a href="process/hotels.php?toggle_status=<?= $row['id'] ?>&current=<?= $isActive ?>" 
+                             class="btn btn-sm btn-<?= $isActive ? 'warning' : 'info' ?>">
+                            <i class="bi bi-toggle-<?= $isActive ? 'on' : 'off' ?>"></i> 
+                            <?= $isActive ? 'Deactivate' : 'Activate' ?>
+                          </a>
                           <?php if (!empty($row['google_page_link'])): ?>
                             <a href="<?= $row['google_page_link'] ?>" target="_blank" class="btn btn-sm btn-info"><i class="bi bi-google"></i> View</a>
                           <?php endif; ?>

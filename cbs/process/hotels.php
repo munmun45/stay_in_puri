@@ -8,6 +8,28 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+// Handle toggle status
+if (isset($_GET['toggle_status']) && isset($_GET['current'])) {
+    $id = (int)$_GET['toggle_status'];
+    $current_status = (int)$_GET['current'];
+    $new_status = $current_status ? 0 : 1; // Toggle the status
+    
+    $update_sql = "UPDATE hotels SET is_active = ? WHERE id = ?";
+    $stmt = $conn->prepare($update_sql);
+    $stmt->bind_param("ii", $new_status, $id);
+    
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Hotel status updated successfully.";
+        $_SESSION['message_type'] = "success";
+    } else {
+        $_SESSION['message'] = "Error updating hotel status: " . $conn->error;
+        $_SESSION['message_type'] = "danger";
+    }
+    
+    header("Location: ../hotel-listing.php");
+    exit();
+}
+
 // Handle file upload
 function uploadImage($file) {
     $target_dir = "../uploads/hotel_logos/";
