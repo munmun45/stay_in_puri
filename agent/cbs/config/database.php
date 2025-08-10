@@ -7,9 +7,9 @@ $db_name = 'stay_in_puri';
 
 
 // $db_host = 'localhost';
-// $db_user = 'u112926345_insurances';
-// $db_pass = 'zA;zAgZ1V0';
-// $db_name = 'u112926345_insurances';
+// $db_user = 'u112926345_stayinpuri';
+// $db_pass = '|R:6AVb4';
+// $db_name = 'u112926345_stayinpuri';
 
 // Create connection
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
