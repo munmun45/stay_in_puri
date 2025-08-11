@@ -519,7 +519,7 @@
                         </td>
                         <td>
                           <a href="room-listing?edit=<?= $row['id'] ?>" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i> Edit</a>
-                          <a href="price-maping.php?room_id=<?= $row['id'] ?>&search=<?= $row['name'] ?>" class="btn btn-sm btn-success"><i class="bi bi-tag"></i> Price</a>
+                          <a href="price-maping.php?hotel_id=<?= $row['hotel_id'] ?>&search=<?= $row['name'] ?>" class="btn btn-sm btn-success"><i class="bi bi-tag"></i> Price</a>
                           <a href="process/rooms.php?delete=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this room?')"><i class="bi bi-trash"></i> Delete</a>
                           <?php $isActive = isset($row['is_active']) ? $row['is_active'] : 1; ?>
                           <a href="process/rooms.php?toggle_status=<?= $row['id'] ?>&current=<?= $isActive ?>" 
