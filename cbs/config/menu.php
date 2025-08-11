@@ -41,11 +41,41 @@
                 <span>Price Mapping</span>
             </a>
         </li>
+
+        <li class="nav-heading">Offer & Discount</li>
         
         
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="offer-listing">
+                <i class="bi bi-tags-fill"></i> <!-- Offer Listing -->
+                <span>Offer Listing</span>
+            </a>
+        </li>
 
+        <li class="nav-heading">Ads & Banner</li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="ads-listing">
+                <i class="bi bi-megaphone-fill"></i> <!-- Ads Listing -->
+                <span>Ads Listing</span>
+            </a>
+        </li>
 
+        <li class="nav-heading">Other</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="gallery">
+                <i class="bi bi-images"></i> <!-- Gallery -->
+                <span>Gallery</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="contact-info">
+                <i class="bi bi-telephone-fill"></i> <!-- Contact Info -->
+                <span>Contact Info</span>
+            </a>
+        </li>
 
 
 
