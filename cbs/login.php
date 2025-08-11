@@ -44,8 +44,7 @@
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
-                                    <span class="d-none d-lg-block">Hotel Admin</span>
+                                    <img style="height: 90px; max-height: unset;" src="../assets/img/stay-in-puri.png" alt="">
                                 </a>
                             </div><!-- End Logo -->
 
@@ -54,8 +53,8 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Hotel Four Waves</h5>
-                                        <p class="text-center small">Please login to Manage Website</p>
+                                        <h5 class="card-title text-center pb-0 fs-4">Stay In Puri</h5>
+                                        <p class="text-center small">CBS Panel</p>
                                     </div>
 
 
@@ -88,7 +87,7 @@
 
                             <div class="credits">
 
-                                Designed by <a href="#">MUNMUN</a>
+                                Designed by <a href="https://www.somasindia.com/" target="_blank">SOMAS TECHNOLOGY INDIA PRIVATE LIMITED</a>
                             </div>
 
                         </div>
