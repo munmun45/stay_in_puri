@@ -1,9 +1,9 @@
 <footer id="footer" class="footer">
     <div class="copyright">
-        &copy; Copyright <strong><span>hotel four waves</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Stay In Puri</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-        Designed by <a href="#">MUNMUN</a>
+        Designed by <a href="https://www.somasindia.com/" target="_blank">SOMAS TECHNOLOGY INDIA PRIVATE LIMITED</a>
     </div>
 </footer>
 
