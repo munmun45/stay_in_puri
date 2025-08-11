@@ -315,7 +315,6 @@ if ($selected_room_id > 0 && isset($rooms[$selected_room_id])) {
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Hotel</th>
                       <th>Room</th>
                       <th>Room Type</th>
                       <th>Capacity</th>
@@ -372,7 +371,7 @@ if ($selected_room_id > 0 && isset($rooms[$selected_room_id])) {
                               }
                             ?>
                             <tr class="<?= ($selected_room_id == $room['id']) ? 'table-primary' : '' ?>">
-                              <td></td> <!-- Empty cell for indentation -->
+                              
                               <td><?= htmlspecialchars($room['name']) ?></td>
                               <td><?= isset($room['type']) ? htmlspecialchars($room['type']) : 'N/A' ?></td>
                               <td><?= isset($room['capacity']) ? $room['capacity'] . ' persons' : 'N/A' ?></td>
