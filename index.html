@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Booking - Goa</title>
+    <title>Responsive Navigation Bar</title>
     <style>
         * {
             margin: 0;
@@ -13,855 +12,499 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f7fa;
-            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header Search Bar */
-        .search-header {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .search-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr auto;
-            gap: 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .search-field {
-            background: white;
-            border-right: 1px solid #ddd;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .search-field:last-child {
-            border-right: none;
-        }
-
-        .search-field label {
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .search-field input {
-            border: none;
-            outline: none;
-            font-size: 14px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .search-btn {
-            background: #4a90e2;
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #6B46C1, #9333EA);
             color: white;
-            border: none;
-            padding: 15px 30px;
-            font-weight: 600;
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Top contact bar */
+        .top-bar {
+            padding: 8px 20px;
             font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        .search-btn:hover {
-            background: #357abd;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            font-size: 14px;
-            color: #4a90e2;
-            margin-bottom: 10px;
-        }
-
-        .breadcrumb a {
-            color: #4a90e2;
-            text-decoration: none;
-        }
-
-        /* Header Info */
-        .header-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .results-title {
-            font-size: 28px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .explore-tips {
+        .contact-info {
             display: flex;
-            align-items: center;
-            color: #4a90e2;
-            font-size: 14px;
-        }
-
-        .explore-tips::before {
-            content: "🔍";
-            margin-right: 8px;
-        }
-
-        /* Main Layout */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
             gap: 20px;
         }
 
-        /* Map Section */
-        .map-section {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            height: fit-content;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .map-placeholder {
-            background: #e8f4fd;
-            height: 150px;
-            border-radius: 4px;
+        .contact-info span {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #4a90e2;
-            font-weight: 500;
-            margin-bottom: 15px;
+            gap: 5px;
         }
 
-        .explore-map-btn {
-            background: white;
-            border: 2px solid #4a90e2;
-            color: #4a90e2;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-
-        .explore-map-btn:hover {
-            background: #4a90e2;
-            color: white;
-        }
-
-        .search-location {
-            margin-top: 15px;
-            position: relative;
-        }
-
-        .search-location input {
-            width: 100%;
-            padding: 10px 35px 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            outline: none;
-        }
-
-        .search-location::after {
-            content: "🔍";
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        /* Sidebar Filters */
-        .sidebar {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            height: fit-content;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter-section {
-            margin-bottom: 25px;
-        }
-
-        .filter-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .filter-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding: 5px 0;
-        }
-
-        .filter-option input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        .filter-option label {
-            flex: 1;
-            color: #555;
-            font-size: 14px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        .filter-count {
-            color: #888;
-            font-size: 13px;
-        }
-
-        .show-more {
-            color: #4a90e2;
-            font-size: 14px;
-            cursor: pointer;
-            text-align: right;
-            margin-top: 10px;
-        }
-
-        /* Price Range Filter */
-        .price-range {
+        .social-icons {
             display: flex;
             gap: 10px;
-            align-items: center;
-            margin-bottom: 15px;
         }
 
-        .price-range input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .price-range-btn {
-            background: #4a90e2;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        /* Results Section */
-        .results-section {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Sort Options */
-        .sort-section {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .sort-title {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .sort-options {
-            display: flex;
-            gap: 20px;
-        }
-
-        .sort-option {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            padding: 5px 0;
-            border-bottom: 2px solid transparent;
-            cursor: pointer;
-        }
-
-        .sort-option.active {
-            color: #4a90e2;
-            border-bottom-color: #4a90e2;
-            font-weight: 500;
-        }
-
-        .sort-option:hover {
-            color: #4a90e2;
-        }
-
-        /* Results Header */
-        .results-header {
-            padding: 20px;
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        /* Hotel Cards */
-        .hotel-card {
-            border-bottom: 1px solid #eee;
-            padding: 20px;
-            transition: background 0.2s;
-        }
-
-        .hotel-card:hover {
-            background: #fafbfc;
-        }
-
-        .hotel-card:last-child {
-            border-bottom: none;
-        }
-
-        .card-content {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 20px;
-            align-items: start;
-        }
-
-        .hotel-images {
-            display: flex;
-            gap: 8px;
-        }
-
-        .main-image {
-            width: 200px;
-            height: 150px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .thumbnail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px;
-            width: 60px;
-        }
-
-        .thumbnail {
-            width: 28px;
-            height: 36px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .view-all {
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
+        .social-icons a {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
-            font-weight: 500;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
         }
 
-        /* Hotel Info */
-        .hotel-info {
-            flex: 1;
+        .social-icons a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
 
-        .hotel-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .hotel-stars {
-            color: #ffa500;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .hotel-location {
-            color: #4a90e2;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .hotel-tags {
+        /* Main Navigation */
+        .navbar {
+            padding: 15px 20px;
             display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .tag {
-            background: #e8f4fd;
-            color: #4a90e2;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .tag.sponsored {
-            background: #f0f0f0;
-            color: #666;
-        }
-
-        .hotel-features {
+        .nav-menu {
+            display: flex;
             list-style: none;
-            margin-bottom: 8px;
+            gap: 30px;
+            margin: 0;
         }
 
-        .hotel-features li {
-            font-size: 13px;
-            color: #555;
-            margin-bottom: 4px;
+        .nav-item {
             position: relative;
-            padding-left: 15px;
         }
 
-        .hotel-features li::before {
-            content: "✓";
-            color: #34a853;
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
             position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #FFD700;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .sign-up-btn {
+            background: linear-gradient(135deg, #EC4899, #F59E0B);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .sign-up-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .menu-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Side Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            transition: left 0.3s ease;
+        }
+
+        .menu-overlay.active {
             left: 0;
         }
 
-        .special-offer {
-            background: #fff3e0;
-            color: #e65100;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-block;
-            margin-top: 8px;
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #6B46C1, #9333EA);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
         }
 
-        .special-offer::before {
-            content: "🍽️";
-            margin-right: 5px;
+        .side-menu.active {
+            left: 0;
         }
 
-        /* Hotel Pricing */
-        .hotel-pricing {
-            text-align: right;
-            min-width: 200px;
+        .side-menu-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .rating-section {
+        .close-menu {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            margin-bottom: 10px;
-            gap: 8px;
+            justify-content: center;
+            transition: background 0.3s ease;
         }
 
-        .rating-text {
-            font-size: 14px;
+        .close-menu:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .side-nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .side-nav-item {
+            margin: 0;
+        }
+
+        .side-nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
             font-weight: 500;
-            color: #333;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
         }
 
-        .rating-badge {
-            background: #34a853;
+        .side-nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: #FFD700;
+            transform: translateX(5px);
+        }
+
+        .side-menu-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 0 25px;
+        }
+
+        .side-sign-up-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #EC4899, #F59E0B);
             color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .rating-badge.excellent {
-            background: #34a853;
-        }
-
-        .rating-badge.very-good {
-            background: #1976d2;
-        }
-
-        .rating-count {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .price-section {
-            margin-bottom: 15px;
-        }
-
-        .original-price {
-            text-decoration: line-through;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 2px;
-        }
-
-        .current-price {
-            font-size: 22px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .price-note {
-            font-size: 12px;
-            color: #666;
-            line-height: 1.3;
-        }
-
-        .book-button {
-            background: #4a90e2;
-            color: white;
+            padding: 12px 20px;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 500;
+            border-radius: 25px;
             cursor: pointer;
-            margin-bottom: 8px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
 
-        .book-button:hover {
-            background: #357abd;
+        .side-social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
-        .pay-later {
-            font-size: 12px;
-            color: #4a90e2;
-            cursor: pointer;
+        .side-social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .search-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .card-content {
-                grid-template-columns: 1fr;
-            }
+        .side-social-icons a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
         }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+            .top-bar {
+                padding: 6px 15px;
+                font-size: 12px;
             }
 
-            .hotel-images {
-                justify-content: center;
+            .contact-info {
+                gap: 15px;
             }
 
-            .hotel-pricing {
-                text-align: left;
-                min-width: auto;
+            .social-icons {
+                gap: 8px;
             }
+
+            .social-icons a {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .sign-up-btn {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-info span:nth-child(2) {
+                display: none;
+            }
+
+            .side-menu {
+                width: 280px;
+                left: -280px;
+            }
+        }
+
+        /* Demo content */
+        .content {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .content h1 {
+            color: #6B46C1;
+            margin-bottom: 20px;
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <!-- Header Search -->
-        <div class="search-header">
-            <div class="search-grid">
-                <div class="search-field">
-                    <label>CITY, AREA OR PROPERTY</label>
-                    <input type="text" value="Goa">
-                </div>
-                <div class="search-field">
-                    <label>CHECK-IN</label>
-                    <input type="text" value="Thu, 7 Aug 2025">
-                </div>
-                <div class="search-field">
-                    <label>CHECK-OUT</label>
-                    <input type="text" value="Fri, 8 Aug 2025">
-                </div>
-                <div class="search-field">
-                    <label>ROOMS & GUESTS</label>
-                    <input type="text" value="1 Room, 2 Adults">
-                </div>
-                <button class="search-btn">SEARCH</button>
+    <header class="header">
+        <!-- Top Contact Bar -->
+        <div class="top-bar">
+            <div class="contact-info">
+                <span>📞 +91-8338011114</span>
+                <span>✉️ info@stayinpur.in</span>
+            </div>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="Twitter">t</a>
+                <a href="#" aria-label="Instagram">i</a>
+                <a href="#" aria-label="YouTube">y</a>
+                <a href="#" aria-label="WhatsApp">w</a>
             </div>
         </div>
 
-        <!-- Breadcrumb -->
-        <div class="breadcrumb">
-            <a href="#">Home</a> › Hotels and more in Goa
-        </div>
-
-        <!-- Header Info -->
-        <div class="header-info">
-            <h1 class="results-title">2845 Properties in Goa</h1>
-            <div class="explore-tips">Explore Travel Tips →</div>
-        </div>
-
-        <div class="main-layout">
-            <!-- Sidebar -->
-            <div>
-                <!-- Map Section -->
-                <div class="map-section">
-                    <div class="map-placeholder">Interactive Map View</div>
-                    <button class="explore-map-btn">📍 EXPLORE ON MAP</button>
-                    <div class="search-location">
-                        <input type="text" placeholder="Search for locality">
-                    </div>
-                </div>
-
-                <!-- Filters -->
-                <div class="sidebar">
-                    <div class="filter-section">
-                        <div class="filter-title">Suggested For You</div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> Last Minute Deals</label>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> 5 Star</label>
-                            <span class="filter-count">(198)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> North Goa</label>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> Resorts</label>
-                            <span class="filter-count">(353)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> Unmarried Couples Allowed</label>
-                            <span class="filter-count">(2536)</span>
-                        </div>
-                        <div class="show-more">Show 7 more</div>
-                    </div>
-
-                    <div class="filter-section">
-                        <div class="filter-title">Price per night</div>
-                        <div class="price-range">
-                            <input type="number" placeholder="Min" value="0">
-                            <span>to</span>
-                            <input type="number" placeholder="Max" value="50000">
-                            <button class="price-range-btn">→</button>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹0 - ₹2000</label>
-                            <span class="filter-count">(889)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹2000 - ₹4000</label>
-                            <span class="filter-count">(777)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹4000 - ₹6000</label>
-                            <span class="filter-count">(280)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹6000 - ₹9000</label>
-                            <span class="filter-count">(211)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹9000 - ₹12000</label>
-                            <span class="filter-count">(104)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹12000 - ₹15000</label>
-                            <span class="filter-count">(98)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹15000 - ₹30000</label>
-                            <span class="filter-count">(219)</span>
-                        </div>
-                        <div class="filter-option">
-                            <label><input type="checkbox"> ₹30000+</label>
-                            <span class="filter-count">(114)</span>
-                        </div>
-                    </div>
-
-                    <div class="filter-section">
-                        <div class="filter-title">Your Budget</div>
-                        <div class="price-range">
-                            <input type="number" placeholder="Min">
-                            <span>to</span>
-                            <input type="number" placeholder="Max">
-                            <button class="price-range-btn">→</button>
-                        </div>
-                    </div>
-                </div>
+        <!-- Main Navigation -->
+        <nav class="navbar">
+            <div class="logo"><img src="assets/img/stay-in-puri.png" alt=""></div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Hotels</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Restaurants</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Tours</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Gallery</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+            
+            <button class="sign-up-btn">Sign Up</button>
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="menu-toggle" id="menuToggle">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
             </div>
+        </nav>
+    </header>
 
-            <!-- Results Section -->
-            <div class="results-section">
-                <!-- Sort Options -->
-                <div class="sort-section">
-                    <div class="sort-title">SORT BY</div>
-                    <div class="sort-options">
-                        <div class="sort-option active">Popular</div>
-                        <div class="sort-option">User Rating (Highest First)</div>
-                        <div class="sort-option">Price (Highest First)</div>
-                        <div class="sort-option">Price (Lowest First)</div>
-                    </div>
-                </div>
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-                <div class="results-header">Showing Properties in Goa</div>
-
-                <!-- Hotel Card 1 -->
-                <div class="hotel-card">
-                    <div class="card-content">
-                        <div class="hotel-images">
-                            <div class="main-image">
-                                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop" alt="Ginger Goa">
-                            </div>
-                            <div class="thumbnail-grid">
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=60&h=72&fit=crop" alt="thumb1"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=60&h=72&fit=crop" alt="thumb2"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=60&h=72&fit=crop" alt="thumb3"></div>
-                                <div class="thumbnail view-all">View All</div>
-                            </div>
-                        </div>
-                        <div class="hotel-info">
-                            <div class="hotel-name">Ginger Goa, Candolim</div>
-                            <div class="hotel-stars">★★★★☆</div>
-                            <div class="hotel-location">Candolim | 870 m drive to Candolim Beach</div>
-                            <div class="hotel-tags">
-                                <span class="tag">Couple Friendly</span>
-                            </div>
-                            <ul class="hotel-features">
-                                <li>Free Cancellation till 24 hrs before check in</li>
-                            </ul>
-                            <div class="special-offer">Enjoy a Free Breakfast upgrade along with 20% off on F&B</div>
-                        </div>
-                        <div class="hotel-pricing">
-                            <div class="rating-section">
-                                <span class="rating-text">Excellent</span>
-                                <div class="rating-badge excellent">4.4</div>
-                            </div>
-                            <div class="rating-count">(1252 Ratings)</div>
-                            <div class="price-section">
-                                <div class="current-price">₹2,999</div>
-                                <div class="price-note">+ ₹360 taxes & fees<br>Per Night</div>
-                            </div>
-                            <button class="book-button">Login to Book Now & Pay Later!</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hotel Card 2 -->
-                <div class="hotel-card">
-                    <div class="card-content">
-                        <div class="hotel-images">
-                            <div class="main-image">
-                                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop" alt="Bloom Boutique">
-                            </div>
-                            <div class="thumbnail-grid">
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=60&h=72&fit=crop" alt="thumb1"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=60&h=72&fit=crop" alt="thumb2"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=60&h=72&fit=crop" alt="thumb3"></div>
-                                <div class="thumbnail view-all">View All</div>
-                            </div>
-                        </div>
-                        <div class="hotel-info">
-                            <div class="hotel-name">Bloom Boutique Baga</div>
-                            <div class="hotel-stars">★★★☆☆</div>
-                            <div class="hotel-location">Baga | 2.2 km drive to Baga Beach</div>
-                            <div class="hotel-tags">
-                                <span class="tag sponsored">SPONSORED</span>
-                                <span class="tag">Couple Friendly</span>
-                            </div>
-                            <ul class="hotel-features">
-                                <li>Free Cancellation till check-in</li>
-                                <li>Complimentary Hi-Tea</li>
-                            </ul>
-                            <div style="font-size: 13px; color: #666; margin-top: 8px;">
-                                💡 Ideal location near Baga Beach, clean modern rooms with rain showers, relaxing pool with views
-                            </div>
-                        </div>
-                        <div class="hotel-pricing">
-                            <div class="rating-section">
-                                <span class="rating-text">Excellent</span>
-                                <div class="rating-badge excellent">4.3</div>
-                            </div>
-                            <div class="rating-count">(119 Ratings)</div>
-                            <div class="price-section">
-                                <div class="original-price">₹3,500</div>
-                                <div class="current-price">₹2,800</div>
-                                <div class="price-note">+ ₹336 taxes & fees<br>Per Night</div>
-                            </div>
-                            <button class="book-button">Login to Book Now & Pay Later!</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hotel Card 3 -->
-                <div class="hotel-card">
-                    <div class="card-content">
-                        <div class="hotel-images">
-                            <div class="main-image">
-                                <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&h=300&fit=crop" alt="SinQ Beach Resort">
-                            </div>
-                            <div class="thumbnail-grid">
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=60&h=72&fit=crop" alt="thumb1"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=60&h=72&fit=crop" alt="thumb2"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=60&h=72&fit=crop" alt="thumb3"></div>
-                                <div class="thumbnail view-all">View All</div>
-                            </div>
-                        </div>
-                        <div class="hotel-info">
-                            <div class="hotel-name">SinQ Beach Resort</div>
-                            <div class="hotel-stars">★★★☆☆</div>
-                            <div class="hotel-location">Calangute | 6 minutes walk to Calangute Beach</div>
-                            <div class="hotel-tags">
-                                <span class="tag">Couple Friendly</span>
-                                <span class="tag" style="background: #ffe6e6; color: #d32f2f;">Limited Time Offer</span>
-                            </div>
-                            <ul class="hotel-features">
-                                <li>Beach front location</li>
-                                <li>Pool and spa facilities</li>
-                            </ul>
-                        </div>
-                        <div class="hotel-pricing">
-                            <div class="rating-section">
-                                <span class="rating-text">Very Good</span>
-                                <div class="rating-badge very-good">4.1</div>
-                            </div>
-                            <div class="rating-count">(5756 Ratings)</div>
-                            <div class="price-section">
-                                <div class="original-price">₹4,200</div>
-                                <div class="current-price">₹3,600</div>
-                                <div class="price-note">+ ₹432 taxes & fees<br>Per Night</div>
-                            </div>
-                            <button class="book-button">Login to Book Now & Pay Later!</button>
-                        </div>
-                    </div>
-                </div>
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <div class="logo">Petri</div>
+            <button class="close-menu" id="closeMenu">×</button>
+        </div>
+        
+        <ul class="side-nav-menu">
+            <li class="side-nav-item"><a href="#" class="side-nav-link">Home</a></li>
+            <li class="side-nav-item"><a href="#" class="side-nav-link">Hotels</a></li>
+            <li class="side-nav-item"><a href="#" class="side-nav-link">Restaurants</a></li>
+            <li class="side-nav-item"><a href="#" class="side-nav-link">Tours</a></li>
+            <li class="side-nav-item"><a href="#" class="side-nav-link">Gallery</a></li>
+            <li class="side-nav-item"><a href="#" class="side-nav-link">About Us</a></li>
+            <li class="side-nav-item"><a href="#" class="side-nav-link">Contact</a></li>
+        </ul>
+        
+        <div class="side-menu-footer">
+            <button class="side-sign-up-btn">Sign Up</button>
+            <div class="side-social-icons">
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="Twitter">t</a>
+                <a href="#" aria-label="Instagram">i</a>
+                <a href="#" aria-label="YouTube">y</a>
+                <a href="#" aria-label="WhatsApp">w</a>
             </div>
         </div>
     </div>
+
+    <!-- Demo Content -->
+    <div class="content">
+        <h1>Welcome to Petri</h1>
+        <p>This is a demo page to show the responsive navigation bar. Try resizing the window or viewing on mobile to see the animated side menu in action!</p>
+    </div>
+
+    <script>
+        // Get elements
+        const menuToggle = document.getElementById('menuToggle');
+        const sideMenu = document.getElementById('sideMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const closeMenu = document.getElementById('closeMenu');
+        const sideNavLinks = document.querySelectorAll('.side-nav-link');
+
+        // Function to open side menu
+        function openSideMenu() {
+            menuToggle.classList.add('active');
+            sideMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        // Function to close side menu
+        function closeSideMenu() {
+            menuToggle.classList.remove('active');
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
+        // Event listeners
+        menuToggle.addEventListener('click', openSideMenu);
+        closeMenu.addEventListener('click', closeSideMenu);
+        menuOverlay.addEventListener('click', closeSideMenu);
+
+        // Close menu when clicking on navigation links
+        sideNavLinks.forEach(link => {
+            link.addEventListener('click', closeSideMenu);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeSideMenu();
+            }
+        });
+
+        // Prevent menu from staying open on page load
+        window.addEventListener('load', closeSideMenu);
+
+        // Add smooth scroll behavior for demo
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

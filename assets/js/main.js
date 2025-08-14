@@ -3,85 +3,6 @@
  * Handles all the interactive elements of the website
  */
 
-// Menu Slider
-class MenuSlider {
-    constructor() {
-        this.menuSlider = document.querySelector('.menu-slider');
-        this.menuContent = document.querySelector('.menu-slider-content');
-        this.menuToggle = document.querySelector('.menu-slider-toggle');
-        this.closeButton = document.querySelector('.menu-slider-close');
-        this.menuItems = document.querySelectorAll('.menu-item-has-children > a');
-
-        this.init();
-    }
-
-    init() {
-        // Toggle menu when clicking the menu button
-        if (this.menuToggle) {
-            this.menuToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.toggleMenu();
-            });
-        }
-
-        // Close menu when clicking the close button
-        if (this.closeButton) {
-            this.closeButton.addEventListener('click', () => this.closeMenu());
-        }
-
-        // Close menu when clicking outside
-        if (this.menuSlider) {
-            this.menuSlider.addEventListener('click', (e) => {
-                if (e.target === this.menuSlider) {
-                    this.closeMenu();
-                }
-            });
-        }
-
-        // Toggle submenus
-        this.menuItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                if (window.innerWidth < 992) { // Only on mobile
-                    e.preventDefault();
-                    const parent = item.parentElement;
-                    const submenu = parent.querySelector('.sub-menu');
-
-                    if (submenu) {
-                        parent.classList.toggle('active');
-                        if (submenu.style.display === 'block') {
-                            submenu.style.display = 'none';
-                        } else {
-                            submenu.style.display = 'block';
-                        }
-                    }
-                }
-            });
-        });
-    }
-
-    toggleMenu() {
-        document.body.classList.toggle('menu-open');
-        this.menuSlider.classList.toggle('active');
-
-        if (this.menuSlider.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }
-
-    openMenu() {
-        document.body.classList.add('menu-open');
-        this.menuSlider.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    closeMenu() {
-        document.body.classList.remove('menu-open');
-        this.menuSlider.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
 
 // Simple Image Slider
 class SimpleSlider {
@@ -196,11 +117,6 @@ class SimpleSlider {
 
 // Initialize the slider when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize menu slider if it exists on the page
-    if (document.querySelector('.menu-slider')) {
-        new MenuSlider();
-    }
-
     // Initialize image slider if it exists on the page
     if (document.querySelector('.simple-slider')) {
         new SimpleSlider();

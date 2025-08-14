@@ -123,15 +123,12 @@
                     <img src="assets/img/stay-in-puri.png" alt="Stay in Puri" width="120" height="auto" class="img-fluid">
                 </a>
                 
-                <!-- Mobile Toggle Buttons -->
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-link text-dark me-2 menu-slider-toggle d-none d-lg-block" type="button" aria-label="Open menu">
-                        <i class="fas fa-bars fa-lg"></i>
-                    </button>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn d-lg-none" type="button" id="mobileMenuBtn">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 
                 <!-- Desktop Menu -->
                 <div class="collapse navbar-collapse" id="mainNav">
@@ -193,6 +190,92 @@
         </nav>
     </header>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-sidebar">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-logo">
+                    <img src="assets/img/stay-in-puri.png" alt="Stay in Puri" width="100" height="auto">
+                </div>
+                <button class="mobile-menu-close" id="mobileMenuClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="mobile-menu-nav">
+                <ul class="mobile-nav-list">
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="index.php">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="mobile-nav-item has-submenu">
+                        <a class="mobile-nav-link" href="hotels.php">
+                            <i class="fas fa-hotel"></i>
+                            <span>Hotels</span>
+                            <i class="fas fa-chevron-down submenu-toggle"></i>
+                        </a>
+                        <ul class="mobile-submenu">
+                            <li><a href="hotels.php?city=puri"><i class="fas fa-hotel"></i>Hotels in Puri</a></li>
+                            <li><a href="hotels.php?city=bhubaneswar"><i class="fas fa-hotel"></i>Hotels in Bhubaneswar</a></li>
+                            <li><a href="hotels.php?type=resort"><i class="fas fa-umbrella-beach"></i>Resorts</a></li>
+                            <li><a href="hotels.php?type=budget"><i class="fas fa-wallet"></i>Budget Stays</a></li>
+                            <li><a href="hotels.php?type=luxury"><i class="fas fa-crown"></i>Luxury Hotels</a></li>
+                        </ul>
+                    </li>
+                    <li class="mobile-nav-item has-submenu">
+                        <a class="mobile-nav-link" href="restaurants.php">
+                            <i class="fas fa-utensils"></i>
+                            <span>Restaurants</span>
+                            <i class="fas fa-chevron-down submenu-toggle"></i>
+                        </a>
+                        <ul class="mobile-submenu">
+                            <li><a href="restaurants.php?city=puri">Restaurants in Puri</a></li>
+                            <li><a href="restaurants.php?city=bhubaneswar">Restaurants in Bhubaneswar</a></li>
+                            <li><a href="restaurants.php?cuisine=odiya">Odisha Cuisine</a></li>
+                            <li><a href="restaurants.php?cuisine=seafood">Seafood Specials</a></li>
+                        </ul>
+                    </li>
+                    <li class="mobile-nav-item has-submenu">
+                        <a class="mobile-nav-link" href="tours.php">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>Tours</span>
+                            <i class="fas fa-chevron-down submenu-toggle"></i>
+                        </a>
+                        <ul class="mobile-submenu">
+                            <li><a href="tours.php?type=heritage">Heritage Tours</a></li>
+                            <li><a href="tours.php?type=pilgrimage">Pilgrimage Tours</a></li>
+                            <li><a href="tours.php?type=beach">Beach Tours</a></li>
+                            <li><a href="tours.php?type=wildlife">Wildlife Tours</a></li>
+                            <li><a href="tours.php?type=adventure">Adventure Activities</a></li>
+                        </ul>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="gallery.php">
+                            <i class="fas fa-images"></i>
+                            <span>Gallery</span>
+                        </a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="about.php">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About Us</span>
+                        </a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="contact.php">
+                            <i class="fas fa-phone"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="mobile-menu-footer">
+                    <a href="register.php" class="btn btn-primary w-100">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
     
 
     <style>
@@ -232,204 +315,322 @@
             }
         }
         
-        /* Mobile menu styles */
-        @media (max-width: 991.98px) {
-            .navbar .dropdown-menu {
-                border: none;
-                padding-left: 20px;
-            }
+        /* Mobile Menu Styles */
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1001;
         }
         
-        /* Smooth transitions for offcanvas */
-        .offcanvas {
-            transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
         }
         
-        .offcanvas-backdrop {
-            transition: opacity 0.3s ease-in-out;
+        .mobile-menu-btn.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
         }
         
-        .offcanvas-start {
+        .mobile-menu-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu-sidebar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background-color: #fff;
             transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
         
-        .offcanvas.show {
+        .mobile-menu-overlay.active .mobile-menu-sidebar {
             transform: translateX(0);
         }
         
-        /* Smooth dropdown animations */
-        .offcanvas .collapse:not(.show) {
-            display: none;
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background-color: #f8f9fa;
         }
         
-        .offcanvas .collapsing {
-            position: relative;
-            height: 0;
-            overflow: hidden;
-            transition: height 0.35s ease;
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            padding: 5px;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
         }
         
-        /* Menu item hover effects */
-        .offcanvas .nav-link {
+        .mobile-menu-close:hover {
+            background-color: #e9ecef;
+        }
+        
+        .mobile-menu-nav {
+            padding: 20px 0;
+        }
+        
+        .mobile-nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-nav-item {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #333;
+            text-decoration: none;
             transition: all 0.2s ease;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.25rem;
+            position: relative;
         }
         
-        .offcanvas .nav-link:hover,
-        .offcanvas .nav-link:focus {
-            background-color: rgba(0, 0, 0, 0.05);
-            transform: translateX(5px);
+        .mobile-nav-link:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
         }
+        
+        .mobile-nav-link i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+        
+        .mobile-nav-link span {
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .submenu-toggle {
+            margin-left: auto !important;
+            margin-right: 0 !important;
+            transition: transform 0.3s ease;
+            font-size: 12px !important;
+        }
+        
+        .has-submenu.active .submenu-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .mobile-submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: #f8f9fa;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .has-submenu.active .mobile-submenu {
+            max-height: 300px;
+        }
+        
+        .mobile-submenu li {
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .mobile-submenu li:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-submenu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px 12px 55px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .mobile-submenu a:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+            padding-left: 60px;
+        }
+        
+        .mobile-submenu a i {
+            width: 16px;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        
+        .mobile-menu-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        
+        /* Hide mobile menu on desktop */
+        @media (min-width: 992px) {
+            .mobile-menu-overlay {
+                display: none !important;
+            }
+        }
+        
+        /* Body scroll lock when menu is open */
+        body.mobile-menu-open {
+            overflow: hidden;
+        }
+       
     </style>
     
-    <!-- Mobile Offcanvas Menu -->
-
-    <!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#hotelsCollapse" role="button" aria-expanded="false" aria-controls="hotelsCollapse">
-                        Hotels <i class="fas fa-chevron-down float-end mt-1"></i>
-                    </a>
-                    <div class="collapse" id="hotelsCollapse">
-                        <ul class="nav flex-column ms-3">
-                            <li class="nav-item">
-                                <a class="nav-link" href="hotels.php?city=puri">Hotels in Puri</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="hotels.php?city=bhubaneswar">Hotels in Bhubaneswar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="hotels.php?type=resort">Resorts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="hotels.php?type=budget">Budget Stays</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="gallery.php">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.php">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.php">Contact</a>
-                </li>
-            </ul>
-            <div class="mt-3">
-                <a href="register.php" class="btn btn-primary w-100">Sign Up</a>
-            </div>
-        </div>
-    </div> -->
-
-    
-
-    <!-- Initialize Bootstrap Offcanvas with Enhanced Animations -->
     <script>
+        // Mobile Menu Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Enable hover functionality for dropdowns on desktop
-            if (window.innerWidth >= 992) {
-                const dropdowns = document.querySelectorAll('.dropdown');
-                
-                dropdowns.forEach(dropdown => {
-                    const toggle = dropdown.querySelector('.dropdown-toggle');
-                    const menu = dropdown.querySelector('.dropdown-menu');
-                    let timeoutId;
-                    
-                    // Show on hover
-                    dropdown.addEventListener('mouseenter', () => {
-                        clearTimeout(timeoutId);
-                        const bsDropdown = bootstrap.Dropdown.getInstance(toggle) || new bootstrap.Dropdown(toggle);
-                        bsDropdown.show();
-                    });
-                    
-                    // Hide with delay on mouse leave
-                    dropdown.addEventListener('mouseleave', () => {
-                        timeoutId = setTimeout(() => {
-                            const bsDropdown = bootstrap.Dropdown.getInstance(toggle);
-                            if (bsDropdown) {
-                                bsDropdown.hide();
-                            }
-                        }, 300);
-                    });
-                    
-                    // Keep menu open when hovering over it
-                    menu.addEventListener('mouseenter', () => clearTimeout(timeoutId));
-                    menu.addEventListener('mouseleave', () => {
-                        timeoutId = setTimeout(() => {
-                            const bsDropdown = bootstrap.Dropdown.getInstance(toggle);
-                            if (bsDropdown) {
-                                bsDropdown.hide();
-                            }
-                        }, 300);
-                    });
-                });
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const body = document.body;
+            
+            // Open mobile menu
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuOverlay.classList.add('active');
+                mobileMenuBtn.classList.add('active');
+                body.classList.add('mobile-menu-open');
+            });
+            
+            // Close mobile menu
+            function closeMobileMenu() {
+                mobileMenuOverlay.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                body.classList.remove('mobile-menu-open');
             }
             
-            // Initialize mobile menu
-            var mobileMenu = document.getElementById('mobileMenu');
-            var bsOffcanvas = new bootstrap.Offcanvas(mobileMenu, {
-                backdrop: true,
-                scroll: false
+            // Close menu when clicking close button
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+            
+            // Close menu when clicking overlay
+            mobileMenuOverlay.addEventListener('click', function(e) {
+                if (e.target === mobileMenuOverlay) {
+                    closeMobileMenu();
+                }
             });
             
-            // Add animation classes on show/hide
-            mobileMenu.addEventListener('show.bs.offcanvas', function () {
-                document.body.style.overflow = 'hidden';
-                document.body.style.paddingRight = '0';
-            });
-            
-            mobileMenu.addEventListener('shown.bs.offcanvas', function () {
-                // Add any additional animations after menu is shown
-            });
-            
-            mobileMenu.addEventListener('hide.bs.offcanvas', function () {
-                // Add any animations before hiding
-            });
-            
-            mobileMenu.addEventListener('hidden.bs.offcanvas', function () {
-                document.body.style.overflow = '';
-                document.body.style.paddingRight = '';
-            });
-            
-            // Handle dropdown toggles
-            var dropdownToggles = mobileMenu.querySelectorAll('[data-bs-toggle="collapse"]');
-            dropdownToggles.forEach(function(toggle) {
-                toggle.addEventListener('click', function(e) {
+            // Handle submenu toggles
+            const submenuItems = document.querySelectorAll('.has-submenu > .mobile-nav-link');
+            submenuItems.forEach(function(item) {
+                item.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
+                    const parentItem = this.parentElement;
+                    const isActive = parentItem.classList.contains('active');
                     
-                    var target = document.querySelector(this.getAttribute('href'));
-                    var bsCollapse = new bootstrap.Collapse(target, { toggle: true });
+                    // Close all other submenus
+                    document.querySelectorAll('.has-submenu.active').forEach(function(activeItem) {
+                        if (activeItem !== parentItem) {
+                            activeItem.classList.remove('active');
+                        }
+                    });
                     
-                    // Rotate icon
-                    var icon = this.querySelector('i');
-                    if (icon) {
-                        icon.style.transition = 'transform 0.3s ease';
+                    // Toggle current submenu
+                    if (isActive) {
+                        parentItem.classList.remove('active');
+                    } else {
+                        parentItem.classList.add('active');
                     }
                 });
             });
             
-            // Close offcanvas when clicking on nav links (except dropdown toggles)
-            var navLinks = mobileMenu.querySelectorAll('.nav-link:not([data-bs-toggle="collapse"])');
-            navLinks.forEach(function(link) {
+            // Close menu when clicking submenu links
+            const submenuLinks = document.querySelectorAll('.mobile-submenu a');
+            submenuLinks.forEach(function(link) {
                 link.addEventListener('click', function() {
-                    var bsOffcanvas = bootstrap.Offcanvas.getInstance(mobileMenu);
-                    bsOffcanvas.hide();
+                    closeMobileMenu();
                 });
+            });
+            
+            // Close menu when clicking main nav links (except those with submenus)
+            const mainNavLinks = document.querySelectorAll('.mobile-nav-item:not(.has-submenu) .mobile-nav-link');
+            mainNavLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            });
+            
+            // Close menu on window resize if screen becomes large
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 992) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Prevent body scroll when menu is open
+            let scrollY = 0;
+            mobileMenuOverlay.addEventListener('transitionstart', function() {
+                if (mobileMenuOverlay.classList.contains('active')) {
+                    scrollY = window.scrollY;
+                    body.style.position = 'fixed';
+                    body.style.top = `-${scrollY}px`;
+                    body.style.width = '100%';
+                }
+            });
+            
+            mobileMenuOverlay.addEventListener('transitionend', function() {
+                if (!mobileMenuOverlay.classList.contains('active')) {
+                    body.style.position = '';
+                    body.style.top = '';
+                    body.style.width = '';
+                    window.scrollTo(0, scrollY);
+                }
             });
         });
     </script>
-
+    
     <!-- Main Content -->
-    <main class="flex-shrink-0">
+<main class="flex-shrink-0">
