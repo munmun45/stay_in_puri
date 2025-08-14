@@ -183,7 +183,7 @@
                         </li>
                     </ul>
                     <div class="d-flex ms-lg-3">
-                        <a href="register.php" class="btn btn-primary">Sign Up</a>
+                        <a href="login.php" class="btn btn-primary">Sign Up</a>
                     </div>
                 </div>
             </div>
