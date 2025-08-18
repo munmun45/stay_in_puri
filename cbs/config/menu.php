@@ -55,6 +55,12 @@
         <li class="nav-heading">Ads & Banner</li>
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="slider-listing">
+                <i class="bi bi-megaphone-fill"></i> <!-- Ads Listing -->
+                <span>Slider</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link collapsed" href="ads-listing">
                 <i class="bi bi-megaphone-fill"></i> <!-- Ads Listing -->
                 <span>Ads Listing</span>

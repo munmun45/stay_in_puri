@@ -175,12 +175,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="gallery.php">Gallery</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.php">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.php">Contact</a>
-                        </li>
+                       
                     </ul>
                     <div class="d-flex ms-lg-3">
                         <a href="login.php" class="btn btn-primary">Sign Up</a>

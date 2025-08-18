@@ -11,14 +11,14 @@
      display: grid;
      grid-template-columns: 2fr 1fr 1fr 1.5fr auto;
      gap: 0;
-     border: 1px solid #ddd;
+     border: 1px solid var(--border-color);
      border-radius: 4px;
      overflow: hidden;
  }
 
  .search-field {
      background: white;
-     border-right: 1px solid #ddd;
+     border-right: 1px solid var(--border-color);
      padding: 15px;
      display: flex;
      flex-direction: column;
@@ -30,7 +30,7 @@
 
  .search-field label {
      font-size: 11px;
-     color: #666;
+     color: var(--text-light);
      margin-bottom: 5px;
      text-transform: uppercase;
      font-weight: 500;
@@ -41,11 +41,11 @@
      outline: none;
      font-size: 14px;
      font-weight: 500;
-     color: #333;
+     color: var(--text-color);
  }
 
  .search-btn {
-     background: #4a90e2;
+     background: var(--primary-color);
      color: white;
      border: none;
      padding: 15px 30px;
@@ -56,18 +56,18 @@
  }
 
  .search-btn:hover {
-     background: #357abd;
+     background: var(--primary-hover);
  }
 
  /* Breadcrumb */
  .breadcrumb {
      font-size: 14px;
-     color: #4a90e2;
+     color: var(--primary-color);
      margin-bottom: 10px;
  }
 
  .breadcrumb a {
-     color: #4a90e2;
+     color: var(--primary-color);
      text-decoration: none;
  }
 
@@ -82,13 +82,13 @@
  .results-title {
      font-size: 28px;
      font-weight: 600;
-     color: #333;
+     color: var(--text-color);
  }
 
  .explore-tips {
      display: flex;
      align-items: center;
-     color: #4a90e2;
+     color: var(--primary-color);
      font-size: 14px;
  }
 
@@ -115,21 +115,22 @@
  }
 
  .map-placeholder {
-     background: #e8f4fd;
+     background: rgba(107, 197, 210, 0.15);
+     /* accent tint */
      height: 150px;
      border-radius: 4px;
      display: flex;
      align-items: center;
      justify-content: center;
-     color: #4a90e2;
+     color: var(--primary-color);
      font-weight: 500;
      margin-bottom: 15px;
  }
 
  .explore-map-btn {
      background: white;
-     border: 2px solid #4a90e2;
-     color: #4a90e2;
+     border: 2px solid var(--primary-color);
+     color: var(--primary-color);
      padding: 10px 20px;
      border-radius: 20px;
      font-weight: 600;
@@ -140,7 +141,7 @@
  }
 
  .explore-map-btn:hover {
-     background: #4a90e2;
+     background: var(--primary-color);
      color: white;
  }
 
@@ -151,7 +152,7 @@
  .search-location input {
      width: 100%;
      padding: 10px 35px 10px 15px;
-     border: 1px solid #ddd;
+     border: 1px solid var(--border-color);
      border-radius: 4px;
      outline: none;
  }
@@ -180,7 +181,7 @@
  .filter-title {
      font-size: 16px;
      font-weight: 600;
-     color: #333;
+     color: var(--text-color);
      margin-bottom: 15px;
  }
 
@@ -198,19 +199,19 @@
 
  .filter-option label {
      flex: 1;
-     color: #555;
+     color: var(--text-light);
      font-size: 14px;
      cursor: pointer;
      margin-right: 10px;
  }
 
  .filter-count {
-     color: #888;
+     color: var(--text-light);
      font-size: 13px;
  }
 
  .show-more {
-     color: #4a90e2;
+     color: var(--primary-color);
      font-size: 14px;
      cursor: pointer;
      text-align: right;
@@ -228,13 +229,13 @@
  .price-range input {
      flex: 1;
      padding: 8px;
-     border: 1px solid #ddd;
+     border: 1px solid var(--border-color);
      border-radius: 4px;
      font-size: 14px;
  }
 
  .price-range-btn {
-     background: #4a90e2;
+     background: var(--primary-color);
      color: white;
      border: none;
      padding: 8px 15px;
@@ -253,12 +254,12 @@
  /* Sort Options */
  .sort-section {
      padding: 20px;
-     border-bottom: 1px solid #eee;
+     border-bottom: 1px solid var(--border-color);
  }
 
  .sort-title {
      font-size: 14px;
-     color: #666;
+     color: var(--text-light);
      margin-bottom: 10px;
  }
 
@@ -268,7 +269,7 @@
  }
 
  .sort-option {
-     color: #666;
+     color: var(--text-light);
      text-decoration: none;
      font-size: 14px;
      padding: 5px 0;
@@ -277,13 +278,13 @@
  }
 
  .sort-option.active {
-     color: #4a90e2;
-     border-bottom-color: #4a90e2;
+     color: var(--primary-color);
+     border-bottom-color: var(--primary-color);
      font-weight: 500;
  }
 
  .sort-option:hover {
-     color: #4a90e2;
+     color: var(--primary-color);
  }
 
  /* Results Header */
@@ -291,12 +292,12 @@
      padding: 20px;
      font-size: 18px;
      font-weight: 600;
-     color: #333;
+     color: var(--text-color);
  }
 
  /* Hotel Cards */
  .hotel-card {
-     border-bottom: 1px solid #eee;
+     border-bottom: 1px solid var(--border-color);
      /* padding: 20px; */
      transition: background 0.2s;
  }
@@ -310,7 +311,7 @@
  }
 
  .card-content {
-     display: grid;
+     display: flex;
      grid-template-columns: auto 1fr auto;
      gap: 20px;
      align-items: start;
@@ -371,18 +372,18 @@
  .hotel-name {
      font-size: 18px;
      font-weight: 600;
-     color: #333;
+     color: var(--text-color);
      margin-bottom: 5px;
  }
 
  .hotel-stars {
-     color: #ffa500;
+     color: var(--secondary-color);
      font-size: 14px;
      margin-bottom: 8px;
  }
 
  .hotel-location {
-     color: #4a90e2;
+     color: var(--primary-color);
      font-size: 14px;
      margin-bottom: 10px;
  }
@@ -394,8 +395,8 @@
  }
 
  .tag {
-     background: #e8f4fd;
-     color: #4a90e2;
+     background: rgba(107, 197, 210, 0.15);
+     color: var(--primary-color);
      padding: 4px 8px;
      border-radius: 12px;
      font-size: 12px;
@@ -414,7 +415,7 @@
 
  .hotel-features li {
      font-size: 13px;
-     color: #555;
+     color: var(--text-light);
      margin-bottom: 4px;
      position: relative;
      padding-left: 15px;
@@ -429,7 +430,7 @@
 
  .special-offer {
      background: #fff3e0;
-     color: #e65100;
+     color: var(--secondary-color);
      padding: 6px 10px;
      border-radius: 4px;
      font-size: 12px;
@@ -460,11 +461,10 @@
  .rating-text {
      font-size: 14px;
      font-weight: 500;
-     color: #333;
+     color: var(--text-color);
  }
 
  .rating-badge {
-     background: #34a853;
      color: white;
      padding: 4px 8px;
      border-radius: 4px;
@@ -477,12 +477,12 @@
  }
 
  .rating-badge.very-good {
-     background: #1976d2;
+     background: var(--primary-color);
  }
 
  .rating-count {
      font-size: 13px;
-     color: #666;
+     color: var(--text-light);
  }
 
  .price-section {
@@ -499,18 +499,18 @@
  .current-price {
      font-size: 22px;
      font-weight: 700;
-     color: #333;
+     color: var(--text-color);
      margin-bottom: 5px;
  }
 
  .price-note {
      font-size: 12px;
-     color: #666;
+     color: var(--text-light);
      line-height: 1.3;
  }
 
  .book-button {
-     background: #de1264;
+     background: var(--secondary-color);
      color: white;
      border: none;
      padding: 8px 16px;
@@ -522,12 +522,12 @@
  }
 
  .book-button:hover {
-     background: #de1264;
+     background: var(--primary-color);
  }
 
  .pay-later {
      font-size: 12px;
-     color: #4a90e2;
+     color: var(--primary-color);
      cursor: pointer;
  }
 

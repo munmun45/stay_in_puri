@@ -512,178 +512,216 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Add active class to current section in navigation
+const sections = document.querySelectorAll('section[id]');
 
+function onScroll() {
+    const scrollPosition = window.scrollY + 200;
 
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
 
-
-// Slider functionality
-class OffersSlider {
-    constructor() {
-        this.container = document.getElementById('offersContainer');
-        this.prevBtn = document.getElementById('prevBtn');
-        this.nextBtn = document.getElementById('nextBtn');
-        this.cardWidth = 420; // 400px + 20px gap
-        this.currentPosition = 0;
-        this.maxPosition = 0;
-        this.autoSlideInterval = null;
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-
-        this.init();
-    }
-
-    init() {
-        this.calculateMaxPosition();
-        this.updateButtons();
-        this.bindEvents();
-        this.enableTouch();
-        this.startAutoSlide();
-
-        // Recalculate on window resize
-        window.addEventListener('resize', () => {
-            this.calculateMaxPosition();
-            this.currentPosition = 0;
-            this.updateSlider();
-        });
-    }
-
-    calculateMaxPosition() {
-        const containerWidth = this.container.parentElement.offsetWidth;
-        const totalCards = this.container.children.length;
-        const totalWidth = totalCards * this.cardWidth;
-        this.maxPosition = Math.max(0, totalWidth - containerWidth);
-    }
-
-    bindEvents() {
-        this.prevBtn.addEventListener('click', () => {
-            this.slideLeft();
-            this.resetAutoSlide();
-        });
-
-        this.nextBtn.addEventListener('click', () => {
-            this.slideRight();
-            this.resetAutoSlide();
-        });
-    }
-
-    slideLeft() {
-        this.currentPosition = Math.max(0, this.currentPosition - this.cardWidth);
-        this.updateSlider();
-    }
-
-    slideRight() {
-        this.currentPosition = Math.min(this.maxPosition, this.currentPosition + this.cardWidth);
-        this.updateSlider();
-    }
-
-    updateSlider() {
-        this.container.style.transform = `translateX(-${this.currentPosition}px)`;
-        this.updateButtons();
-    }
-
-    updateButtons() {
-        this.prevBtn.classList.toggle('disabled', this.currentPosition === 0);
-        this.nextBtn.classList.toggle('disabled', this.currentPosition >= this.maxPosition);
-    }
-
-    // === Auto Slide ===
-    startAutoSlide() {
-        this.autoSlideInterval = setInterval(() => {
-            if (this.currentPosition < this.maxPosition) {
-                this.slideRight();
-            } else {
-                this.currentPosition = 0;
-                this.updateSlider();
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            document.querySelector(`.navbar-nav .nav-link[href*="${sectionId}"]`).classList.add('active');
+        } else {
+            const navLink = document.querySelector(`.navbar-nav .nav-link[href*="${sectionId}"]`);
+            if (navLink && !navLink.classList.contains('dropdown-toggle')) {
+                navLink.classList.remove('active');
             }
-        }, 3000); // every 3 seconds
-    }
-
-    resetAutoSlide() {
-        clearInterval(this.autoSlideInterval);
-        this.startAutoSlide();
-    }
-
-    // === Touch Swipe ===
-    enableTouch() {
-        this.container.addEventListener('touchstart', (e) => {
-            this.touchStartX = e.touches[0].clientX;
-        });
-
-        this.container.addEventListener('touchmove', (e) => {
-            this.touchEndX = e.touches[0].clientX;
-        });
-
-        this.container.addEventListener('touchend', () => {
-            const distance = this.touchStartX - this.touchEndX;
-            if (Math.abs(distance) > 50) {
-                if (distance > 0) {
-                    this.slideRight();
-                } else {
-                    this.slideLeft();
-                }
-                this.resetAutoSlide();
-            }
-        });
-    }
+        }
+    });
 }
 
-// Initialize slider when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    let slider = new OffersSlider();
+// Only run this if we have sections with IDs
+if (sections.length > 0) {
+    window.addEventListener('scroll', onScroll);
+}
 
-    // Reinitialize slider when tab changes
-    const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
-    tabButtons.forEach(button => {
-        button.addEventListener('shown.bs.tab', function() {
-            setTimeout(() => {
-                slider = new OffersSlider(); // recreate to rebind all
-            }, 100);
-        });
+// Slider functionality (Deprecated custom slider removed; using Swiper instead)
+// Initialize Offers Swipers (Hotels, All, etc.)
+const offerSwiperEls = document.querySelectorAll('.offers-swiper');
+offerSwiperEls.forEach((el) => {
+    const paginationEl = el.querySelector('.swiper-pagination');
+    new Swiper(el, {
+        slidesPerView: 1.05,
+        spaceBetween: 16,
+        loop: false,
+        grabCursor: true,
+        speed: 600,
+        pagination: paginationEl ? { el: paginationEl, clickable: true } : undefined,
+        breakpoints: {
+            576: { slidesPerView: 2, spaceBetween: 16 },
+            768: { slidesPerView: 2.5, spaceBetween: 20 },
+            992: { slidesPerView: 3, spaceBetween: 24 },
+            1200: { slidesPerView: 3.5, spaceBetween: 24 }
+        }
     });
 });
 
+// Initialize Swiper
+$(document).ready(function() {
+    // Initialize Hero Swiper
+    new Swiper('.hero-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 5000
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        effect: 'fade',
+        speed: 1000,
+        grabCursor: true
+    });
 
+    // Initialize Restaurant Date Time Picker
+    $('#restaurant-datetime').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        singleDatePicker: true,
+        timePicker24Hour: false,
+        locale: {
+            format: 'MMMM D, YYYY h:mm A',
+            applyLabel: 'Select',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        },
+        minDate: new Date(),
+        startDate: new Date(new Date().setHours(19, 0, 0, 0)), // Default to 7:00 PM
+        minHour: 8, // 8 AM
+        maxHour: 22 // 10 PM
+    }, function(start, end, label) {
+        $('#restaurant-date').val(start.format('YYYY-MM-DD'));
+        $('#restaurant-time').val(start.format('HH:mm'));
+    });
 
+    // Set initial values
+    const now = new Date();
+    $('#restaurant-date').val(now.toISOString().split('T')[0]);
+    $('#restaurant-time').val('19:00');
 
+    // Initialize Date Range Picker
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left',
+        autoUpdateInput: false,
+        minDate: new Date(),
+        locale: {
+            cancelLabel: 'Clear',
+            format: 'DD/MM/YYYY',
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        }
+    }, function(start, end, label) {
+        // Format the dates as needed
+        var startDate = start.format('DD/MM/YYYY');
+        var endDate = end.format('DD/MM/YYYY');
 
+        // Set the input field value
+        $('input[name="daterange"]').val(startDate + ' - ' + endDate);
 
+        // Set the hidden input values
+        $('#checkin').val(start.format('YYYY-MM-DD'));
+        $('#checkout').val(end.format('YYYY-MM-DD'));
+    });
 
-
-
-
-
-// Initialize slider when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    new OffersSlider();
-
-    // Reinitialize slider when tab changes
-    const tabButtons = document.querySelectorAll('[data-bs-toggle="tab"]');
-    tabButtons.forEach(button => {
-        button.addEventListener('shown.bs.tab', function() {
-            setTimeout(() => {
-                new OffersSlider();
-            }, 100);
-        });
+    // Clear the date range picker
+    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+        $('#checkin').val('');
+        $('#checkout').val('');
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Destination Swiper
+    const destinationSwiper = new Swiper('.destinations-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        grabCursor: true,
+        navigation: {
+            nextEl: '.destination-next',
+            prevEl: '.destination-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            992: { slidesPerView: 4 }
+        },
+        on: {
+            init: function() {
+                // Add animation class to active slides
+                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
+            },
+            slideChange: function() {
+                // Update animation classes on slide change
+                this.slides.forEach(slide => {
+                    slide.classList.remove('swiper-slide-visible');
+                });
+                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
+            }
+        }
+    });
 
+    // Wire shared prev/next buttons to active Offers Swiper
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
+    function getActiveOffersSwiper() {
+        const activePane = document.querySelector('#offerTabsContent .tab-pane.active');
+        if (!activePane) return null;
+        const el = activePane.querySelector('.offers-swiper');
+        if (!el || !el.swiper) return null;
+        return el.swiper;
+    }
 
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sw = getActiveOffersSwiper();
+            if (sw) sw.slidePrev();
+        });
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sw = getActiveOffersSwiper();
+            if (sw) sw.slideNext();
+        });
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Ensure buttons control the correct swiper when tab changes
+    document.querySelectorAll('[data-bs-toggle="tab"]').forEach(btn => {
+        btn.addEventListener('shown.bs.tab', () => {
+            // No action needed; getActiveOffersSwiper reads the current active tab.
+        });
+    });
+});
 
 // Guest Selector Functions
 function toggleGuestDropdown() {
@@ -801,182 +839,4 @@ document.addEventListener('click', function(event) {
     if (restaurantDropdown && !restaurantDropdown.contains(event.target) && event.target !== restaurantInput) {
         restaurantDropdown.style.display = 'none';
     }
-});
-
-// Initialize Swiper
-$(document).ready(function() {
-    // Initialize Hero Swiper
-    new Swiper('.hero-swiper', {
-        loop: true,
-        autoplay: {
-            delay: 5000
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        effect: 'fade',
-        speed: 1000,
-        grabCursor: true
-    });
-
-    // Initialize Restaurant Date Time Picker
-    $('#restaurant-datetime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        singleDatePicker: true,
-        timePicker24Hour: false,
-        locale: {
-            format: 'MMMM D, YYYY h:mm A',
-            applyLabel: 'Select',
-            cancelLabel: 'Cancel',
-            fromLabel: 'From',
-            toLabel: 'To',
-            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            firstDay: 1
-        },
-        minDate: new Date(),
-        startDate: new Date(new Date().setHours(19, 0, 0, 0)), // Default to 7:00 PM
-        minHour: 8, // 8 AM
-        maxHour: 22 // 10 PM
-    }, function(start, end, label) {
-        $('#restaurant-date').val(start.format('YYYY-MM-DD'));
-        $('#restaurant-time').val(start.format('HH:mm'));
-    });
-
-    // Set initial values
-    const now = new Date();
-    $('#restaurant-date').val(now.toISOString().split('T')[0]);
-    $('#restaurant-time').val('19:00');
-
-    // Initialize Date Range Picker
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'left',
-        autoUpdateInput: false,
-        minDate: new Date(),
-        locale: {
-            cancelLabel: 'Clear',
-            format: 'DD/MM/YYYY',
-            separator: ' - ',
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
-            fromLabel: 'From',
-            toLabel: 'To',
-            customRangeLabel: 'Custom',
-            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            firstDay: 1
-        }
-    }, function(start, end, label) {
-        // Format the dates as needed
-        var startDate = start.format('DD/MM/YYYY');
-        var endDate = end.format('DD/MM/YYYY');
-
-        // Set the input field value
-        $('input[name="daterange"]').val(startDate + ' - ' + endDate);
-
-        // Set the hidden input values
-        $('#checkin').val(start.format('YYYY-MM-DD'));
-        $('#checkout').val(end.format('YYYY-MM-DD'));
-    });
-
-    // Clear the date range picker
-    $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-        $('#checkin').val('');
-        $('#checkout').val('');
-    });
-});
-
-
-
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Destination Swiper
-    const destinationSwiper = new Swiper('.destinations-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        speed: 800,
-        grabCursor: true,
-        navigation: {
-            nextEl: '.destination-next',
-            prevEl: '.destination-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            992: {
-                slidesPerView: 4,
-            }
-        },
-        on: {
-            init: function() {
-                // Add animation class to active slides
-                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
-            },
-            slideChange: function() {
-                // Update animation classes on slide change
-                this.slides.forEach(slide => {
-                    slide.classList.remove('swiper-slide-visible');
-                });
-                this.slides[this.activeIndex].classList.add('swiper-slide-visible');
-            }
-        }
-    });
-    new Swiper('.destinations-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        autoplay: {
-            delay: 3000, // 3 seconds delay between slides
-            disableOnInteraction: false,
-        },
-        speed: 800, // Animation speed in ms
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            992: {
-                slidesPerView: 3,
-            },
-            1200: {
-                slidesPerView: 4,
-            },
-        }
-    });
 });
