@@ -97,3 +97,206 @@
 [2025-08-11 08:57:02] Image saved to database successfully
 [2025-08-11 08:57:02] Transaction committed successfully
 [2025-08-11 08:57:02] === ADD ROOM PROCESSING END ===
+[2025-08-18 13:13:48] === ROOM PROCESSING START ===
+[2025-08-18 13:13:48] POST data: Array
+(
+    [id] => 5
+    [hotel_id] => 3
+    [name] => ghrteyert
+    [description] => yrtyrty
+    [max_capacity] => 456
+    [amenities] => Array
+        (
+            [0] => 4
+            [1] => 3
+        )
+
+    [update_room] => 
+)
+
+[2025-08-18 13:13:48] FILES data: Array
+(
+    [images] => Array
+        (
+            [name] => Array
+                (
+                    [0] => slider-1024x591-1.jpg
+                    [1] => slide4.jpg
+                    [2] => hotel-room-beds.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                    [1] => image/jpeg
+                    [2] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => C:\xampp\tmp\php4A0E.tmp
+                    [1] => C:\xampp\tmp\php4A0F.tmp
+                    [2] => C:\xampp\tmp\php4A20.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                    [2] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 86416
+                    [1] => 189565
+                    [2] => 262102
+                )
+
+        )
+
+)
+
+[2025-08-18 13:13:48] PHP upload_max_filesize: 40M
+[2025-08-18 13:13:48] PHP post_max_size: 40M
+[2025-08-18 13:13:48] PHP max_file_uploads: 20
+[2025-08-18 13:13:48] === UPDATE ROOM PROCESSING ===
+POST data: Array
+(
+    [id] => 5
+    [hotel_id] => 3
+    [name] => ghrteyert
+    [description] => yrtyrty
+    [max_capacity] => 456
+    [amenities] => Array
+        (
+            [0] => 4
+            [1] => 3
+        )
+
+    [update_room] => 
+)
+
+[2025-08-18 13:13:48] Room update data - ID: 5, Hotel ID: 3, Name: ghrteyert, Capacity: 456
+[2025-08-18 13:13:48] Starting database transaction
+[2025-08-18 13:13:48] Room data updated successfully for ID: 5
+[2025-08-18 13:13:48] Total new images to process: 3
+[2025-08-18 13:13:48] Processing image 0: slider-1024x591-1.jpg
+[2025-08-18 13:13:48] File data for index 0: Array
+(
+    [name] => slider-1024x591-1.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php4A0E.tmp
+    [error] => 0
+    [size] => 86416
+)
+
+[2025-08-18 13:13:48] uploadRoomImage called with: Array
+(
+    [name] => slider-1024x591-1.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php4A0E.tmp
+    [error] => 0
+    [size] => 86416
+)
+
+[2025-08-18 13:13:48] Target directory: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/
+[2025-08-18 13:13:48] Original filename: slider-1024x591-1.jpg
+[2025-08-18 13:13:48] New filename: 68a30aec423b4_1755515628.jpg
+[2025-08-18 13:13:48] Target file: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/68a30aec423b4_1755515628.jpg
+[2025-08-18 13:13:48] Image info: Array
+(
+    [0] => 1024
+    [1] => 591
+    [2] => 2
+    [3] => width="1024" height="591"
+    [bits] => 8
+    [channels] => 3
+    [mime] => image/jpeg
+)
+
+[2025-08-18 13:13:48] Attempting to move file from C:\xampp\tmp\php4A0E.tmp to C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/68a30aec423b4_1755515628.jpg
+[2025-08-18 13:13:48] File moved successfully
+[2025-08-18 13:13:48] Returning relative path: uploads/room_images/68a30aec423b4_1755515628.jpg
+[2025-08-18 13:13:48] Image upload successful: uploads/room_images/68a30aec423b4_1755515628.jpg (Primary: 0)
+[2025-08-18 13:13:48] Image saved to database successfully
+[2025-08-18 13:13:48] Processing image 1: slide4.jpg
+[2025-08-18 13:13:48] File data for index 1: Array
+(
+    [name] => slide4.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php4A0F.tmp
+    [error] => 0
+    [size] => 189565
+)
+
+[2025-08-18 13:13:48] uploadRoomImage called with: Array
+(
+    [name] => slide4.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php4A0F.tmp
+    [error] => 0
+    [size] => 189565
+)
+
+[2025-08-18 13:13:48] Target directory: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/
+[2025-08-18 13:13:48] Original filename: slide4.jpg
+[2025-08-18 13:13:48] New filename: 68a30aec43ed9_1755515628.jpg
+[2025-08-18 13:13:48] Target file: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/68a30aec43ed9_1755515628.jpg
+[2025-08-18 13:13:48] Image info: Array
+(
+    [0] => 1920
+    [1] => 1024
+    [2] => 2
+    [3] => width="1920" height="1024"
+    [bits] => 8
+    [channels] => 3
+    [mime] => image/jpeg
+)
+
+[2025-08-18 13:13:48] Attempting to move file from C:\xampp\tmp\php4A0F.tmp to C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/68a30aec43ed9_1755515628.jpg
+[2025-08-18 13:13:48] File moved successfully
+[2025-08-18 13:13:48] Returning relative path: uploads/room_images/68a30aec43ed9_1755515628.jpg
+[2025-08-18 13:13:48] Image upload successful: uploads/room_images/68a30aec43ed9_1755515628.jpg (Primary: 0)
+[2025-08-18 13:13:48] Image saved to database successfully
+[2025-08-18 13:13:48] Processing image 2: hotel-room-beds.jpg
+[2025-08-18 13:13:48] File data for index 2: Array
+(
+    [name] => hotel-room-beds.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php4A20.tmp
+    [error] => 0
+    [size] => 262102
+)
+
+[2025-08-18 13:13:48] uploadRoomImage called with: Array
+(
+    [name] => hotel-room-beds.jpg
+    [type] => image/jpeg
+    [tmp_name] => C:\xampp\tmp\php4A20.tmp
+    [error] => 0
+    [size] => 262102
+)
+
+[2025-08-18 13:13:48] Target directory: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/
+[2025-08-18 13:13:48] Original filename: hotel-room-beds.jpg
+[2025-08-18 13:13:48] New filename: 68a30aec45d6e_1755515628.jpg
+[2025-08-18 13:13:48] Target file: C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/68a30aec45d6e_1755515628.jpg
+[2025-08-18 13:13:48] Image info: Array
+(
+    [0] => 2000
+    [1] => 1333
+    [2] => 2
+    [3] => width="2000" height="1333"
+    [bits] => 8
+    [channels] => 3
+    [mime] => image/jpeg
+)
+
+[2025-08-18 13:13:48] Attempting to move file from C:\xampp\tmp\php4A20.tmp to C:\xampp\htdocs\all_project\stay_in_puri\cbs/uploads/room_images/68a30aec45d6e_1755515628.jpg
+[2025-08-18 13:13:48] File moved successfully
+[2025-08-18 13:13:48] Returning relative path: uploads/room_images/68a30aec45d6e_1755515628.jpg
+[2025-08-18 13:13:48] Image upload successful: uploads/room_images/68a30aec45d6e_1755515628.jpg (Primary: 0)
+[2025-08-18 13:13:48] Image saved to database successfully
+[2025-08-18 13:13:48] Transaction committed successfully
+[2025-08-18 13:13:48] === UPDATE ROOM PROCESSING END ===

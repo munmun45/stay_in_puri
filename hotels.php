@@ -1,5 +1,77 @@
 <?php
+// DB connection
+require_once __DIR__ . '/cbs/config/config.php';
 include 'includes/header.php';
+
+// Fetch active rooms with their hotel and primary image (no city filter)
+$rooms = [];
+$today = date('Y-m-d');
+
+// Build amenities title -> icon map
+$amenitiesMap = [];
+$amenitiesSql = "SELECT title, icon FROM amenities";
+if ($amenitiesResult = $conn->query($amenitiesSql)) {
+    while ($a = $amenitiesResult->fetch_assoc()) {
+        $key = strtolower(trim($a['title']));
+        if ($key !== '') {
+            $amenitiesMap[$key] = $a['icon'];
+        }
+    }
+    $amenitiesResult->free();
+}
+
+$sql = "
+    SELECT r.id AS room_id,
+           r.name AS room_name,
+           r.description,
+           r.max_capacity,
+           r.amenities,
+           h.id AS hotel_id,
+           h.name AS hotel_name,
+           h.location AS hotel_location,
+           tp.price AS current_price,
+           tp.discount_price AS current_discount_price,
+           (
+             SELECT ri.image_path
+             FROM room_images ri
+             WHERE ri.room_id = r.id
+               AND ri.is_primary = 1
+             ORDER BY ri.id ASC
+             LIMIT 1
+           ) AS primary_image,
+           (
+             SELECT ri2.image_path
+             FROM room_images ri2
+             WHERE ri2.room_id = r.id
+             ORDER BY ri2.id ASC
+             LIMIT 1
+           ) AS any_image
+    FROM rooms r
+    INNER JOIN hotels h ON h.id = r.hotel_id
+    LEFT JOIN (
+        SELECT rt1.*
+        FROM room_tariffs rt1
+        INNER JOIN (
+            SELECT room_id, MAX(id) AS max_id
+            FROM room_tariffs
+            WHERE start_date <= '$today' AND end_date >= '$today'
+            GROUP BY room_id
+        ) latest ON latest.room_id = rt1.room_id AND latest.max_id = rt1.id
+    ) tp ON tp.room_id = r.id
+    ORDER BY r.id DESC
+";
+
+if ($result = $conn->query($sql)) {
+    while ($row = $result->fetch_assoc()) {
+        // Fallback to any image if no explicit primary
+        $row['display_image'] = !empty($row['primary_image']) ? $row['primary_image'] : $row['any_image'];
+        $rooms[] = $row;
+    }
+    $result->free();
+} else {
+    // Optional: uncomment to debug SQL errors during development
+    // echo '<div class="alert alert-warning">SQL Error: ' . htmlspecialchars($conn->error) . '</div>';
+}
 ?>
 
 <br>
@@ -119,7 +191,7 @@ include 'includes/header.php';
 
         <!-- Header Info -->
         <div class="header-info">
-            <h1 class="results-title">2845 Properties in Goa</h1>
+            <h1 class="results-title"><?php echo count($rooms); ?> Rooms found</h1>
             <div class="explore-tips">Explore Travel Tips →</div>
             <button type="button" class="mobile-filter-btn d-md-none" id="openFilters" aria-label="Open Filters">☰ Filters</button>
         </div>
@@ -279,137 +351,87 @@ include 'includes/header.php';
                     </div>
                 </div>
 
-                <div class="results-header">Showing Properties in Goa</div>
+                <div class="results-header">Showing Rooms</div>
 
-                <!-- Hotel Card 1 -->
-                <div class="hotel-card">
-                    <div class="card-content">
-                        <div class="hotel-images">
-                            <div class="main-image">
-                                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop" alt="Ginger Goa">
-                            </div>
-                            <div class="thumbnail-grid">
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=60&h=72&fit=crop" alt="thumb1"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=60&h=72&fit=crop" alt="thumb2"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=60&h=72&fit=crop" alt="thumb3"></div>
-                                <div class="thumbnail view-all">View All</div>
-                            </div>
-                        </div>
-                        <div class="hotel-info">
-                            <div class="hotel-name">Ginger Goa, Candolim</div>
-                            <div class="hotel-stars">★★★★☆</div>
-                            <div class="hotel-location">Candolim | 870 m drive to Candolim Beach</div>
-                            <div class="hotel-tags">
-                                <span class="tag">Couple Friendly</span>
-                            </div>
-                            <ul class="hotel-features">
-                                <li>Free Cancellation till 24 hrs before check in</li>
-                            </ul>
-                            <div class="special-offer">Enjoy a Free Breakfast upgrade along with 20% off on F&B</div>
-                        </div>
-                        <div class="hotel-pricing">
-                            <div class="rating-section">
-                                <span class="rating-text">Excellent</span>
-                                <div class="rating-badge excellent">4.4</div>
-                            </div>
-                            <div class="rating-count">(1252 Ratings)</div>
-                            <div class="price-section">
-                                <div class="current-price">₹2,999</div>
-                                <div class="price-note">+ ₹360 taxes & fees<br>Per Night</div>
-                            </div>
-                            <button class="book-button">Book Now</button>
-                        </div>
+                <?php if (empty($rooms)): ?>
+                    <div class="alert alert-light" role="alert" style="border: 1px solid #eee;">
+                        No rooms found.
                     </div>
-                </div>
-
-                <!-- Hotel Card 2 -->
-                <div class="hotel-card">
-                    <div class="card-content">
-                        <div class="hotel-images">
-                            <div class="main-image">
-                                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop" alt="Bloom Boutique">
-                            </div>
-                            <div class="thumbnail-grid">
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=60&h=72&fit=crop" alt="thumb1"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=60&h=72&fit=crop" alt="thumb2"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=60&h=72&fit=crop" alt="thumb3"></div>
-                                <div class="thumbnail view-all">View All</div>
+                <?php else: ?>
+                    <?php foreach ($rooms as $room): ?>
+                        <div class="hotel-card">
+                            <div class="card-content">
+                                <div class="hotel-images">
+                                    <div class="main-image">
+                                        <?php
+                                            $img = !empty($room['display_image']) ? 'cbs/' . $room['display_image'] : 'assets/img/stay-in-puri.png';
+                                            $alt = htmlspecialchars($room['room_name']);
+                                        ?>
+                                        <img src="<?php echo htmlspecialchars($img); ?>" alt="<?php echo $alt; ?>">
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <div class="hotel-name"><?php echo htmlspecialchars($room['room_name']); ?></div>
+                                    <div class="hotel-location"><?php echo htmlspecialchars($room['hotel_name']); ?><?php echo !empty($room['hotel_location']) ? ' | ' . htmlspecialchars($room['hotel_location']) : ''; ?></div>
+                                    <?php if (!empty($room['amenities'])): ?>
+                                        <div class="hotel-tags">
+                                            <?php foreach (explode(',', $room['amenities']) as $tag): ?>
+                                                <?php
+                                                    $tag = trim($tag);
+                                                    if ($tag==='') continue;
+                                                    $lookup = strtolower($tag);
+                                                    $iconClass = isset($amenitiesMap[$lookup]) ? trim($amenitiesMap[$lookup]) : '';
+                                                ?>
+                                                <span class="tag">
+                                                    <?php if ($iconClass !== ''): ?>
+                                                        <i class="<?php echo htmlspecialchars($iconClass); ?>" aria-hidden="true"></i>
+                                                    <?php endif; ?>
+                                                    <?php echo htmlspecialchars($tag); ?>
+                                                </span>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <ul class="hotel-features">
+                                        <li>Max capacity: <?php echo (int)$room['max_capacity']; ?></li>
+                                    </ul>
+                                    <?php if (!empty($room['description'])): ?>
+                                        <div class="hotel-description" style="color:#666; font-size: 0.95rem; margin-top:6px;">
+                                            <?php
+                                                $desc = trim(strip_tags((string)$room['description']));
+                                                $maxLen = 160;
+                                                if (mb_strlen($desc) > $maxLen) {
+                                                    $desc = mb_substr($desc, 0, $maxLen - 1) . '…';
+                                                }
+                                                echo htmlspecialchars($desc);
+                                            ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="hotel-pricing">
+                                    <div class="price-section">
+                                        <?php
+                                            $hasDiscount = isset($room['current_discount_price']) && $room['current_discount_price'] !== null && $room['current_discount_price'] !== '';
+                                            $hasPrice = isset($room['current_price']) && $room['current_price'] !== null && $room['current_price'] !== '';
+                                            if ($hasDiscount || $hasPrice):
+                                                $display = $hasDiscount ? (float)$room['current_discount_price'] : (float)$room['current_price'];
+                                                $original = ($hasDiscount && $hasPrice) ? (float)$room['current_price'] : null;
+                                        ?>
+                                                <?php if ($original): ?>
+                                                    <div class="original-price" style="text-decoration: line-through; color:#888;">₹<?php echo number_format($original, 0); ?></div>
+                                                <?php endif; ?>
+                                                <div class="current-price">₹<?php echo number_format($display, 0); ?></div>
+                                                <div class="price-note">Per Night</div>
+                                        <?php else: ?>
+                                                <div class="current-price">Request Price</div>
+                                                <div class="price-note">Per Night</div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <a class="book-button" href="contact.php">Enquire</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="hotel-info">
-                            <div class="hotel-name">Bloom Boutique Baga</div>
-                            <div class="hotel-stars">★★★☆☆</div>
-                            <div class="hotel-location">Baga | 2.2 km drive to Baga Beach</div>
-                            <div class="hotel-tags">
-                                <span class="tag sponsored">SPONSORED</span>
-                                <span class="tag">Couple Friendly</span>
-                            </div>
-                            <ul class="hotel-features">
-                                <li>Free Cancellation till check-in</li>
-                                <li>Complimentary Hi-Tea</li>
-                            </ul>
-                            <div style="font-size: 13px; color: #666; margin-top: 8px;">
-                                💡 Ideal location near Baga Beach, clean modern rooms with rain showers, relaxing pool with views
-                            </div>
-                        </div>
-                        <div class="hotel-pricing">
-                            <div class="rating-section">
-                                <span class="rating-text">Excellent</span>
-                                <div class="rating-badge excellent">4.3</div>
-                            </div>
-                            <div class="rating-count">(119 Ratings)</div>
-                            <div class="price-section">
-                                <div class="original-price">₹3,500</div>
-                                <div class="current-price">₹2,800</div>
-                                <div class="price-note">+ ₹336 taxes & fees<br>Per Night</div>
-                            </div>
-                            <button class="book-button">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hotel Card 3 -->
-                <div class="hotel-card">
-                    <div class="card-content">
-                        <div class="hotel-images">
-                            <div class="main-image">
-                                <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&h=300&fit=crop" alt="SinQ Beach Resort">
-                            </div>
-                            <div class="thumbnail-grid">
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=60&h=72&fit=crop" alt="thumb1"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=60&h=72&fit=crop" alt="thumb2"></div>
-                                <div class="thumbnail"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=60&h=72&fit=crop" alt="thumb3"></div>
-                                <div class="thumbnail view-all">View All</div>
-                            </div>
-                        </div>
-                        <div class="hotel-info">
-                            <div class="hotel-name">SinQ Beach Resort</div>
-                            <div class="hotel-stars">★★★☆☆</div>
-                            <div class="hotel-location">Calangute | 6 minutes walk to Calangute Beach</div>
-                            <div class="hotel-tags">
-                                <span class="tag">Couple Friendly</span>
-                                <span class="tag" style="background: #ffe6e6; color: #d32f2f;">Limited Time Offer</span>
-                            </div>
-                            <ul class="hotel-features">
-                                <li>Beach front location</li>
-                                <li>Pool and spa facilities</li>
-                            </ul>
-                        </div>
-                        <div class="hotel-pricing">
-                            <div class="rating-section">
-                                <span class="rating-text">Very Good</span>
-                                <div class="rating-badge very-good">4.1</div>
-                            </div>
-                            <div class="rating-count">(5756 Ratings)</div>
-                            <div class="price-section">
-                                <div class="original-price">₹4,200</div>
-                                <div class="current-price">₹3,600</div>
-                                <div class="price-note">+ ₹432 taxes & fees<br>Per Night</div>
-                            </div>
-                            <button class="book-button">Book Now</button>
-                        </div>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
