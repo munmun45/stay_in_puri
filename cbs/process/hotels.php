@@ -96,7 +96,7 @@ if (isset($_POST['add_hotel'])) {
     }
     
     // Insert into database
-    $sql = "INSERT INTO hotels (name, gst_no, mobile, email, google_page_link, location, logo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO hotels (name, gst_no, mobile, email, google_page_link, location, logo, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, 0)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssssss", $name, $gst_no, $mobile, $email, $google_page_link, $location, $logo_path);
     

@@ -64,7 +64,7 @@
                 <label class="form-label">Choose a listing type</label>
                 <div class="row g-2 g-sm-3 business-options">
                   <div class="col-12 col-md-6">
-                    <a href="#" class="option w-100" title="Add your hotel">
+                    <a href="hotel-add.php" class="option w-100" title="Add your hotel">
                       <span class="icon"><i class="fa-solid fa-hotel"></i></span>
                       <span class="label">Hotel Listing</span>
                     </a>
