@@ -121,6 +121,78 @@ include 'includes/header.php';
         <div class="header-info">
             <h1 class="results-title">2845 Properties in Goa</h1>
             <div class="explore-tips">Explore Travel Tips →</div>
+            <button type="button" class="mobile-filter-btn d-md-none" id="openFilters" aria-label="Open Filters">☰ Filters</button>
+        </div>
+
+        <!-- Mobile Filters Overlay / Drawer -->
+        <div class="filters-overlay" id="filtersOverlay" aria-hidden="true">
+            <div class="filters-drawer" role="dialog" aria-modal="true" aria-labelledby="filtersTitle">
+                <div class="filters-header">
+                    <span id="filtersTitle">Filters</span>
+                    <button type="button" class="filters-close" id="closeFilters" aria-label="Close">✕</button>
+                </div>
+                <div class="filters-content">
+                    <!-- Duplicate of sidebar filters for mobile -->
+                    <div class="filter-section">
+                        <div class="filter-title">Suggested For You</div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> Last Minute Deals</label>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> 5 Star</label>
+                            <span class="filter-count">(198)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> North Goa</label>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> Resorts</label>
+                            <span class="filter-count">(353)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> Unmarried Couples Allowed</label>
+                            <span class="filter-count">(2536)</span>
+                        </div>
+                        <div class="show-more">Show 7 more</div>
+                    </div>
+
+                    <div class="filter-section">
+                        <div class="filter-title">Price per night</div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹0 - ₹2000</label>
+                            <span class="filter-count">(889)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹2000 - ₹4000</label>
+                            <span class="filter-count">(777)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹4000 - ₹6000</label>
+                            <span class="filter-count">(280)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹6000 - ₹9000</label>
+                            <span class="filter-count">(211)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹9000 - ₹12000</label>
+                            <span class="filter-count">(104)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹12000 - ₹15000</label>
+                            <span class="filter-count">(98)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹15000 - ₹30000</label>
+                            <span class="filter-count">(219)</span>
+                        </div>
+                        <div class="filter-option">
+                            <label><input type="checkbox"> ₹30000+</label>
+                            <span class="filter-count">(114)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="main-layout">
@@ -345,5 +417,35 @@ include 'includes/header.php';
     <br>
     <br>
     <br>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const openBtn = document.getElementById('openFilters');
+    const overlay = document.getElementById('filtersOverlay');
+    const closeBtn = document.getElementById('closeFilters');
+    if (!openBtn || !overlay || !closeBtn) return;
+
+    function openDrawer() {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) {
+            closeDrawer();
+        }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeDrawer();
+    });
+});
+</script>
 
 <?php include 'includes/footer.php'; ?>
