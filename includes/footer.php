@@ -9,7 +9,7 @@
         $conn = $conn ?? null;
         @require_once __DIR__ . '/../cbs/config/config.php';
         if (isset($conn)) {
-            $rs_ci_f = $conn->query("SELECT phone1, phone2, email1, email2, address, google_map FROM contact_info WHERE id = 1");
+            $rs_ci_f = $conn->query("SELECT phone1, phone2, email1, email2, address, google_map, facebook, twitter, instagram, youtube, whatsapp FROM contact_info WHERE id = 1");
             if ($rs_ci_f && $rs_ci_f->num_rows > 0) { $contact_info = $rs_ci_f->fetch_assoc(); }
         }
     }
@@ -21,6 +21,19 @@
     $tel1 = preg_replace('/[^+\d]/', '', $footer_phone1);
     $tel2 = preg_replace('/[^+\d]/', '', $footer_phone2);
     $waNumber = $tel2 ?: $tel1;
+    // Social links
+    $facebook = trim($contact_info['facebook'] ?? '');
+    $twitter = trim($contact_info['twitter'] ?? '');
+    $instagram = trim($contact_info['instagram'] ?? '');
+    $youtube = trim($contact_info['youtube'] ?? '');
+    $whatsapp = trim($contact_info['whatsapp'] ?? '');
+    $whatsapp_link = $whatsapp;
+    if ($whatsapp_link !== '' && strpos($whatsapp_link, 'http') !== 0) {
+        $whatsapp_link = 'https://wa.me/' . ltrim(preg_replace('/[^+\d]/', '', $whatsapp_link), '+');
+    }
+    if ($whatsapp_link === '') {
+        $whatsapp_link = 'https://wa.me/' . htmlspecialchars(ltrim($waNumber, '+'), ENT_QUOTES);
+    }
 ?>
 
 <!-- Footer -->
@@ -38,19 +51,19 @@
                         </a>
                         <p class="mb-4">Your trusted partner for hotel bookings, travel packages, and restaurant reservations in Puri, Bhubaneswar, and across Odisha. Experience the best of Odisha with our curated services.</p>
                         <div class="social-media-bar">
-                            <a href="#" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <a href="<?= htmlspecialchars($facebook ?: '#', ENT_QUOTES) ?>" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-facebook-f"></i>
                                 <span class="tooltip">Facebook</span>
                             </a>
-                            <a href="#" class="social-icon twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                            <a href="<?= htmlspecialchars($twitter ?: '#', ENT_QUOTES) ?>" class="social-icon twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-twitter"></i>
                                 <span class="tooltip">Twitter</span>
                             </a>
-                            <a href="#" class="social-icon instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <a href="<?= htmlspecialchars($instagram ?: '#', ENT_QUOTES) ?>" class="social-icon instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-instagram"></i>
                                 <span class="tooltip">Instagram</span>
                             </a>
-                            <a href="#" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                            <a href="<?= htmlspecialchars($youtube ?: '#', ENT_QUOTES) ?>" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-youtube"></i>
                                 <span class="tooltip">YouTube</span>
                             </a>
@@ -150,7 +163,7 @@
         </button>
 
         <!-- WhatsApp Float Button -->
-        <a href="https://wa.me/<?= htmlspecialchars(ltrim($waNumber, '+'), ENT_QUOTES) ?>" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <a href="<?= htmlspecialchars($whatsapp_link, ENT_QUOTES) ?>" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>

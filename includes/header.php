@@ -85,11 +85,20 @@
         $conn = $conn ?? null;
         @require_once __DIR__ . '/../cbs/config/config.php';
         if (isset($conn)) {
-            $rs_ci = $conn->query("SELECT phone1, phone2, email1, email2, address, google_map FROM contact_info WHERE id = 1");
+            $rs_ci = $conn->query("SELECT phone1, phone2, email1, email2, address, google_map, facebook, twitter, instagram, youtube, whatsapp FROM contact_info WHERE id = 1");
             if ($rs_ci && $rs_ci->num_rows > 0) { $contact_info = $rs_ci->fetch_assoc(); }
         }
         $display_phone = $contact_info['phone1'] ?: ($contact_info['phone2'] ?: '+91-8338011114');
         $display_email = $contact_info['email1'] ?: ($contact_info['email2'] ?: 'info@stayinpuri.in');
+        $facebook = trim($contact_info['facebook'] ?? '');
+        $twitter = trim($contact_info['twitter'] ?? '');
+        $instagram = trim($contact_info['instagram'] ?? '');
+        $youtube = trim($contact_info['youtube'] ?? '');
+        $whatsapp = trim($contact_info['whatsapp'] ?? '');
+        // Normalize WhatsApp if only number provided
+        if ($whatsapp !== '' && strpos($whatsapp, 'http') !== 0) {
+            $whatsapp = 'https://wa.me/' . ltrim(preg_replace('/[^+\d]/', '', $whatsapp), '+');
+        }
     ?>
     <!-- Top Bar -->
     <div class="top-bar bg-dark text-white py-2 d-none d-md-block">
@@ -103,23 +112,23 @@
                 </div>
                 <div class="col-md-6 text-end">
                     <div class="social-media-bar">
-                        <a href="#" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <a href="<?= htmlspecialchars($facebook ?: '#', ENT_QUOTES) ?>" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-facebook-f"></i>
                             <span class="tooltip">Facebook</span>
                         </a>
-                        <a href="#" class="social-icon twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                        <a href="<?= htmlspecialchars($twitter ?: '#', ENT_QUOTES) ?>" class="social-icon twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-twitter"></i>
                             <span class="tooltip">Twitter</span>
                         </a>
-                        <a href="#" class="social-icon instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <a href="<?= htmlspecialchars($instagram ?: '#', ENT_QUOTES) ?>" class="social-icon instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-instagram"></i>
                             <span class="tooltip">Instagram</span>
                         </a>
-                        <a href="#" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                        <a href="<?= htmlspecialchars($youtube ?: '#', ENT_QUOTES) ?>" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-youtube"></i>
                             <span class="tooltip">YouTube</span>
                         </a>
-                        <a href="#" class="social-icon whatsapp" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+                        <a href="<?= htmlspecialchars($whatsapp ?: '#', ENT_QUOTES) ?>" class="social-icon whatsapp" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-whatsapp"></i>
                             <span class="tooltip">WhatsApp</span>
                         </a>
