@@ -1,5 +1,28 @@
 </main>
 
+<?php
+    // Ensure contact info is available in footer as well
+    if (!isset($contact_info)) {
+        $contact_info = [
+            'phone1' => '', 'phone2' => '', 'email1' => '', 'email2' => '', 'address' => '', 'google_map' => ''
+        ];
+        $conn = $conn ?? null;
+        @require_once __DIR__ . '/../cbs/config/config.php';
+        if (isset($conn)) {
+            $rs_ci_f = $conn->query("SELECT phone1, phone2, email1, email2, address, google_map FROM contact_info WHERE id = 1");
+            if ($rs_ci_f && $rs_ci_f->num_rows > 0) { $contact_info = $rs_ci_f->fetch_assoc(); }
+        }
+    }
+    $footer_phone1 = $contact_info['phone1'] ?: '+91-8338011114';
+    $footer_phone2 = $contact_info['phone2'] ?: '+91-9583506050';
+    $footer_email  = $contact_info['email1'] ?: ($contact_info['email2'] ?: 'info@stayinpuri.in');
+    $footer_addr   = $contact_info['address'] ?: 'Room No 100, Hotel Blue Sagar,Near Bengali Market, Swargadwar, Puri, Odisha 752001';
+    // Build tel links (strip non-digits except +)
+    $tel1 = preg_replace('/[^+\d]/', '', $footer_phone1);
+    $tel2 = preg_replace('/[^+\d]/', '', $footer_phone2);
+    $waNumber = $tel2 ?: $tel1;
+?>
+
 <!-- Footer -->
 <footer style="background-color:white;">
 
@@ -75,18 +98,18 @@
                         <ul class="footer-contact">
                             <li>
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>Room No 100, Hotel Blue Sagar,Near Bengali Market, Swargadwar, Puri, Odisha 752001</span>
+                                <span><?= htmlspecialchars($footer_addr, ENT_QUOTES) ?></span>
                             </li>
                             <li>
                                 <i class="fas fa-phone-alt"></i>
                                 <div>
-                                    <a href="tel:+918338011114">+91-8338011114</a><br>
-                                    <a href="tel:+919583506050">+91-9583506050</a>
+                                    <a href="tel:<?= htmlspecialchars($tel1, ENT_QUOTES) ?>"><?= htmlspecialchars($footer_phone1, ENT_QUOTES) ?></a><br>
+                                    <a href="tel:<?= htmlspecialchars($tel2, ENT_QUOTES) ?>"><?= htmlspecialchars($footer_phone2, ENT_QUOTES) ?></a>
                                 </div>
                             </li>
                             <li>
                                 <i class="fas fa-envelope"></i>
-                                <a href="mailto:info@stayinpuri.in">info@stayinpuri.in</a>
+                                <a href="mailto:<?= htmlspecialchars($footer_email, ENT_QUOTES) ?>"><?= htmlspecialchars($footer_email, ENT_QUOTES) ?></a>
                             </li>
                         </ul>
                         <div class="newsletter-widget mt-4">
@@ -127,7 +150,7 @@
         </button>
 
         <!-- WhatsApp Float Button -->
-        <a href="https://wa.me/919583506050" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/<?= htmlspecialchars(ltrim($waNumber, '+'), ENT_QUOTES) ?>" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>

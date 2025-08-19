@@ -77,14 +77,28 @@
     </script>
 </head>
 <body class="d-flex flex-column h-100">
+    <?php
+        // Load contact info for header/footer
+        $contact_info = [
+            'phone1' => '', 'phone2' => '', 'email1' => '', 'email2' => '', 'address' => '', 'google_map' => ''
+        ];
+        $conn = $conn ?? null;
+        @require_once __DIR__ . '/../cbs/config/config.php';
+        if (isset($conn)) {
+            $rs_ci = $conn->query("SELECT phone1, phone2, email1, email2, address, google_map FROM contact_info WHERE id = 1");
+            if ($rs_ci && $rs_ci->num_rows > 0) { $contact_info = $rs_ci->fetch_assoc(); }
+        }
+        $display_phone = $contact_info['phone1'] ?: ($contact_info['phone2'] ?: '+91-8338011114');
+        $display_email = $contact_info['email1'] ?: ($contact_info['email2'] ?: 'info@stayinpuri.in');
+    ?>
     <!-- Top Bar -->
     <div class="top-bar bg-dark text-white py-2 d-none d-md-block">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="contact-info">
-                        <span class="me-3"><i class="fas fa-phone-alt me-2"></i> +91-8338011114</span>
-                        <span><i class="fas fa-envelope me-2"></i> info@stayinpuri.in</span>
+                        <span class="me-3"><i class="fas fa-phone-alt me-2"></i> <?= htmlspecialchars($display_phone, ENT_QUOTES) ?></span>
+                        <span><i class="fas fa-envelope me-2"></i> <?= htmlspecialchars($display_email, ENT_QUOTES) ?></span>
                     </div>
                 </div>
                 <div class="col-md-6 text-end">
