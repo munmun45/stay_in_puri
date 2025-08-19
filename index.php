@@ -1,19 +1,40 @@
 <?php include 'includes/header.php'; ?>
 
 <!-- Hero Slider with Swiper -->
+<?php
+  // Load sliders from DB
+  require_once __DIR__ . '/cbs/config/config.php';
+  $slides = [];
+  $res = $conn->query("SELECT id, title, image_path FROM sliders ORDER BY id DESC");
+  if ($res && $res->num_rows > 0) {
+    while ($row = $res->fetch_assoc()) { $slides[] = $row; }
+  }
+?>
 <div class="hero-swiper">
     <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-                
+        <?php if (!empty($slides)): ?>
+            <?php foreach ($slides as $s): ?>
+                <?php
+                  $title = htmlspecialchars($s['title'] ?? '', ENT_QUOTES, 'UTF-8');
+                  // image_path stored like "uploads/sliders/xyz.jpg" relative to cbs/
+                  $bg = 'cbs/' . ltrim($s['image_path'], '/');
+                ?>
+                <div class="swiper-slide">
+                    <div class="hero-slide" style="background-image: url('<?= $bg ?>');" title="<?= $title ?>">
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <!-- Fallback static slides if no DB sliders -->
+            <div class="swiper-slide">
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');"></div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="hero-slide" style="background-image: url('https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg');">
-                
+            <div class="swiper-slide">
+                <div class="hero-slide" style="background-image: url('https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg');"></div>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
+    <div class="swiper-pagination"></div>
 </div>
 
 
@@ -485,17 +506,27 @@
 
 
 
+<?php
+  // Load Ads for bottom carousel
+  $ads = [];
+  if (!isset($conn)) { require_once __DIR__ . '/cbs/config/config.php'; }
+  $resAds = $conn->query("SELECT id, title, image_path FROM ads ORDER BY id DESC");
+  if ($resAds && $resAds->num_rows > 0) {
+    while ($r = $resAds->fetch_assoc()) { $ads[] = $r; }
+  }
+?>
+<?php if (!empty($ads)): ?>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="Too-Yumm.jpg" class="d-block w-100" alt="...">
+    <?php foreach ($ads as $idx => $ad): 
+      $src = 'cbs/' . ltrim($ad['image_path'], '/');
+      $alt = htmlspecialchars($ad['title'] ?? '', ENT_QUOTES, 'UTF-8');
+      $active = ($idx === 0) ? ' active' : '';
+    ?>
+    <div class="carousel-item<?= $active ?>">
+      <img src="<?= $src ?>" class="d-block w-100" alt="<?= $alt ?>">
     </div>
-    <div class="carousel-item">
-      <img src="Too-Yumm.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="Too-Yumm.jpg" class="d-block w-100" alt="...">
-    </div>
+    <?php endforeach; ?>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -506,6 +537,7 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+<?php endif; ?>
 
 
 

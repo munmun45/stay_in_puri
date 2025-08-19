@@ -1,0 +1,12 @@
+-- Create ads table
+CREATE TABLE IF NOT EXISTS `ads` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `hotel_id` INT NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `image_path` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_ads_hotel_id` (`hotel_id`),
+  CONSTRAINT `fk_ads_hotel` FOREIGN KEY (`hotel_id`) REFERENCES `hotels`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
