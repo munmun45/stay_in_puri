@@ -55,6 +55,9 @@
 
   // Initialize variables for edit modal
   $editId = $editName = $editGstNo = $editMobile = $editEmail = $editGoogleLink = $editLocation = $editLogo = '';
+  $editMobile2 = $editMobile3 = $editMobile4 = $editEmail2 = '';
+  $editDoc1Type = $editDoc2Type = $editDoc3Type = $editDoc4Type = '';
+  $editAddress = '';
 
   // Fetch hotel for editing if ID is provided in URL
   if (isset($_GET['edit'])) {
@@ -66,13 +69,22 @@
     $editResult = $stmt->get_result();
     if ($editResult->num_rows > 0) {
       $editRow = $editResult->fetch_assoc();
-      $editName = $editRow['name'];
+      $editName = $editRow["name"];
       $editGstNo = $editRow['gst_no'];
       $editMobile = $editRow['mobile'];
       $editEmail = $editRow['email'];
       $editGoogleLink = $editRow['google_page_link'];
       $editLocation = $editRow['location'];
+      $editAddress = $editRow['address'] ?? '';
       $editLogo = $editRow['logo'];
+      $editMobile2 = $editRow['mobile2'] ?? '';
+      $editMobile3 = $editRow['mobile3'] ?? '';
+      $editMobile4 = $editRow['mobile4'] ?? '';
+      $editEmail2 = $editRow['email2'] ?? '';
+      $editDoc1Type = $editRow['doc1_type'] ?? '';
+      $editDoc2Type = $editRow['doc2_type'] ?? '';
+      $editDoc3Type = $editRow['doc3_type'] ?? '';
+      $editDoc4Type = $editRow['doc4_type'] ?? '';
     }
   }
   ?>
@@ -118,10 +130,26 @@
                 <label for="mobile" class="form-label">Mobile No. <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="mobile" name="mobile" required>
               </div>
+              <div class="col-md-6">
+                <label for="mobile2" class="form-label">Mobile No. 2 (Optional)</label>
+                <input type="text" class="form-control" id="mobile2" name="mobile2">
+              </div>
+              <div class="col-md-6">
+                <label for="mobile3" class="form-label">Mobile No. 3 (Optional)</label>
+                <input type="text" class="form-control" id="mobile3" name="mobile3">
+              </div>
+              <div class="col-md-6">
+                <label for="mobile4" class="form-label">Mobile No. 4 (Optional)</label>
+                <input type="text" class="form-control" id="mobile4" name="mobile4">
+              </div>
               
               <div class="col-md-6">
                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                 <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email2" class="form-label">Alternate Email (Optional)</label>
+                <input type="email" class="form-control" id="email2" name="email2">
               </div>
               
               <div class="col-md-12">
@@ -133,11 +161,68 @@
                 <label for="location" class="form-label">Location/Nearby <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="location" name="location" rows="3" required></textarea>
               </div>
+              <div class="col-md-12">
+                <label for="address" class="form-label">Address (Optional)</label>
+                <textarea class="form-control" id="address" name="address" rows="2"></textarea>
+              </div>
               
               <div class="col-md-12">
                 <label for="logo" class="form-label">Hotel Logo (Optional)</label>
                 <input type="file" class="form-control" id="logo" name="logo" accept="image/*" onchange="previewImage(this, 'logoPreview')">
                 <img id="logoPreview" src="#" alt="Logo Preview" class="preview-image">
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">Documents (Any 2)</label>
+                <div class="row g-2">
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc1_type">
+                      <option value="">Select Document Type</option>
+                      <option value="aadhaar">Aadhaar</option>
+                      <option value="pan">PAN</option>
+                      <option value="gst">GST</option>
+                      <option value="licence">Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc1_file" accept="image/*,application/pdf">
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc2_type">
+                      <option value="">Select Document Type</option>
+                      <option value="aadhaar">Aadhaar</option>
+                      <option value="pan">PAN</option>
+                      <option value="gst">GST</option>
+                      <option value="licence">Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc2_file" accept="image/*,application/pdf">
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc3_type">
+                      <option value="">Select Document Type</option>
+                      <option value="aadhaar">Aadhaar</option>
+                      <option value="pan">PAN</option>
+                      <option value="gst">GST</option>
+                      <option value="licence">Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc3_file" accept="image/*,application/pdf">
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc4_type">
+                      <option value="">Select Document Type</option>
+                      <option value="aadhaar">Aadhaar</option>
+                      <option value="pan">PAN</option>
+                      <option value="gst">GST</option>
+                      <option value="licence">Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc4_file" accept="image/*,application/pdf">
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -175,10 +260,26 @@
                 <label for="edit-mobile" class="form-label">Mobile No. <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="edit-mobile" name="mobile" value="<?= $editMobile ?>" required>
               </div>
+              <div class="col-md-6">
+                <label for="edit-mobile2" class="form-label">Mobile No. 2 (Optional)</label>
+                <input type="text" class="form-control" id="edit-mobile2" name="mobile2" value="<?= htmlspecialchars($editMobile2) ?>">
+              </div>
+              <div class="col-md-6">
+                <label for="edit-mobile3" class="form-label">Mobile No. 3 (Optional)</label>
+                <input type="text" class="form-control" id="edit-mobile3" name="mobile3" value="<?= htmlspecialchars($editMobile3) ?>">
+              </div>
+              <div class="col-md-6">
+                <label for="edit-mobile4" class="form-label">Mobile No. 4 (Optional)</label>
+                <input type="text" class="form-control" id="edit-mobile4" name="mobile4" value="<?= htmlspecialchars($editMobile4) ?>">
+              </div>
               
               <div class="col-md-6">
                 <label for="edit-email" class="form-label">Email <span class="text-danger">*</span></label>
                 <input type="email" class="form-control" id="edit-email" name="email" value="<?= $editEmail ?>" required>
+              </div>
+              <div class="col-md-6">
+                <label for="edit-email2" class="form-label">Alternate Email (Optional)</label>
+                <input type="email" class="form-control" id="edit-email2" name="email2" value="<?= htmlspecialchars($editEmail2) ?>">
               </div>
               
               <div class="col-md-12">
@@ -190,17 +291,81 @@
                 <label for="edit-location" class="form-label">Location/Nearby <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="edit-location" name="location" rows="3" required><?= $editLocation ?></textarea>
               </div>
+              <div class="col-md-12">
+                <label for="edit-address" class="form-label">Address (Optional)</label>
+                <textarea class="form-control" id="edit-address" name="address" rows="2"><?= htmlspecialchars($editAddress) ?></textarea>
+              </div>
               
               <div class="col-md-12">
                 <label for="edit-logo" class="form-label">Hotel Logo (Optional)</label>
                 <input type="file" class="form-control" id="edit-logo" name="logo" accept="image/*" onchange="previewImage(this, 'editLogoPreview')">
-                <?php if (!empty($editLogo)): ?>
-                  <div class="mt-2">
-                    <p>Current logo:</p>
-                    <img src="<?= $editLogo ?>" alt="Current Logo" style="max-width: 150px; max-height: 150px;">
-                  </div>
-                <?php endif; ?>
+                <div id="currentLogoWrap" class="mt-2" style="display:none;">
+                  <p>Current logo:</p>
+                  <img id="currentLogoImg" src="" alt="Current Logo" style="max-width: 150px; max-height: 150px;">
+                </div>
                 <img id="editLogoPreview" src="#" alt="Logo Preview" class="preview-image">
+              </div>
+              
+              <div class="col-md-12">
+                <label class="form-label">Documents (Any 2)</label>
+                <div class="row g-2">
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc1_type">
+                      <?php $d1 = $editDoc1Type; ?>
+                      <option value="" <?= $d1===''?'selected':''; ?>>Select Document Type</option>
+                      <option value="aadhaar" <?= $d1==='aadhaar'?'selected':''; ?>>Aadhaar</option>
+                      <option value="pan" <?= $d1==='pan'?'selected':''; ?>>PAN</option>
+                      <option value="gst" <?= $d1==='gst'?'selected':''; ?>>GST</option>
+                      <option value="licence" <?= $d1==='licence'?'selected':''; ?>>Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc1_file" accept="image/*,application/pdf">
+                    <small id="doc1Current" class="text-muted" style="display:none;">Current: <a id="doc1Link" href="#" target="_blank">View</a></small>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc2_type">
+                      <?php $d2 = $editDoc2Type; ?>
+                      <option value="" <?= $d2===''?'selected':''; ?>>Select Document Type</option>
+                      <option value="aadhaar" <?= $d2==='aadhaar'?'selected':''; ?>>Aadhaar</option>
+                      <option value="pan" <?= $d2==='pan'?'selected':''; ?>>PAN</option>
+                      <option value="gst" <?= $d2==='gst'?'selected':''; ?>>GST</option>
+                      <option value="licence" <?= $d2==='licence'?'selected':''; ?>>Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc2_file" accept="image/*,application/pdf">
+                    <small id="doc2Current" class="text-muted" style="display:none;">Current: <a id="doc2Link" href="#" target="_blank">View</a></small>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc3_type">
+                      <?php $d3 = $editDoc3Type; ?>
+                      <option value="" <?= $d3===''?'selected':''; ?>>Select Document Type</option>
+                      <option value="aadhaar" <?= $d3==='aadhaar'?'selected':''; ?>>Aadhaar</option>
+                      <option value="pan" <?= $d3==='pan'?'selected':''; ?>>PAN</option>
+                      <option value="gst" <?= $d3==='gst'?'selected':''; ?>>GST</option>
+                      <option value="licence" <?= $d3==='licence'?'selected':''; ?>>Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc3_file" accept="image/*,application/pdf">
+                    <small id="doc3Current" class="text-muted" style="display:none;">Current: <a id="doc3Link" href="#" target="_blank">View</a></small>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select" name="doc4_type">
+                      <?php $d4 = $editDoc4Type; ?>
+                      <option value="" <?= $d4===''?'selected':''; ?>>Select Document Type</option>
+                      <option value="aadhaar" <?= $d4==='aadhaar'?'selected':''; ?>>Aadhaar</option>
+                      <option value="pan" <?= $d4==='pan'?'selected':''; ?>>PAN</option>
+                      <option value="gst" <?= $d4==='gst'?'selected':''; ?>>GST</option>
+                      <option value="licence" <?= $d4==='licence'?'selected':''; ?>>Licence</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" class="form-control" name="doc4_file" accept="image/*,application/pdf">
+                    <small id="doc4Current" class="text-muted" style="display:none;">Current: <a id="doc4Link" href="#" target="_blank">View</a></small>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -289,9 +454,22 @@
                             data-gst="<?= htmlspecialchars($row['gst_no'] ?? '') ?>"
                             data-mobile="<?= htmlspecialchars($row['mobile']) ?>"
                             data-email="<?= htmlspecialchars($row['email']) ?>"
+                            data-email2="<?= htmlspecialchars($row['email2'] ?? '') ?>"
+                            data-mobile2="<?= htmlspecialchars($row['mobile2'] ?? '') ?>"
+                            data-mobile3="<?= htmlspecialchars($row['mobile3'] ?? '') ?>"
+                            data-mobile4="<?= htmlspecialchars($row['mobile4'] ?? '') ?>"
                             data-google="<?= htmlspecialchars($row['google_page_link'] ?? '') ?>"
                             data-location="<?= htmlspecialchars($row['location']) ?>"
+                            data-address="<?= htmlspecialchars($row['address'] ?? '') ?>"
                             data-logo="<?= htmlspecialchars($row['logo'] ?? '') ?>"
+                            data-doc1_type="<?= htmlspecialchars($row['doc1_type'] ?? '') ?>"
+                            data-doc2_type="<?= htmlspecialchars($row['doc2_type'] ?? '') ?>"
+                            data-doc3_type="<?= htmlspecialchars($row['doc3_type'] ?? '') ?>"
+                            data-doc4_type="<?= htmlspecialchars($row['doc4_type'] ?? '') ?>"
+                            data-doc1_file="<?= htmlspecialchars($row['doc1_file'] ?? '') ?>"
+                            data-doc2_file="<?= htmlspecialchars($row['doc2_file'] ?? '') ?>"
+                            data-doc3_file="<?= htmlspecialchars($row['doc3_file'] ?? '') ?>"
+                            data-doc4_file="<?= htmlspecialchars($row['doc4_file'] ?? '') ?>"
                           ><i class="bi bi-pencil"></i> Edit</button>
                           <a href="process/hotels.php?delete=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this hotel?')"><i class="bi bi-trash"></i> Delete</a>
                           <a href="room-listing.php?hotel_id=<?= $row['id'] ?>" class="btn btn-sm btn-success"><i class="bi bi-building"></i> Rooms</a>
@@ -334,24 +512,78 @@
       
       editButtons.forEach(button => {
         button.addEventListener('click', function() {
+          const editForm = document.getElementById('editHotelForm');
           const id = this.getAttribute('data-id');
           const name = this.getAttribute('data-name');
           const gst = this.getAttribute('data-gst');
           const mobile = this.getAttribute('data-mobile');
           const email = this.getAttribute('data-email');
+          const email2 = this.getAttribute('data-email2');
           const google = this.getAttribute('data-google');
           const location = this.getAttribute('data-location');
+          const address = this.getAttribute('data-address');
           const logo = this.getAttribute('data-logo');
-          
+          const mobile2 = this.getAttribute('data-mobile2');
+          const mobile3 = this.getAttribute('data-mobile3');
+          const mobile4 = this.getAttribute('data-mobile4');
+          const d1type = this.getAttribute('data-doc1_type');
+          const d2type = this.getAttribute('data-doc2_type');
+          const d3type = this.getAttribute('data-doc3_type');
+          const d4type = this.getAttribute('data-doc4_type');
+          const doc1File = this.getAttribute('data-doc1_file') || '';
+          const doc2File = this.getAttribute('data-doc2_file') || '';
+          const doc3File = this.getAttribute('data-doc3_file') || '';
+          const doc4File = this.getAttribute('data-doc4_file') || '';
+
           // Set form values
           document.querySelector('#edit-id').value = id;
           document.querySelector('#edit-name').value = name;
           document.querySelector('#edit-gst_no').value = gst;
           document.querySelector('#edit-mobile').value = mobile;
           document.querySelector('#edit-email').value = email;
+          if (document.querySelector('#edit-email2')) document.querySelector('#edit-email2').value = email2 || '';
+          if (document.querySelector('#edit-mobile2')) document.querySelector('#edit-mobile2').value = mobile2 || '';
+          if (document.querySelector('#edit-mobile3')) document.querySelector('#edit-mobile3').value = mobile3 || '';
+          if (document.querySelector('#edit-mobile4')) document.querySelector('#edit-mobile4').value = mobile4 || '';
+          if (editForm && editForm.querySelector('select[name="doc1_type"]')) editForm.querySelector('select[name="doc1_type"]').value = d1type || '';
+          if (editForm && editForm.querySelector('select[name="doc2_type"]')) editForm.querySelector('select[name="doc2_type"]').value = d2type || '';
+          if (editForm && editForm.querySelector('select[name="doc3_type"]')) editForm.querySelector('select[name="doc3_type"]').value = d3type || '';
+          if (editForm && editForm.querySelector('select[name="doc4_type"]')) editForm.querySelector('select[name="doc4_type"]').value = d4type || '';
           document.querySelector('#edit-google_page_link').value = google;
           document.querySelector('#edit-location').value = location;
-          
+          const editAddressEl = document.querySelector('#edit-address');
+          if (editAddressEl) editAddressEl.value = address || '';
+
+          // Populate current logo preview (existing file)
+          const currentLogoWrap = document.getElementById('currentLogoWrap');
+          const currentLogoImg = document.getElementById('currentLogoImg');
+          if (logo) {
+            currentLogoImg.src = logo;
+            currentLogoWrap.style.display = 'block';
+          } else {
+            currentLogoImg.src = '';
+            currentLogoWrap.style.display = 'none';
+          }
+
+          // Populate current document links
+          const setDocLink = (wrapId, linkId, url) => {
+            const wrap = document.getElementById(wrapId);
+            const link = document.getElementById(linkId);
+            if (wrap && link) {
+              if (url) {
+                link.href = url;
+                wrap.style.display = 'inline';
+              } else {
+                link.removeAttribute('href');
+                wrap.style.display = 'none';
+              }
+            }
+          };
+          setDocLink('doc1Current', 'doc1Link', doc1File);
+          setDocLink('doc2Current', 'doc2Link', doc2File);
+          setDocLink('doc3Current', 'doc3Link', doc3File);
+          setDocLink('doc4Current', 'doc4Link', doc4File);
+
           // Show modal
           editModal.show();
         });
